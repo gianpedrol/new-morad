@@ -1,0 +1,60 @@
+.loading-icon {
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+.custom-opacity {
+    opacity: 0.8
+}
+
+.razorpay-payment-button {
+    background: #f02c2d;
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 17px;
+    padding: 10px 30px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: all linear .3s;
+    -webkit-transition: all linear .3s ease;
+    -moz-transition: all linear .3s ease;
+    -ms-transition: all linear .3s ease;
+    -o-transition: all linear .3s ease;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border: none !important;
+}
+
+.razorpay-payment-button:hover {
+    background: #0A547A;
+    color: #fff;
+}
+
+@media print {
+    .invoice_print,
+    .wsus__menu_icon {
+        display: none!important;
+    }
+}
+
+.danger_btn {
+    background: #da3416 !important;
+}
+
+.custom-select-box {
+    width: 100%;
+    border: 1px solid #e6e1e1;
+    padding: 13px 20px;
+    resize: none;
+    outline: none;
+}
+
+.details_description p {
+    margin-bottom: 20px !important;
+}
+
+.wsus__blog_det_img p {
+	margin: 0 !important;
+}

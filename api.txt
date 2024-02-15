@@ -1,0 +1,726 @@
+api prefix = 'api/'
+
+
+
+
+
+---------------Title---------------   -------------Route-----------------    ----------Request Type-------
+
+------------------------------------------ Admin auth route ---------------------------------------------------
+admin auth route prefix = 'admin/'
+
+1. admin login                                  'login'                                 'post'
+2. admin logout                                 'logout'                                'post'
+3. forget password                              'send-forget-password'                  'post' -- p
+4. reset password                               'password-store/{token}'                'post' -- p
+
+
+
+------------------------------------------ Admin panel List    -------------------------------------------------
+admin routes prefix = 'admin/'
+
+0. admin dashboard                              'dashboard'                             Get
+
+1. all product category                         'product-category'                      Get
+2. single category                              'product-category/{id}'                 Get
+3. create product category                      'product-category'                      POST
+4. update category                              'product-category/{id}'                 PUT
+5. delete category                              'product-category/{id}'                 Delete
+6. change category status                       'product-category-status/{id}'          PUT
+
+
+7. all sub product category                     'product-sub-category'                      Get
+8. single sub category                          'product-sub-category/{id}'                 Get
+9. create sub category                          'product-sub-category'                      POST
+10. update sub category                         'product-sub-category/{id}'                 PUT
+11. delete sub category                         'product-sub-category/{id}'                 Delete
+12. change sub category status                  'product-sub-category-status/{id}'          PUT
+
+
+13. all child product category                   'product-child-category'                      Get
+14. single child category                        'product-child-category/{id}'                 Get
+15. create child category                        'product-child-category'                      POST
+16. update child category                        'product-child-category/{id}'                 PUT
+17. delete child category                        'product-child-category/{id}'                 Delete
+18. change child category status                 'product-child-category-status/{id}'          PUT
+
+
+19. get subcategory by category                  'subcategory-by-category/{category_id}'       Get
+20. get child category by sub category           'childcategory-by-subcategory/{sub_category}' Get
+
+
+21. all product brand                            'product-brand'                      Get
+22. single brand                                 'product-brand/{id}'                 Get
+23. create product brand                         'product-brand'                      POST
+24. update brand                                 'product-brand/{id}'                 PUT
+25. delete brand                                 'product-brand/{id}'                 Delete
+26. change brand status                          'product-brand-status/{id}'          PUT
+
+
+27. all tax                                    'product-tax'                      Get
+28. single tax                                 'product-tax/{id}'                 Get
+29. create product tax                         'product-tax'                      POST
+30. update tax                                 'product-tax/{id}'                 PUT
+31. delete tax                                 'product-tax/{id}'                 Delete
+32. change tax status                          'product-tax-status/{id}'          PUT
+
+27. all return policy                           'return-policy'                      Get
+28. single return policy                        'return-policy/{id}'                 Get
+29. create return policy                        'return-policy'                      POST
+30. update return policy                        'return-policy/{id}'                 PUT
+31. delete return policy                        'return-policy/{id}'                 Delete
+32. change return policy status                 'return-policy-status/{id}'          PUT
+
+27. all specification key                       'specification-key'                      Get
+28. single specification key                    'specification-key/{id}'                 Get
+29. create specification key                    'specification-key'                      POST
+30. update specification key                    'specification-key/{id}'                 PUT
+31. delete specification key                    'specification-key/{id}'                 Delete
+32. change specification key status             'specification-key-status/{id}'          PUT
+
+
+33. all product                                 'product'                                       Get
+34. single product                              'product/{id}'                                  Get
+35. create product                              'product'                                       POST
+36. update product                              'product/{id}'                                  PUT
+37. delete product                              'product/{id}'                                  Delete
+38. change product status                       'product-status/{id}'                           PUT
+39. remove product existing specification       'removed-product-exist-specification/{specification_id}'      PUT
+40. seller all product                          'seller-product'                                 Get
+41. seller pending product                      'seller-pending-product'                         Get
+42. product highlight update                    'update-product-highlight/{product_id}'         PUT
+
+---------Product highlight option --------
+
+<option value="1">Undefine Product</option>
+<option value="2">New Arrival</option>
+<option value="3">Featured Product</option>
+<option value="4">Top Product</option>
+<option value="5">Best Product</option>
+<option value="6">Flash Deal Product</option>
+
+** If admin want to add any product under the flash deal option, date field is required. Otherwise date field not required.
+
+
+43. Single product variant list                 'product-variant/{product_id}'                Get
+44. Store product new variant                   'store-product-variant'                       POST
+44. get product single variant                  'get-product-variant/{variant_id}'            Get
+44. update single variant                       'update-product-variant/{variant_id}'         PUT
+44. change variant status                       'product-variant-status/{variant_id}'         PUT
+44. delete singe variant                        'delete-product-variant/{variant_id}'         Delete
+
+45. get variant item             'product-variant-item?product_id={product_id}&variant_id={variant_id}'     Get
+46. store variant item           'store-product-variant-item'                                POST
+47. update variant item          'update-product-variant-item/{variant_item_id}'             PUT
+48. change variant status        'product-variant-item-status/{variant_item_id}'             PUT
+48. single variant item          'get-product-variant-item/{variant_item_id}'                 get
+49. delete variant item          'delete-product-variant-item/{variant_item_id}'             Delete
+
+50. get product gallery          'product-gallery/{product}'                                 GET
+50. store gallery  image         'store-product-gallery'                                     Post
+50. delete gallery  image        'delete-product-image/{image_id}'                           Delete
+50. change  image status         'product-gallery-status/{image_id}'                         PUT
+
+
+51. all service                   'service'                                           Get
+52. single service                'service/{id}'                                      Get
+53. create service                'service'                                           POST
+54. update service                'service/{id}'                                      PUT
+55. delete service                'service/{id}'                                      Delete
+56. change service status         'service-status/{id}'                               PUT
+
+57. get about us                  'about-us'                                           Get
+58. create about us               'about-us'                                          POST
+59. update about us               'about-us/{id}'                                      PUT
+
+60. get contact us                  'contact-us'                                           Get
+61. create contact us               'contact-us'                                           POST
+62. update contact us               'contact-us/{id}'                                      PUT
+
+63. all custom page                 'custom-page'                                           Get
+64. single custom page              'custom-page/{id}'                                      Get
+65. create custom page              'custom-page'                                           POST
+66. update custom page              'custom-page/{id}'                                      PUT
+67. delete custom page              'custom-page/{id}'                                      Delete
+68. change custom page status       'custom-page-status/{id}'                               PUT
+
+69. get terms & condition           'terms-and-condition'                                   Get
+70. create terms & condition        'terms-and-condition'                                   POST
+71. update terms & condition        'terms-and-condition/{id}'                              PUT
+
+
+72. get privacy-policy               'privacy-policy'                                   Get
+73. create privacy-policy            'privacy-policy'                                   POST
+74. update privacy-policy            'privacy-policy/{id}'                              PUT
+
+
+75. all blog category                 'blog-category'                                           Get
+76. single blog category              'blog-category/{id}'                                      Get
+77. create blog category              'blog-category'                                           POST
+78. update blog category              'blog-category/{id}'                                      PUT
+79. delete blog category              'blog-category/{id}'                                      Delete
+80. change blog category status       'blog-category-status/{id}'                               PUT
+
+81. all blog                          'blog'                                           Get
+82. single blog                       'blog/{id}'                                      Get
+83. create blog                       'blog'                                           POST
+84. update blog                       'blog/{id}'                                      PUT
+85. delete blog                       'blog/{id}'                                      Delete
+86. change blog status                'blog-status/{id}'                               PUT
+
+87. all popular blog                          'popular-blog'                                           Get
+88. create popular blog                       'popular-blog'                                           POST
+89. delete popular blog                       'popular-blog/{id}'                                      Delete
+90. change popular blog status                'popular-blog-status/{id}'                               PUT
+
+91. all blog comment                          'blog-comment'                                           Get
+92. delete blog comment                       'blog-comment/{id}'                                      Delete
+93. change blog comment status                'blog-comment-status/{id}'                               PUT
+
+
+94. all campaign                          'campaign'                                           Get
+95. single campaign                       'campaign/{id}'                                      Get
+96. create campaign                       'campaign'                                           POST
+97. update campaign                       'campaign/{id}'                                      PUT
+98. delete campaign                       'campaign/{id}'                                      Delete
+99. change campaign status                'campaign-status/{id}'                               PUT
+
+
+100. single campaign products                           'campaign-product/{campaign_id}'                 Get
+101. create campaign product                            'store-campaign-product'                         POST
+102. delete campaign                                    'delete-campaign-product/{id}'                   Delete
+103. change campaign product status                     'campaign-product-status/{id}'                   PUT
+104. change campaign product homepage visibility        'campaign-product-homepage-visibility/{id}'      PUT
+
+
+105. get all subscriber                   'subscriber'                                   'Get'
+106. delete subscriber                    'delete-subscriber/{id}'                       'Delete'
+107. send mail to specific subscriber     'specification-subscriber-email/{id}'          'Post'
+108. send mail to each subscriber         'each-subscriber-email'                        'Post'
+
+
+109. get all contact message              'contact-message'                                   'Get'
+110. delete message                       'delete-contact-message/{id}'                       'Delete'
+111. enable system                         'enable-save-contact-message'                        'PUT'
+Note : If you want to save contact message in database, please enable this option and if you wan"t to save contact message in database, please disable this option.
+
+
+112. get email setting                       'email-configuration'                              'Get'
+113. update email setting                    'update-email-configuraion'                        'PUT'
+
+
+114. get all email template                   'email-template'                                   'Get'
+115. get single email template                'edit-email-template/{id}'                         'Get'
+115. update single email template             'update-email-template/{id}'                       'Put'
+
+
+116. get general setting                              'general-setting'                          'Get'
+117. update general setting                           'update-general-setting'                   'Put'
+118. update theme color                               'update-theme-color'                       'Put'
+119. update logo and favicon                          'update-logo-favicon'                      'Put'
+120. update cookie consent                            'update-cookie-consent'                    'Put'
+121. update google recaptcha                          'update-google-recaptcha'                  'Put'
+122. update facebook comment                          'update-facebook-comment'                  'Put'
+123. update tawk chat                                 'update-tawk-chat'                         'Put'
+124. update google analytic                           'update-google-analytic'                   'Put'
+125. update custom pagination                         'update-custom-pagination'                 'Put'
+126. update social login info                         'update-social-login'                      'Put'
+127. update facebook pixel                            'update-facebook-pixel'                    'Put'
+128. update pusher                                    'update-pusher'                            'Put'
+
+129. all admin list                                    'admin'                                    'Get'
+130. create new admin                                  'admin'                                    'Post'
+131. get single admin                                  'admin/{id}'                               'Get'
+132. update single admin                               'admin/{id}'                               'PUT'
+133. delete single admin                               'admin/{id}'                               'Delete'
+134. change admin status                               'admin-status/{id}'                        'Put'
+
+
+129. all faq list                                    'faq'                                    'Get'
+130. create new faq                                  'faq'                                    'Post'
+131. get single faq                                  'faq/{id}'                               'Get'
+132. update single faq                               'faq/{id}'                               'PUT'
+133. delete single faq                               'faq/{id}'                               'Delete'
+134. change faq status                               'faq-status/{id}'                        'Put'
+
+
+135. get all product review                         'product-review'                            'Get'
+136. change review status                           'product-review-status/{review_id}'         'Put'
+137. get single review                              'show-product-review/{id}'                  'get'
+138. delete single review                           'delete-product-review/{id}'                'delete'
+
+
+139. get all product report                         'product-report'                            'Get'
+140. deactive product under single report           'de-active-product/{report_id}'             'Put'
+141. get single report                              'show-product-report/{id}'                  'get'
+142. delete single report                           'delete-product-report/{id}'                'delete'
+
+
+143. all customer list                              'customer-list'                             'Get'
+144. pending customer list                          'pending-customer-list'                     'Get'
+145. single customer                                'customer-show/{id}'                        'Get'
+146. change customer status                         'customer-status/{id}'                      'Put'
+147. customer delete                                'customer-delete/{id}'                      'delete'
+148. send to mail to all user                       'send-mail-to-all-user'                     'Post'
+149. send to mail to single user                    'send-mail-to-single-user/{user_id}'        'Post'
+
+
+150. all seller list                                'seller-list'                               'Get'
+151. pending seller list                            'pending-seller-list'                       'Get'
+152. single seller                                  'seller-show/{seller_id}'                   'Get'
+153. change seller status                           'seller-status/{seller_id}'                 'Put'
+154. seller delete                                  'seller-delete/{seller_id}'                 'delete'
+155. seller personal info update                    'seller-update/{seller_id}'                 'Put'
+156. seller shop detail                             'seller-shop-detail/{user_id}'              'get'
+157. remove seller single social link               'remove-seller-social-link/{link_id}'       'Put'
+158. update seller shop info                        'update-seller-shop/{seller_id}'            'Put'
+159. get seller all reviews                         'seller-reviews/{seller_idid}'              'get'
+160.  seller single review                          'show-seller-review-details/{review_id}'    'get'
+161.  send mail to single seller                    'send-mail-to-single-seller/{user_id}'      'Post'
+162.  send mail all single seller                   'send-mail-to-all-seller'                   'Post'
+163.  seller email history                          'email-history/{user_id}'                   'get'
+164.  get seller all product                        'product-by-seller/{user_id}'               'get'
+165.  get seller withdraw list                      'withdraw-list/{seller_id}'                 'get'
+
+
+166. get state by country                           'state-by-country/{country_id}'              'get'
+167. get city by state                              'city-by-state/{state_id}'                   'get'
+
+
+168. get all error pages                             'error-page'                        'get'
+169. single error page                               'error-page/{id}'                   'get'
+170. update error page                               'error-page/{id}'                   'PUT'
+
+171. maintainance mode info                          'maintainance-mode'                  'get'
+172. maintainance mode update                        'maintainance-mode-update'           'put'
+
+173. announcement modal info                         'announcement'                       'get'
+174. announcement mode update                        'announcement-update'                'put'
+
+175. topbar contact info                             'topbar-contact'                         'get'
+176. topbar contact update                           'update-topbar-contact'                  'put'
+
+177. product page stock qty visibility info          'product-detail-page'                    'get'
+178. stock qty visibility info update                'update-stock-qty-visibility'            'put'
+
+179. default avatar  info                            'default-avatar'                         'get'
+180. default avatar  update                          'update-default-avatar'                  'put'
+
+181. seller terms & condition                        'seller-conditions'                      'get'
+182. update seller condition                         'update-seller-conditions'               'put'
+
+183. get all advertisement                         'advertisement'                                'get'
+184. mega menu banner update                       'mega-menu-banner-update'                      'put'
+185. homepag popular category banner               'update-home-page-one-column-banner'           'put'
+186. homepage first two column banner update       'update-home-page-first-two-column-banner'     'put'
+187. homepage third two column banner update       'update-home-page-third-two-column-banner'     'put'
+188. shop page banner update                       'update-shop-page'                             'put'
+189. product detail page banner update             'update-product-detail-banner'                 'put'
+190. cart bottom banner update                     'update-cart-bottom-banner'                    'put'
+191. campaign page banner update                   'update-campaign-page-banner'                  'put'
+
+
+192. login page information                        'login-page'                            'get'
+193. update login information                      'update-login-page'                     'put'
+
+194. shop page filter information                  'shop-page'                              'get'
+195. shop page filter update                       'update-filter-price'                    'put'
+
+196. seo information                        'seo-setup'                              'get'
+197. seo infor update                       'update-seo-setup/{id}'                  'put'
+198. get single info                        'get-seo-setup/{id}'                     'put'
+
+
+199. all country                 'country'                                           Get
+200. single country              'country/{id}'                                      Get
+201. create country              'country'                                           POST
+202. update country              'country/{id}'                                      PUT
+203. delete country              'country/{id}'                                      Delete
+204. change country status       'country-status/{id}'                               PUT
+
+205. all state                 'state'                                           Get
+206. single state              'state/{id}'                                      Get
+207. create state              'state'                                           POST
+208. update state              'state/{id}'                                      PUT
+209. delete state              'state/{id}'                                      Delete
+210. change state status       'state-status/{id}'                               PUT
+
+
+211. all city                 'city'                                           Get
+212. single city              'city/{id}'                                      Get
+213. create city              'city'                                           POST
+214. update city              'city/{id}'                                      PUT
+215. delete city              'city/{id}'                                      Delete
+216. change city status       'city-status/{id}'                               PUT
+
+
+
+217. get all payment method info            'payment-method'                       'get'
+218. update paypal info                     'update-paypal'                        'pul'
+219. update stripe info                     'update-stripe'                        'pul'
+220. update razorpay info                   'update-razorpay'                      'pul'
+221. update bank info                       'update-bank'                          'pul'
+222. update mollie info                     'update-mollie'                        'pul'
+223. update paystack info                   'update-paystack'                      'pul'
+224. update flutterwave info                'update-flutterwave'                   'pul'
+225. update instamojo info                  'update-instamojo'                     'pul'
+226. update cash on delivery                'update-cash-on-delivery'              'pul'
+
+
+
+227. get all mega menu category             'mega-menu-category'                       'get'
+227. create menu category                   'mega-menu-category'                       'post'
+228. single menu category                   'mega-menu-category/{id}'                  'get'
+229. update menu category                   'mega-menu-category/{id}'                  'put'
+230. delete menu category                   'mega-menu-category/{id}'                  'delete'
+231. change menu category status            'mega-menu-category-status/{id}'           'put'
+
+
+
+232. all mega menu sub category            'mega-menu-sub-category/{mega_menu_id}'                'get'
+232. mega menu and sub category list       'create-mega-menu-sub-category/{mega_menu_id}'         'get'
+233. create sub category                   'store-mega-menu-sub-category/{id}'                    'post'
+234. single menu sub category              'get-mega-menu-sub-category/{mega_sub_cat_id}'         'get'
+235. update menu sub category              'update-mega-menu-sub-category/{mega_sub_cat_id}'      'put'
+236. delete menu sub category              'delete-mega-menu-sub-category/{mega_sub_cat_id}'      'delete'
+237. change menu sub category status       'mega-menu-sub-category-status/{mega_sub_cat_id}'      'put'
+
+
+238. all sliders                            'slider'                                     'get'
+239. create  slider                         'slider'                                     'post'
+240. single  slider                         'slider/{id}'                                'get'
+241. update  slider                         'slider/{id}'                                'put'
+242. delete  slider                         'slider/{id}'                                'delete'
+243. change  slider status                  'slider-status/{id}'                         'put'
+
+
+244. home page category info                 'home-page'                                  'get'
+245. update popular category                 'update-popular-categoy'                     'put'
+246. update three column category            'update-three-column-categoy'                'put'
+
+
+247. manage homepage option visibility        'homepage-one-visibility'                     'get'
+248. update homepage option visibility        'update-homepage-one-visibility/{id}'         'put'
+
+
+250. all shipping                             'shipping'                                      'get'
+251. create  shipping                         'shipping'                                     'post'
+252. single  shipping                         'shipping/{id}'                                'get'
+253. update  shipping                         'shipping/{id}'                                'put'
+254. delete  shipping                         'shipping/{id}'                                'delete'
+255. change  shipping status                  'shipping-status/{id}'                         'put'
+
+
+
+256. all withdraw method                       'withdraw-method'                                     'get'
+257. create  withdraw method                   'withdraw-method'                                     'post'
+258. single  withdraw method                   'withdraw-method/{id}'                                'get'
+259. update  withdraw method                   'withdraw-method/{id}'                                'put'
+260. delete  withdraw method                   'withdraw-method/{id}'                                'delete'
+261. change  withdraw method status            'withdraw-method-status/{id}'                         'put'
+
+
+
+262. seller withdraw list                      'seller-withdraw'                                    'get'
+263. seller pending withdraw list              'pending-seller-withdraw'                            'get'
+264. single widthdraw                          'show-seller-withdraw/{id}'                          'get'
+265. delete widthdraw                          'delete-seller-withdraw/{id}'                        'delete'
+266. approved widthdraw                        'approved-seller-withdraw/{id}'                      'put'
+
+
+267. all orders                                 'all-order'                                         'get'
+268. pending orders                             'pending-order'                                     'get'
+269. progress orders                            'pregress-order'                                    'get'
+270. delivered orders                           'delivered-order'                                   'get'
+271. completed orders                           'completed-order'                                   'get'
+272. declined orders                            'declined-order'                                    'get'
+273. cash on delivery orders                    'cash-on-delivery'                                  'get'
+274. singel order                               'order-show/{id}'                                   'get'
+275. delete order                               'delete-order/{id}'                                 'delete'
+276. update order status                        'update-order-status/{id}'                          'put'
+
+Order Status Note :
+
+<option value="0">Pending</option>
+<option value="1">In Progress</option>
+<option value="2">Delivered</option>
+<option value="3">Completed</option>
+<option value="4">Declined</option>
+
+Payment status note:
+
+<option value="0">Pending</option>
+<option value="1">Success</option>
+
+278. all coupon                       'coupon'                                     'get'
+279. create  coupon                   'coupon'                                     'post'
+280. single  coupon                   'coupon/{id}'                                'get'
+281. update  coupon                   'coupon/{id}'                                'put'
+282. delete  coupon                   'coupon/{id}'                                'delete'
+283. change  coupon status            'coupon-status/{id}'                         'put'
+
+
+284. all breadcrumb                   'banner-image'                                'get'
+285. single breadcrumb                'banner-image/{id}'                           'get'
+286. update breadcrumb                'banner-image/{id}'                           'put'
+
+
+287. footer info                      'footer'                                      'get'
+288. footer info update               'update/{id}'                                 'put'
+
+
+
+289. all social link                        'social-link'                                     'get'
+290. create  social link                    'social-link'                                     'post'
+291. single  social link                    'social-link/{id}'                                'get'
+292. update  social link                    'social-link/{id}'                                'put'
+293. delete  social link                    'social-link/{id}'                                'delete'
+
+294. first column footer link                 'footer-link'                                 'get'
+295. second column footer link                'second-col-footer-link'                      'get'
+296. third column footer link                 'third-col-footer-link'                       'get'
+297. update footer link                       'footer-link/{link_id}'                       'get'
+298. update column title                      'update-col-title/{column_id}'                 'put'
+
+
+299. admin language                                 'admin-language'                           'get'
+300. update admin language                          'update-admin-language'                    'post'
+
+301. admin validation language                      'admin-validation-language'                'get'
+302. update admin validation language               'update-admin-validation-language'         'put'
+
+
+303. website language                               'website-language'                 'get'
+304. update admin validation language               'update-language'                  'post'
+
+
+305. clear data base                                'clear-database'                   'Delete'
+
+
+
+
+
+
+--------------------------------------------- Frontend route list -------------------------------------------------
+
+0. basic website setting                            'website-setup'                                 'get'
+1. homepage                                         '/'                                             'get'
+2. about us page                                    'about-us'                                      'get'
+3. contact us page                                  'contact-us'                                    'get'
+4. send contact message                             'send-contact-message'                          'post'
+5. blog page                                        'blog'                                          'post'
+6. blog detail page                                 'blog-detail/{slug}'                            'post'
+7. blog by category                                 'blog-by-category/{category_slug}'              'post'
+8. search blog                                      'search-blog'                                   'get'
+
+Note : Input filed name = 'search'
+
+9. store blog comment                              'blog-comment'                                'post'
+10. all campaign                                   'campaign'                                    'get'
+11. campaign details                               'campaign-detail/{slug}'                      'get'
+12. all brand                                      'brand'                                       'get'
+13. track order                                    'track-order-response/{order_id}'             'get'
+14. all faq                                        'faq'                                         'get'
+15. all custom page                                'page/{slug}'                                 'get'
+16. single custom page                             'page/{slug}'                                 'get'
+17. Terms & condition                              'terms-and-conditions'                        'get'
+18. Privacy Policy                                 'privacy-policy'                              'get'
+19. all seller list                                'sellers'                                     'get'
+20. seller detail                                  'seller-detail?shop_name={shop_slug}'         'get'
+21. variant item list by variant name              'variant-items-by-variant/{variant_name}'     'get'
+22. shop page product list                         'product'                                     'get'
+23. search product route                           'search-product'                              'get'
+
+Note : search parameter
+
+category = category id, page_view = 'grid_view' and 'list_view' , brands[] , price_range, variantItems[], shorting_id,
+
+shorting item :
+
+<option value="1">default shorting</option>
+<option value="2">low to high price </option>
+<option value="3">high to low price</option>
+
+
+24. product details page                      'product-detail/{slug}'                     'get'
+25. flash deal product                        'flash-deal'                                'get'
+26. subscribe request                         'subscribe-request'                         'post'
+26. subscribe verify                          'subscriber-verification/{code}'            'post'
+
+Note: attribute = 'email'
+
+
+
+
+27. get shopping cart info                      'cart'                                             'get'
+28. add to cart                                 'add-to-cart'                                      'get'
+Note : cart item attribute : product_id, quantity, image, slug, variants[], variantNames[], items[]
+
+29. cart item qty update                        'cart-update/{id}'                            'get'
+30. coupon apply                                'apply-coupon?coupon='                        'get'
+31. remove cart item                            'cart-item-remove/{id}'                       'get'
+32. clear shopping cart                         'cart-clear'                                  'get'
+33. calculate product price                     'calculate-product-price'                     'get'
+
+Note : calculate product price attribute : product_id, quantity, variants[], variantNames[], items[]
+
+
+
+
+---------------------------------------- user auth route --------------------------------------
+
+1. user registration                       'store-register'                                 'post'
+2. user login                              'store-login'                                    'post'
+3. forget password                         'send-forget-password'                           'post'
+4. reset password                          'store-reset-password/{token}'                   'post'
+5. user logout                             '/user/logout'                                   'get'
+
+
+----------------------------------------- user panel route -------------------------------------
+prefix = 'user/'
+
+1. user dashboard                                 'dashboard'                                 'get'
+2. order list                                     'order'                                     'get'
+3. pending order list                             'pending-order'                             'get'
+4. complete order list                            'complete-order'                            'get'
+5. declined order list                            'declined-order'                            'get'
+6. order detail                                   'order-show/{order_id}'                     'get'
+
+
+11. user review list                              'review'                                    'get'
+12. single review                                 'get-review/{id}'                           'get'
+13. store product review                          'store-product-review'                      'post'
+14. update product review                         'update-review/{id}'                        'post'
+
+
+15. user profile info                             'my-profile'                                'get'
+16. update profile info                           'update-profile'                            'post'
+17. update password                               'update-password'                           'post'
+
+
+
+18. user billing and shipping address             'address'                                   'get'
+19. get billing adddress                          'billing-address'                           'get'
+20. update billing adddress                       'update-billing-address'                    'post'
+21. get shipping adddress                         'shipping-address'                          'get'
+22. update shipping adddress                      'update-shipping-address'                   'post'
+
+
+23. get seller registration info                  'seller-registration'                       'get'
+24. store seller request                          'seller-request'                            'post'
+
+25. wishlist product                              'wishlist'                                  'get'
+26. add to wishlist product                       'add-to-wishlist/{product_id}'              'get'
+27. remove wishlist product                       'remove-wishlist/{id}'                      'get'
+
+
+28. store product report                          'product-report'                            'post'
+
+
+29. get state by country                          'state-by-country/{country_id}'           'get'
+30. get city by state                             'city-by-state/{state_id}'                  'get'
+
+
+31. manage checkout billing address                  'checkout/billing-address'                      'get'
+31. update checkout billing address                  'checkout/update-billing-address'                 'post'
+
+Note : billing attribute
+name, email, phone, country, state, city, zip_code, address, same_as_shipping
+
+
+32. checkout shipping address                   'checkout'                                       'get'
+32. checkout shipping address                   'checkout/update-shipping-address'               'post'
+
+Note : shipping attribute
+name, email, phone, country, state, city, zip_code, address, shipping_method, agree_terms_condition
+
+
+33. payment page                                 'checkout/payment'                                'get'
+33. hand cash payment                            'checkout/cash-on-delivery'                       'Post'
+
+hand cash attribute : addition_information, agree_terms_condition, shipping_method
+
+---------------------------------------- seller panel route -----------------------------
+prefix = 'seller/'
+
+1. seller dashbaord                            'dashboard'                                        'get'
+2. seller profile                              'my-profile'                                       'get'
+3. get state by country                        'state-by-country/{country_idid}'                  'get'
+4. get city by state                           'city-by-state/{state_id}'                         'get'
+5. update seller profile                       'update-seller-profile'                            'put'
+6. update seller password                      'password-update'                                  'put'
+7. seller shop info                            'shop-profile'                                     'get'
+8. update shop info                            'update-seller-shop'                               'put'
+9. remove seller socila link                   'remove-seller-social-link/{id}'                   'put'
+10. seller email history                        'email-history'                                    'get'
+
+
+11. seller product list                         'product'                                          'get'
+12. seller pending product                      'pending-product'                                  'get'
+13. create product informaiton                  'product/create'                                   'get'
+14. create product informaiton                  'product'                                          'post'
+15. show product                                'product/{id}'                                     'get'
+16. update product                              'product/{id}'                                     'put'
+
+
+17. delete product specification                'removed-product-exist-specification/{id}'         'put'
+18. product highlight update                    'update-product-highlight/{product_id}'            'PUT'
+
+19. get subcategory by category                'subcategory-by-category/{category_id}'             Get
+20. get child category by sub category         'childcategory-by-subcategory/{sub_category}'       Get
+
+
+
+21. Single product variant list                 'product-variant/{product_id}'                Get
+22. Store product new variant                   'store-product-variant'                       POST
+23. get product single variant                  'get-product-variant/{variant_id}'            Get
+24. update single variant                       'update-product-variant/{variant_id}'         PUT
+25. change variant status                       'product-variant-status/{variant_id}'         PUT
+26. delete single variant                       'delete-product-variant/{variant_id}'         Delete
+
+
+
+27. get variant item             'product-variant-item?product_id={product_id}&variant_id={variant_id}'     Get
+28. store variant item           'store-product-variant-item'                                               POST
+29. update variant item          'update-product-variant-item/{variant_item_id}'                            PUT
+30. change variant status        'product-variant-item-status/{variant_item_id}'                            PUT
+31. single variant item          'get-product-variant-item/{variant_item_id}'                               get
+32. delete variant item          'delete-product-variant-item/{variant_item_id}'                            Delete
+
+
+33. get product gallery          'product-gallery/{product}'                                 GET
+34. store gallery  image         'store-product-gallery'                                     Post
+35. delete gallery  image        'delete-product-image/{image_id}'                           Delete
+36. change  image status         'product-gallery-status/{image_id}'                         PUT
+
+
+37. seller product review                'product-review'                                        'get'
+38. show review                          'show-product-review/{id}'                              'get'
+
+39. seller product report                'product-report'                                        'get'
+40. show report                          'show-product-report/{id}'                              'get'
+
+
+41. seller withdraw history               'my-withdraw'                                            'get'
+42. single withdraw                       'my-withdraw/{id}'                                       'get'
+43. get withdraw  request info            'my-withdraw/create'                                     'get'
+44. get withdraw  account info            'get-withdraw-account-info/{id}'                         'get'
+45. create withdraw  request              'my-withdraw'                                            'post'
+
+
+46. all orders                                 'all-order'                                         'get'
+47. pending orders                             'pending-order'                                     'get'
+48. progress orders                            'pregress-order'                                    'get'
+49. delivered orders                           'delivered-order'                                   'get'
+50. completed orders                           'completed-order'                                   'get'
+51. declined orders                            'declined-order'                                    'get'
+52. cash on delivery orders                    'cash-on-delivery'                                  'get'
+53. single order                               'order-show/{id}'                                   'get'
+
+
+
+
+
+
+a successfully api request will return http 200 request 
+
