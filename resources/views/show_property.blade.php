@@ -7,23 +7,6 @@
 @endsection
 @section('user-content')
      <!--===BREADCRUMB PART START====-->
-  <section class="wsus__breadcrumb" style="background: url({{ url($property->banner_image) }});">
-    <div class="wsus_bread_overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h4>{{__('user.Our Property')}}</h4>
-                    <nav style="--bs-breadcrumb-divider: '-';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{__('user.Home')}}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{__('user.Our property')}}</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-  </section>
   <!--===BREADCRUMB PART END====-->
 
 
@@ -53,6 +36,8 @@
                                     @endif
                                 </p>
 
+                                <span class="tk">IPTU: {{$property->value_iptu}}</span>
+                                <span class="tk">Condominio:{{$property->value_condominio}}</span>
 
                                 @if ($property->property_purpose_id==1)
                                     <span class="tk">{{ $currency }}{{ $property->price }}</span>
@@ -87,35 +72,7 @@
                                     }
                                 }
                             @endphp
-                            @if ($total_review > 0)
-                            <p class="wsus__pro_det_top_rating">
-                                @for ($i = 1; $i <=5; $i++)
-                                    @if ($i <= $reviewPoint)
-                                        <i class="fas fa-star"></i>
-                                    @elseif ($i> $reviewPoint )
-                                        @if ($halfReview==true)
-                                        <i class="fas fa-star-half-alt"></i>
-                                            @php
-                                                $halfReview=false
-                                            @endphp
-                                        @else
-                                        <i class="fal fa-star"></i>
-                                        @endif
-                                    @endif
-                                @endfor
-                                <span>{{ sprintf("%.1f", $reviewPoint) }}</span>
-                            </p>
-                            @else
-                            <p class="wsus__pro_det_top_rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>0.0</span>
-                            </p>
 
-                            @endif
                             <p>
 
                             {{ $property->address }}
@@ -471,7 +428,7 @@
                              <img src="{{ url($default_image) }}" alt="images" class="img-fluid img-thumbnail">
                             @endif
 
-
+                            <h3>{{ $property->code_property_api  }}</h3>
                              <a class="name" href="{{ route('agent.show',['user_type' => '1','user_name'=>$property->admin->slug]) }}">{{ $property->admin->name }}</a>
                              <a class="mail" href="mailto:{{ $property->admin->email }}"><i class="fal fa-envelope-open"></i> {{ $property->admin->email }}</a>
                     </div>

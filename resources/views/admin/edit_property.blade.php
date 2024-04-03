@@ -39,6 +39,10 @@
                                         <input type="text" name="title" class="form-control" id="title" value="{{ $property->title }}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="code_imob">Código do Imóvel<span class="text-danger">*</span></label>
+                                        <input type="text" name="code_imob" value="{{old('code_property_api') ?? '' }} ">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="slug">{{__('admin.Slug')}} <span class="text-danger">*</span></label>
                                         <input type="text" name="slug" class="form-control" id="slug" value="{{ $property->slug }}">
                                     </div>
@@ -105,6 +109,19 @@
                                             <div class="form-group">
                                                 <label for="price">{{__('admin.Price')}} <span class="text-danger">*</span></label>
                                                 <input type="text" name="price" class="form-control" value="{{ $property->price }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="iptu">Valor IPTU <span class="text-danger">*</span></label>
+                                                <input type="text" name="iptu" class="form-control" value="{{ old('value_iptu') ?? '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="value_condominio">Valor Condominio<span class="text-danger">*</span></label>
+                                                <input type="text" name="value_condominio" class="form-control" value="{{ old('value_condominio') ?? '' }}">
                                             </div>
                                         </div>
 
@@ -562,7 +579,7 @@
 
         function deleteSliderImg(id){
 
-            var isDemo = "{{ env('PROJECT_MODE') }}"
+            var isDemo = 1
             if(isDemo == 0){
                 toastr.error('This Is Demo Version. You Can Not Change Anything');
                 return;
@@ -585,7 +602,7 @@
 
         function deletePdfFile(id){
 
-            var isDemo = "{{ env('PROJECT_MODE') }}"
+            var isDemo = 1
             if(isDemo == 0){
                 toastr.error('This Is Demo Version. You Can Not Change Anything');
                 return;
@@ -609,7 +626,7 @@
 
         function existNearestLocation(id){
 
-            var isDemo = "{{ env('PROJECT_MODE') }}"
+            var isDemo = 1
             if(isDemo == 0){
                 toastr.error('This Is Demo Version. You Can Not Change Anything');
                 return;

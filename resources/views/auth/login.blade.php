@@ -188,7 +188,7 @@
             console.log('hiu');
 
                 // project demo mode check
-                var isDemo="{{ env('PROJECT_MODE') }}"
+                var isDemo=1
                 var demoNotify="{{ env('NOTIFY_TEXT') }}"
                 if(isDemo==0){
                     toastr.error(demoNotify);

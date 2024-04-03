@@ -122,6 +122,9 @@ class AdminPropertyController extends Controller
             $property->user_id = $request->agent;
             $property->user_type = 0;
         }
+        $property->code_property_api = $request->code_imob;
+        $property->value_condominio = $request->value_condominio;
+        $property->value_iptu = $request->iptu;
         $property->title = $request->title;
         $property->property_search_id = mt_rand(10000000, 99999999);
         $property->slug = $request->slug;
@@ -311,6 +314,9 @@ class AdminPropertyController extends Controller
             $property->user_id = $request->agent;
             $property->user_type = 0;
         }
+        $property->code_property_api = $request->code_imob;
+        $property->value_condominio = $request->value_condominio;
+        $property->value_iptu = $request->iptu;
         $property->title = $request->title;
         $property->slug = $request->slug;
         $property->property_type_id = $request->property_type;

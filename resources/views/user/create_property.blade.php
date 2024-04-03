@@ -15,9 +15,15 @@
                 <h5 class="sub_heading">{{__('user.Basic Information')}}</h5>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
-                    <label>{{__('user.Title')}} <span class="text-danger">*</span></label>
+                    <label>Titulo do Anuncio <span class="text-danger">*</span></label>
                     <input type="text" name="title" id="title" value="{{ old('title') }}">
                     <input type="hidden" name="expired_date" value="{{ $expired_date }}">
+                  </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                  <div class="wsus__property_input">
+                    <label for="#">Código do Imóvel<span class="text-danger">*</span></label>
+                    <input type="text" name="code_imob" value="{{old('code_property_api') ?? '' }} ">
                   </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
@@ -53,6 +59,14 @@
                     <label for="#">{{__('user.Address')}} <span class="text-danger">*</span></label>
                     <input type="text" name="address" value="{{ old('address') }}">
                   </div>
+                  <div class="wsus__property_input">
+                    <label for="#">Numero<span class="text-danger">*</span></label>
+                    <input type="text" name="address" value="{{ old('address') }}">
+                  </div>
+                  <div class="wsus__property_input">
+                    <label for="#">Complemento<span class="text-danger">*</span></label>
+                    <input type="text" name="address" value="{{ old('address') }}">
+                  </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
@@ -67,10 +81,6 @@
                   </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
-                  <div class="wsus__property_input">
-                    <label for="#">{{__('user.Website')}}</label>
-                    <input type="url" name="website" value="{{ old('website') }}">
-                  </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
@@ -89,6 +99,20 @@
                     </div>
                   </div>
 
+
+                  <div class="col-xl-6 col-md-6">
+                    <div class="wsus__property_input">
+                        <label for="iptu">Valor IPTU (mensal / anual)<span class="text-danger">*</span></label>
+                        <input type="text" name="iptu" class="form-control" value="{{ old('value_iptu') ?? '' }}">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="wsus__property_input">
+                        <label for="value_condominio">Valor Condominio<span class="text-danger">*</span></label>
+                        <input type="text" name="value_condominio" class="form-control" value="{{ old('value_condominio') ?? '' }}">
+                    </div>
+                </div>
+
                 <div class="col-xl-6 col-md-6 d-none" id="period_box">
                   <div class="wsus__property_input">
                     <label for="#">{{__('user.Period')}} <span class="text-danger">*</span></label>
@@ -105,6 +129,7 @@
             <div class="wsus__dash_info p_25 mt_25 pb_0">
               <div class="row">
                 <h5 class="sub_heading">{{__('user.Others Information')}}</h5>
+                <p>Adicione um valor em todo os campos, certifique de não deixar nenhum campo em branco</p>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
                     <label for="#">{{__('user.Total Area')}}({{__('user.Sqft')}}) <span class="text-danger">*</span></label>
@@ -160,12 +185,6 @@
                 <h5 class="sub_heading">{{__('user.Image, PDF And Video')}}</h5>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
-                    <label for="#">{{__('user.PDF File')}}</label>
-                    <input type="file" name="pdf_file">
-                  </div>
-                </div>
-                <div class="col-xl-6 col-md-6">
-                  <div class="wsus__property_input">
                     <label for="#">{{__('user.Bannner Image')}} <span class="text-danger">*</span></label>
                     <input type="file" name="banner_image">
                   </div>
@@ -178,7 +197,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
-                    <label for="#">{{__('user.Youtube Video Id')}}</label>
+                    <label for="#">Link Video Youtube</label>
                     <input type="text" name="video_link">
                   </div>
                 </div>
@@ -448,6 +467,7 @@
 
 
               <div class="col-12">
+                <p>Utilize os campos abaixo para otimizar suas buscas no Google, insira palavras chave relacionado ao seu imóvel*</p>
                 <div class="wsus__property_input">
                     <label for="#">{{__('user.SEO Title')}}</label>
                     <input type="text" name="seo_title" value="{{ old('seo_title') }}">

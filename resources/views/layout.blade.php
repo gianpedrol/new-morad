@@ -127,7 +127,7 @@
     <nav class="navbar navbar-expand-lg main_menu">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ url($setting->logo) }}" alt="logo" class="img-fluid w-100" style="max-width: 80px">
+                <img src="{{ url($setting->logo) }}" alt="logo" class="img-fluid w-100" style="max-width: 120px">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -225,13 +225,6 @@
                     @endif
 
 
-                    <li class="nav-item"><a class="nav-link {{ Route::is('faq') ? 'active' : '' }}"
-                        href="{{ route('faq') }}">FAQ</a></li>
-
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::is('blog') || Route::is('blog.details') ? 'active' : '' }}"
-                        href="{{ route('blog') }}">Blog</a>
-                </li>
                     @php
                         $menu = $menus->where('id', 10)->first();
                     @endphp

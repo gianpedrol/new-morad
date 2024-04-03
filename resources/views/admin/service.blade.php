@@ -102,7 +102,7 @@
         }
 
         function changeServiceStatus(id) {
-            vvar isDemo = "{{ env('PROJECT_MODE') }}"
+            vvar isDemo = 1
             if (isDemo == 0) {
                 toastr.error('This Is Demo Version. You Can Not Change Anything');
                 return;

@@ -20,6 +20,12 @@
                     <input type="text" name="title" id="title" value="{{ $property->title }}">
                   </div>
                 </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="wsus__property_input">
+                      <label for="#">Código do Imóvel<span class="text-danger">*</span></label>
+                      <input type="text" name="code_imob" value="{{ old('code_property_api') ?? ''}}">
+                    </div>
+                  </div>
                 <div class="col-12 col-md-6">
                   <div class="wsus__property_input">
                     <label for="#" for="slug">{{__('user.Slug')}}<span class="text-danger">*</span></label>
@@ -703,7 +709,7 @@
 
     function deleteSliderImg(id){
         // project demo mode check
-        var isDemo="{{ env('PROJECT_MODE') }}"
+        var isDemo=1
         var demoNotify="{{ env('NOTIFY_TEXT') }}"
         if(isDemo==0){
             toastr.error(demoNotify);

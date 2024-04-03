@@ -70,7 +70,7 @@
                 position: 'center',
                 buttons: [
                     ['<button><b>YES</b></button>', function(instance, toast) {
-                        var isDemo = "{{ env('PROJECT_MODE') }}";
+                        var isDemo = 1;
                         var code = $('#translateAll').data('code');
                         var file = $('#translateAll').data('file');
 

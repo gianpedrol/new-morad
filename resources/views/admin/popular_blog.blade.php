@@ -94,11 +94,8 @@
         $("#deleteForm").attr("action",'{{ url("admin/popular-blog/") }}'+"/"+id)
     }
     function changePopularBlogStatus(id){
-        var isDemo = "{{ env('PROJECT_MODE') }}"
-        if(isDemo == 0){
-            toastr.error('This Is Demo Version. You Can Not Change Anything');
-            return;
-        }
+        var isDemo = 1
+       
         $.ajax({
             type:"put",
             data: { _token : '{{ csrf_token() }}' },

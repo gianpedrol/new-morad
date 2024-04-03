@@ -39,6 +39,10 @@
                                         <label for="slug">{{__('admin.Slug')}} <span class="text-danger">*</span></label>
                                         <input type="text" name="slug" class="form-control" id="slug" value="{{ old('slug') }}">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="code_imob">Código do Imóvel<span class="text-danger">*</span></label>
+                                        <input type="text" name="code_imob" value="{{old('code_property_api') ?? '' }} ">
+                                    </div>
 
                                     <div class="row">
 
@@ -102,6 +106,19 @@
                                             <div class="form-group">
                                                 <label for="price">{{__('admin.Price')}} <span class="text-danger">*</span></label>
                                                 <input type="text" name="price" class="form-control" value="{{ old('price') }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="iptu">Valor IPTU <span class="text-danger">*</span></label>
+                                                <input type="text" name="iptu" class="form-control" value="{{ old('value_iptu') ?? '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="value_condominio">Valor Condominio<span class="text-danger">*</span></label>
+                                                <input type="text" name="value_condominio" class="form-control" value="{{ old('value_condominio') ?? '' }}">
                                             </div>
                                         </div>
 

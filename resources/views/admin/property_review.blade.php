@@ -82,11 +82,8 @@
     }
 
     function changeBlogCategoryStatus(id){
-        var isDemo = "{{ env('PROJECT_MODE') }}"
-        if(isDemo == 0){
-            toastr.error('This Is Demo Version. You Can Not Change Anything');
-            return;
-        }
+        var isDemo = 1
+       
 
         $.ajax({
             type:"put",

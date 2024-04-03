@@ -15,7 +15,52 @@
     height: auto;
     background-size: cover;
 }  
+
+  /* Estilizando os botões de seleção */
+  .btn-group .btn-primary {
+    color: #0a547a;
+  }
+
+  .btn-group .btn-primary:not(.active) {
+    background-color: #e9ecef !important;
+  }
+
+  .btn-group .btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #0056b3 !important;
+  }
+
+  .btn-group .btn-primary:not(:disabled):not(.disabled):active:focus {
+    box-shadow: none !important;
+  }
+
+    /* Estilizando os botões personalizados */
+    .custom-btn {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn-primary-filter {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    color: #fff
+  }
+
+  .btn-primary-filter:hover {
+    background-color: #004fa3;
+    border-color: #0056b3;
+    color: #dddddd
+  }
+
+
+  .section-apb{
+    background-color: #F5F7FB;
+    width: 100%;
+  }
+
 </style>
+
+
 
 <!--=====BANNER START=====-->
 <section class="wsus__banner">
@@ -31,15 +76,16 @@
       @csrf
       <div class="d-inline-flex align-items-center">
 
-        <div class="d-inline-block">
-          <div class="form-group input-group-md  border-0 ">
-            <select class="form-control form-control-no-border border-0" id="tipo"  name="purpose_type" >
-              <option value="" disabled selected hidden>O que você precisa ?</option>
-              <option value={{__('user.Rent')}}>{{__('user.Rent')}}</option>
-              <option value={{__('user.Sell')}}>{{__('user.Sell')}}</option>
-            </select>
-          </div>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-primary custom-btn" id="rentBtn">
+            <input type="radio" name="purpose_type" value="{{ __('user.Rent') }}" checked> Alugar
+          </label>
+          <label class="btn btn-primary custom-btn" id="sellBtn">
+            <input type="radio" name="purpose_type" value="{{ __('user.Sell') }}"> Comprar
+          </label>
         </div>
+        
+        
   
         <div class="d-inline-block">
           <div class="form-group input-group-md  border-0 ">
@@ -77,7 +123,7 @@
     
         <div class="d-inline-block">
           <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-md">Buscar Agora</button>
+            <button type="submit" class="btn btn-primary-filter btn-md">Buscar</button>
           </div>
         </div>
       </div>
@@ -145,6 +191,12 @@
 </div>
 </div>
 
+
+<div class="section-apb">
+  <div class="wsus__section_heading text-center p-5">
+    <h2 style="font-size: 5em">APARTAMENTOS BARATOS</h2>
+  </div>
+</div>
 
 @if ($featured_properties->featured_visibility)
     <section class="wsus__popular_properties mt_90 xs_mt_65">
