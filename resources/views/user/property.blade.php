@@ -47,52 +47,6 @@
                                                 <p class="address">{{ $item->address . ', ' . $item->city->translated_name }}
                                                 </p>
 
-                                                @php
-                                                    $total_review = $item->reviews->where('status', 1)->count();
-                                                    if ($total_review > 0) {
-                                                        $avg_sum = $item->reviews->where('status', 1)->sum('avarage_rating');
-
-                                                        $avg = $avg_sum / $total_review;
-                                                        $intAvg = intval($avg);
-                                                        $nextVal = $intAvg + 1;
-                                                        $reviewPoint = $intAvg;
-                                                        $halfReview = false;
-                                                        if ($intAvg < $avg && $avg < $nextVal) {
-                                                            $reviewPoint = $intAvg + 0.5;
-                                                            $halfReview = true;
-                                                        }
-                                                    }
-                                                @endphp
-
-                                                @if ($total_review > 0)
-                                                    <p class="rating">
-                                                        <span>{{ sprintf('%.1f', $reviewPoint) }}</span>
-                                                        @for ($i = 1; $i <= 5; $i++)
-                                                            @if ($i <= $reviewPoint)
-                                                                <i class="fas fa-star"></i>
-                                                            @elseif ($i > $reviewPoint)
-                                                                @if ($halfReview == true)
-                                                                    <i class="fas fa-star-half-alt"></i>
-                                                                    @php
-                                                                        $halfReview = false;
-                                                                    @endphp
-                                                                @else
-                                                                    <i class="fal fa-star"></i>
-                                                                @endif
-                                                            @endif
-                                                        @endfor
-                                                        <span>({{ $total_review }} {{ __('user.Reviews') }})</span>
-                                                    </p class="rating">
-                                                @else
-                                                    <p>
-                                                        <span>0.0</span>
-                                                        @for ($i = 1; $i <= 5; $i++)
-                                                            <i class="fal fa-star"></i>
-                                                        @endfor
-                                                        <span>({{ 0 }} {{ __('user.Reviews') }})</span>
-                                                    </p>
-                                                @endif
-
                                             </td>
                                             <td class="purpose">
                                                 <p>{{ $item->propertyPurpose->translated_custom_purpose }}</p>

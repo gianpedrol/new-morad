@@ -10,12 +10,13 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+        content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Security-Policy" content="media-src 'self' blob:">
     @yield('title')
     @yield('meta')
 
@@ -90,7 +91,9 @@
 
     @include('theme_style')
 
-
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
+    
 </head>
 
 <body>
@@ -263,13 +266,37 @@
     <!--=====MAIN MENU END=====-->
 
     @yield('user-content')
-
+    <style>
+    /* Estilos para o popup do cookies */
+    .wpcc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background-color: rgba(0, 0, 0, 0.5); /* Adicione um fundo escuro semi-transparente */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Estilos para o conteúdo do popup */
+    .wpcc-inner {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 90%;
+      max-height: 90%;
+      overflow: auto;
+    }
+  </style>
 
 
 
 
     @php
-        $footer_contact = App\Models\Footer::first();
+        $footer_contact = App\Models\ContactPage::first();
         $setting = App\Models\Setting::first();
         $modalConsent = App\Models\CookieConsent::first();
         $social_links = App\Models\FooterSocialLink::get();
@@ -336,7 +363,7 @@
                         <a href="{{ route('home') }}" class="footer_logo"><img
                                 src="{{ asset($setting->footer_logo) }}" alt=""></a>
 
-                        <p class="address"><i class="fal fa-location-circle"></i> {!! nl2br(e($footer_contact->translated_address)) !!}</p>
+                        <p class="address"><i class="fal fa-location-circle"></i> {!! nl2br(e($footer_contact->address)) !!}</p>
                         <a class="call_mail" href="javascript:;"><i class="fal fa-phone-alt"></i>
                             {!! nl2br(e($footer_contact->phone)) !!}</a>
                         <a class="call_mail" href="javascript:;"><i class="fal fa-envelope-open"></i>
@@ -409,8 +436,10 @@
         <div class="wsus__copyright mt_45">
             <div class="ontainer">
                 <div class="row">
-                    <div class="col-12 text-center">
-                        <p>Copyright 2024  All Rights Reserved.</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <p>Desenvolvido por </p><img src={{ url('/uploads/website-images/Logo-Branco.png')  }} alt=""style="
+                        max-width: 150px;
+                    ">
                     </div>
                 </div>
             </div>

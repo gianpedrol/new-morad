@@ -99,6 +99,16 @@
                             <div class="input-group input-group-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
+                                        <i class="fad fa-user-circle"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control form-control-lg" type="text" name="creci" id="regName" placeholder="Creci">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
                                         <i class="fas fa-envelope"></i>
                                     </span>
                                 </div>
@@ -185,16 +195,6 @@
 
         $("#registerFormSubmit").on('submit',function(e) {
             e.preventDefault();
-            console.log('hiu');
-
-                // project demo mode check
-                var isDemo=1
-                var demoNotify="{{ env('NOTIFY_TEXT') }}"
-                if(isDemo==0){
-                    toastr.error(demoNotify);
-                    return;
-                }
-                // end
             $("#reg-spinner").removeClass('d-none')
             $("#registerBtn").addClass('custom-opacity')
             $("#registerBtn").attr('disabled',true);

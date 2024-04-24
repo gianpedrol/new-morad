@@ -97,35 +97,35 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 });
 
-Route::group(['middleware' => ['demo', 'XSS', 'translation']], function () {
+Route::group(['middleware' => ['XSS', 'translation']], function () {
 
     Route::group(['middleware' => ['maintainance']], function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
-        Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about.us');
+        Route::get('/sobre', [HomeController::class, 'aboutUs'])->name('about.us');
         Route::get('/career', [HomeController::class, 'career'])->name('career');
         Route::get('/show-career/{slug}', [HomeController::class, 'show_career'])->name('show-career');
         Route::post('/store-career-application', [HomeController::class, 'store_career_application'])->name('store-career-application');
 
         Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
         Route::get('/blog-details/{slug}', [HomeController::class, 'blogDetails'])->name('blog.details');
-        Route::get('/blog-category/{slug}', [HomeController::class, 'blogCategory'])->name('blog.category');
+        Route::get('/categoria/{slug}', [HomeController::class, 'blogCategory'])->name('blog.category');
         Route::get('/blog-search', [HomeController::class, 'blogSearch'])->name('blog.search');
         Route::post('/blog-comment/{id}', [HomeController::class, 'blogComment'])->name('blog.comment');
         Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
-        Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact.us');
+        Route::get('/contato', [HomeController::class, 'contactUs'])->name('contact.us');
         Route::post('contact-message', [ContactController::class, 'sendMessage'])->name('contact.message');
-        Route::get('terms-and-conditions', [HomeController::class, 'termsCondition'])->name('terms-and-conditions');
-        Route::get('privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
-        Route::get('subscribe-us', [HomeController::class, 'subscribeUs'])->name('subscribe-us');
+        Route::get('termos-condicoes', [HomeController::class, 'termsCondition'])->name('terms-and-conditions');
+        Route::get('politica-privacidade', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+        Route::get('inscreva', [HomeController::class, 'subscribeUs'])->name('subscribe-us');
         Route::get('subscription-verify/{token}', [HomeController::class, 'subscriptionVerify'])->name('subscription.verify');
         Route::get('page/{slug}', [HomeController::class, 'customPage'])->name('custom.page');
         Route::get('agents', [HomeController::class, 'agent'])->name('agents');
         Route::get('agent', [HomeController::class, 'agentDetails'])->name('agent.show');
 
-        Route::get('/pricing-plan', [HomeController::class, 'pricingPlan'])->name('pricing.plan');
-        Route::get('/properties', [HomeController::class, 'properties'])->name('properties');
-        Route::get('/property/{slug}', [HomeController::class, 'propertDetails'])->name('property.details');
-        Route::get('search-property', [HomeController::class, 'searchPropertyPage'])->name('search-property');
+        Route::get('/anuncie', [HomeController::class, 'pricingPlan'])->name('pricing.plan');
+        Route::get('/imoveis', [HomeController::class, 'properties'])->name('properties');
+        Route::get('/imovel/{slug}', [HomeController::class, 'propertDetails'])->name('property.details');
+        Route::get('pesquisa-imovel', [HomeController::class, 'searchPropertyPage'])->name('search-property');
 
         Route::post('user-contact-message', [ContactController::class, 'messageForUser'])->name('user.contact.message');
 

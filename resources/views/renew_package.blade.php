@@ -33,7 +33,7 @@
   <section class="wsus__checkout mt_45 mb_45">
     <div class="container">
       <div class="row">
-        <div class="col-xl-2 col-lg-3">
+        <div class="col-xl-2 col-lg-3 col-md-3">
           <div class="wsus__pay_method" id="sticky_sidebar">
             <h5>{{__('user.Payment Method')}}</h5>
             <div class="d-flex align-items-start">
@@ -44,15 +44,12 @@
                 <button class="nav-link" id="mercadopago-tab" data-bs-toggle="pill" data-bs-target="#marcadopagoTab" type="button" role="tab" aria-controls="marcadopagoTab" aria-selected="false">{{__('user.Mercado Pago')}}</button>
                 @endif
 
-                @if ($bank_payment->status==1)
-                <button class="nav-link" id="v-pills-settings-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-settings2" type="button" role="tab" aria-controls="v-pills-settings2" aria-selected="false">{{__('user.Bank Payment')}}</button>
-                @endif
 
               </div>
             </div>
           </div>
         </div>
-        <div class="col-xl-5 col-lg-4">
+        <div class="col-xl-5 col-lg-12 col-md-12">
           <div class="wsus__pay_details" id="sticky_sidebar2">
             <h5>{{__('user.Payment Details')}}</h5>
             <div class="tab-content" id="v-pills-tabContent">
@@ -116,22 +113,7 @@
                     </form>
 
                   </div>
-                @if ($bank_payment->status==1)
-                    <div class="tab-pane fade" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings-tab2">
-                        <p>{!! clean(nl2br(e($bank_payment->account_info))) !!}</p>
 
-                        <form action="{{ route('user.renew.bank-payment') }}" method="POST">
-                            @csrf
-                            <div class="wsus__con_form_single mt_25">
-                                <textarea placeholder="{{__('user.Transaction Information')}}" name="tran_id"  id="" required></textarea>
-                            </div>
-                            <input type="hidden" name="package_id" value="{{ $package->id }}">
-
-                            <button type="submit" class="common_btn">{{__('user.Payment')}}</button>
-                        </form>
-
-                    </div>
-                @endif
 
             </div>
           </div>
@@ -275,157 +257,6 @@
   <!--=====CHECKOUT END=====-->
 
 
-
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-
-<script>
-    // stripe
-    $(function() {
-        var $form = $(".require-validation");
-        $('form.require-validation').bind('submit', function(e) {
-            var $form         = $(".require-validation"),
-            inputSelector = ['input[type=email]', 'input[type=password]',
-                                'input[type=text]', 'input[type=file]',
-                                'textarea'].join(', '),
-            $inputs       = $form.find('.required').find(inputSelector),
-            $errorMessage = $form.find('div.error'),
-            valid         = true;
-            $errorMessage.addClass('d-none');
-
-            $('.has-error').removeClass('has-error');
-            $inputs.each(function(i, el) {
-                var $input = $(el);
-                if ($input.val() === '') {
-                    $input.parent().addClass('has-error');
-                    $errorMessage.removeClass('d-none');
-                    e.preventDefault();
-                }
-            });
-
-            if (!$form.data('cc-on-file')) {
-            e.preventDefault();
-            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-            Stripe.createToken({
-                number: $('.card-number').val(),
-                cvc: $('.card-cvc').val(),
-                exp_month: $('.card-expiry-month').val(),
-                exp_year: $('.card-expiry-year').val()
-            }, stripeResponseHandler);
-            }
-
-        });
-
-        function stripeResponseHandler(status, response) {
-            if (response.error) {
-                $('.error')
-                    .removeClass('d-none')
-                    .find('.alert')
-                    .text(response.error.message);
-            } else {
-                var token = response['id'];
-                $form.find('input[type=text]').empty();
-                $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-                $form.get(0).submit();
-            }
-        }
-    });
-</script>
-
-@php
-    $payable_amount = $package_price * $flutterwave->currency_rate;
-    $payable_amount = round($payable_amount, 2);
-@endphp
-
-
-@php
-    $public_key = $paystack->paystack_public_key;
-    $currency = $paystack->paystack_currency_code;
-    $currency = strtoupper($currency);
-
-    $ngn_amount = $package_price * $paystack->paystack_currency_rate;
-    $ngn_amount = $ngn_amount * 100;
-    $ngn_amount = round($ngn_amount);
-@endphp
-
-
-<script>
-    function makePayment() {
-      FlutterwaveCheckout({
-        public_key: "{{ $flutterwave->public_key }}",
-        tx_ref: "RX1",
-        amount: {{ $payable_amount }},
-        currency: "{{ $flutterwave->currency_code }}",
-        country: "{{ $flutterwave->country_code }}",
-        payment_options: " ",
-        customer: {
-          email: "{{ $user->email }}",
-          phone_number: "{{ $user->phone }}",
-          name: "{{ $user->name }}",
-        },
-        callback: function (data) {
-            var tnx_id = data.transaction_id;
-            var _token = "{{ csrf_token() }}";
-            var package_id = '{{ $package->id }}';
-            $.ajax({
-                type: 'post',
-                data : {tnx_id,_token,package_id},
-                url: "{{ url('user/renew/flutterwave-payment/') }}",
-                success: function (response) {
-                    if(response.status == 'success'){
-                        toastr.success(response.message);
-                        window.location.href = "{{ route('user.my-order') }}";
-                    }else{
-                        toastr.error(response.message);
-                        window.location.reload();
-
-                    }
-                },
-                error: function(err) {}
-            });
-
-        },
-        customizations: {
-          title: "{{ $flutterwave->title }}",
-          logo: "{{ asset($flutterwave->logo) }}",
-        },
-      });
-    }
-
-
-function payWithPaystack(){
-    var package_id = '{{ $package->id }}';
-  var handler = PaystackPop.setup({
-    key: '{{ $public_key }}',
-    email: '{{ $user->email }}',
-    amount: '{{ $ngn_amount }}',
-    currency: "{{ $currency }}",
-    callback: function(response){
-      let reference = response.reference;
-      let tnx_id = response.transaction;
-      let _token = "{{ csrf_token() }}";
-      $.ajax({
-          type: "post",
-          data: {reference, tnx_id, _token, package_id},
-          url: "{{ route('user.renew.paystack-payment') }}",
-          success: function(response) {
-            if(response.status == 'success'){
-                window.location.href = "{{ route('user.my-order') }}";
-            }else{
-                window.location.reload();
-            }
-          }
-      });
-    },
-    onClose: function(){
-        alert('window closed');
-    }
-  });
-  handler.openIframe();
-}
-
-  </script>
 
 
 <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>

@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aminity;
+use App\Models\City;
 use App\Models\LinkJsonProperty;
+use App\Models\NearestLocation;
+use App\Models\Order;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Property;
 use App\Models\PropertyImage;
+use App\Models\PropertyPurpose;
+use App\Models\PropertyType;
 use App\Models\User;
 use Image;
 use Hash;
@@ -15,6 +22,55 @@ use File;
 
 class ApiIntegrationController extends Controller
 {
+
+    /**
+     * @OA\Post(
+     *      path="/api/login",
+     *      operationId="loginApi",
+     *      tags={"Authentication"},
+     *      summary="Login user",
+     *      description="Logs in a user with email and password",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"email","password"},
+     *              @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *              @OA\Property(property="password", type="string", format="password", example="password"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="User logged in successfully",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="User Logged in!"),
+     *              @OA\Property(property="token", type="string", example="JWT token"),
+     *              @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Invalid login credentials",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status", type="string", example="error"),
+     *              @OA\Property(property="message", type="string", example="the login is wrong"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="User is inactive",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="User Inactive"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="User not found",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="User not Found"),
+     *          ),
+     *      ),
+     * )
+     */
 
     public function loginApi(Request $request)
     {
@@ -56,12 +112,86 @@ class ApiIntegrationController extends Controller
     }
 
 
-    public function updateProperty(Request $request, $codeImobApi)
+    /**
+     * @OA\Put(
+     *      path="/api/update-property",
+     *      operationId="updateProperty",
+     *      tags={"Property"},
+     *      summary="Update or create property",
+     *      description="Updates or creates a property based on the provided code",
+     *      @OA\Parameter(
+     *          name="codeImobApi",
+     *          in="path",
+     *          description="Code of the property",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/Property"),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Property updated or created successfully",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Property updated or created successfully"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad request or missing data",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Something Went Wrong"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Package has been expired",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Package has been expired"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Package not found or invalid",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Package not found or invalid"),
+     *          ),
+     *      ),
+     * )
+     */
+    public function updateProperty(Request $request)
     {
 
-        $property = Property::where('code_property_api', $codeImobApi)->first();
+        $property = Property::where('code_property_api', $request->codeImobApi)->first();
 
         $user = Auth::user();
+        $order = Order::where(['user_id' => $user->id, 'status' => 1])->first();
+
+        if (!$order) {
+            return response()->json(['message' => 'Something Went Wrong'], 400);
+        }
+
+        $isExpired = false;
+        if ($order->expired_date != null) {
+            if (date('Y-m-d') > $order->expired_date) {
+                $isExpired = true;
+            }
+        }
+
+        if ($isExpired == true) {
+            return response()->json(['message' => 'Package has been expired'], 400);
+        }
+
+        $package = Package::find($order->package_id);
+        if (!$package || $package->number_of_property == 0) {
+            return response()->json(['message' => 'Package not found or invalid'], 400);
+        }
+
+        $existProperty = Property::where(['user_id' => $user->id])->count();
+        if ($package->number_of_property != -1 && $existProperty >= $package->number_of_property) {
+            return response()->json(['message' => 'Exceeded the limit of allowed properties for this package'], 400);
+        }
         // Se a propriedade não existir, cria uma nova
         if (!$property) {
             $property = new Property();
@@ -129,20 +259,20 @@ class ApiIntegrationController extends Controller
         }
 
         // slider image
-        if ($request->file('slider_images')) {
+        if ($request->has('slider_images')) {
             $images = $request->slider_images;
             foreach ($images as $image) {
-                if ($image != null) {
+                if (!empty($image)) {
+                    // Crie uma nova instância de PropertyImage
                     $propertyImage = new PropertyImage();
-                    $slider_ext = $image->getClientOriginalExtension();
-                    // for small image
-                    $slider_image = 'property-slide-' . date('Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $slider_ext;
-                    $slider_path = 'uploads/custom-images/' . $slider_image;
-                    Image::make($image)
-                        ->save(public_path() . '/' . $slider_path);
 
-                    $propertyImage->image = $slider_path;
+                    // Salve o link da imagem
+                    $propertyImage->image = $image;
+
+                    // Defina o ID da propriedade
                     $propertyImage->property_id = $property->id;
+
+                    // Salve a instância do PropertyImage
                     $propertyImage->save();
                 }
             }
@@ -150,5 +280,46 @@ class ApiIntegrationController extends Controller
 
 
         return response()->json(['message' => 'Propriedade atualizada ou criada com sucesso'], 200);
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/api/get-info-property",
+     *      operationId="getInfoProperty",
+     *      tags={"Property"},
+     *      summary="Get property info",
+     *      description="Gets information about properties for the authenticated user",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Property info retrieved successfully",
+     *          @OA\JsonContent(ref="#/components/schemas/PropertyInfo"),
+     *      ),
+     * )
+     */
+    public function getInfoProperty()
+    {
+
+        $user = Auth::guard('web')->user();
+
+        // Se todas as verificações passarem, permita a criação de um novo imóvel
+        $propertyTypes = PropertyType::where('status', 1)->get();
+        $cities = City::where('status', 1)->get();
+        $purposes = PropertyPurpose::where('status', 1)->get();
+        $aminities = Aminity::where('status', 1)->get();
+        $nearest_locatoins = NearestLocation::where('status', 1)->get();
+        $existFeaturedProperty = Property::where(['user_id' => $user->id, 'is_featured' => 1])->count();
+        $existTopProperty = Property::where(['user_id' => $user->id, 'top_property' => 1])->count();
+        $existUrgentProperty = Property::where(['user_id' => $user->id, 'urgent_property' => 1])->count();
+
+        return response()->json([
+            'propertyTypes' => $propertyTypes,
+            'cities' => $cities,
+            'purposes' => $purposes,
+            'aminities' => $aminities,
+            'nearest_locatoins' => $nearest_locatoins,
+            'existFeaturedProperty' => $existFeaturedProperty,
+            'existTopProperty' => $existTopProperty,
+            'existUrgentProperty' => $existUrgentProperty,
+        ], 200);
     }
 }

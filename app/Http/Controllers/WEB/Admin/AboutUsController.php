@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\WEB\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
 use App\Models\AboutUsTranslation;
@@ -9,6 +11,7 @@ use Illuminate\Http\Request;
 use Image;
 use File;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+
 class AboutUsController extends Controller
 {
     use TranslationTrait;
@@ -26,11 +29,6 @@ class AboutUsController extends Controller
     {
         $rules = [
             'about_us' => 'required',
-            'service' => 'required',
-            'history' => 'required',
-            'team_title' => 'required',
-            'team_description' => 'required',
-            'team_visibility' => 'required',
         ];
         $customMessages = [
             'about_us.required' => trans('admin_validation.About us is required'),
@@ -56,11 +54,6 @@ class AboutUsController extends Controller
             }
         }
         $aboutUs->about_us = $request->about_us;
-        $aboutUs->service = $request->service;
-        $aboutUs->history = $request->history;
-        $aboutUs->team_title = $request->team_title;
-        $aboutUs->team_description = $request->team_description;
-        $aboutUs->team_visibility = $request->team_visibility;
         $aboutUs->save();
         $notification = trans('admin_validation.Updated Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');

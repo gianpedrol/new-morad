@@ -1070,12 +1070,28 @@ class HomeController extends Controller
         $cities = City::with('translation')->where('status', 1)->orderBy('name', 'asc')->get();
 
         $max_number_of_room = Property::with('translation')->where('status', 1)->orderBy('number_of_room', 'desc')->first();
-        $max_number_of_room = $max_number_of_room->number_of_room;
+
+        if ($max_number_of_room) {
+            $max_number_of_room = $max_number_of_room->number_of_room;
+        }
 
         $max_price = Property::where('status', 1)->orderBy('price', 'desc')->first();
         $min_price = Property::where('status', 1)->orderBy('price', 'asc')->first();
-        $minimum_price = $min_price->price;
-        $max_price = $max_price->price;
+
+        if ($max_price) {
+            $max_price = $max_price->price;
+        } else {
+            $max_price = 0;
+        }
+
+        if ($min_price) {
+            $minimum_price = $min_price->price;
+        } else {
+            $minimum_price = 0;
+        }
+
+
+
 
         $price_range = $max_price - $minimum_price;
         $mod_price = $price_range / 10;

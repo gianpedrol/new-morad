@@ -57,6 +57,36 @@
     background-color: #F5F7FB;
     width: 100%;
   }
+  /* Estilos para dispositivos móveis */
+  @media (max-width: 767px) {
+    /* Alinhar os elementos do formulário verticalmente */
+    .wsus__for_search .d-inline-flex {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    /* Ajustar o tamanho dos botões de rádio */
+    .wsus__for_search .btn-group label.btn {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    /* Ajustar o tamanho das selects e inputs */
+    .wsus__for_search select,
+    .wsus__for_search input[type="number"] {
+      width: 100%;
+    }
+
+    .section-apb h2 {
+      font-size: 3em !important;
+      text-align: center /* Tamanho da fonte ajustado para dispositivos móveis */
+    }
+    .navbar-toggler{
+      background-color: #000 !important;
+    }
+  }
+
 
 </style>
 
@@ -65,9 +95,10 @@
 <!--=====BANNER START=====-->
 <section class="wsus__banner">
   <div class="row" id="bgVideo">
-
-    <video autoplay muted loop >
-      <source src={{ asset('uploads/website-images/banner.mp4') }} type="video/mp4">
+    <video class="slider-video video-imob" preload="auto" playsinline="" webkit-playsinline="" autoplay="" muted="" loop="" data-origwidth="0" data-origheight="0" style="width: 1663px;">
+      <source type="video/mp4" src={{ asset('uploads/website-images/banner.mp4') }} >
+      <source type="video/webm" src="{{ asset('uploads/website-images/banner.webm') }}"> 
+      <source type="video/webm" src="{{ asset('uploads/website-images/banner.mov') }}"> 
   </video>
 
   </div>
@@ -75,22 +106,34 @@
     <form method="GET" action="{{ route('search-property') }}" class="bg-white p-3">
       @csrf
       <div class="d-inline-flex align-items-center">
-
-        <div class="btn-group" data-toggle="buttons">
-          <label class="btn btn-primary custom-btn" id="rentBtn">
-            <input type="radio" name="purpose_type" value="{{ __('user.Rent') }}" checked> Alugar
-          </label>
-          <label class="btn btn-primary custom-btn" id="sellBtn">
-            <input type="radio" name="purpose_type" value="{{ __('user.Sell') }}"> Comprar
-          </label>
+        <!-- Mostrar select apenas em dispositivos móveis -->
+        <div class="d-md-none">
+          <div class="form-group input-group-md border-0">
+            <select class="form-control border-0" name="purpose_type">
+              <option value="{{ __('user.Rent') }}" selected>Alugar</option>
+              <option value="{{ __('user.Sell') }}">Comprar</option>
+            </select>
+          </div>
         </div>
         
+        <!-- Mostrar botões de rádio apenas em desktop -->
+        <div class="d-none d-md-block">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary custom-btn" id="rentBtn">
+              <input type="radio" name="purpose_type" value="{{ __('user.Rent') }}" checked> Alugar
+            </label>
+            <label class="btn btn-primary custom-btn" id="sellBtn">
+              <input type="radio" name="purpose_type" value="{{ __('user.Sell') }}"> Comprar
+            </label>
+          </div>
+        </div>
+        <!-- Fim dos botões de rádio -->
         
   
         <div class="d-inline-block">
           <div class="form-group input-group-md  border-0 ">
             <select  class="form-control form-control-no-border border-0" name="property_type">
-              <option value="">Tipo de Imóvel</option>
+              <option value="">Imóvel</option>
               @foreach ($propertyTypes as $property_type_item)
                   <option value="{{ $property_type_item->id }}">{{ $property_type_item->translated_type }}</option>
               @endforeach
@@ -113,13 +156,28 @@
           <div class="form-group input-group-md  border-0 ">
              <select class="form-control form-control-no-border border-0" id="cidade" name="city_id">
               <!-- Adicione as opções de cidades conforme necessário -->
-              <option value="">Selecione a cidade</option>
+              <option value="">Cidade</option>
               @foreach ($cities as $city_item)
               <option value="{{ $city_item->id }}">{{ $city_item->translated_name }}</option>
               @endforeach
             </select>
           </div>
         </div>
+
+               <!-- Intervalo de preço -->
+               <div class="d-inline-block">
+                <div class="form-group input-group-md border-0">
+                    <label for="min_price">Preço Mínimo:</label>
+                    <input type="number" id="min_price" name="min_price" class="form-control form-control-no-border border-0" placeholder="R$ 1.000,00">
+                </div>
+            </div>
+    
+            <div class="d-inline-block">
+                <div class="form-group input-group-md border-0">
+                    <label for="max_price">Preço Máximo:</label>
+                    <input type="number" id="max_price" name="max_price" class="form-control form-control-no-border border-0" placeholder="R$ 1.000.000,00">
+                </div>
+            </div>
     
         <div class="d-inline-block">
           <div class="form-group">

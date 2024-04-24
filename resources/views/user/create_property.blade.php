@@ -207,13 +207,7 @@
                             <div class="col-md-9">
                                 <div class="wsus__property_input">
                                     <label for="#">{{__('user.Image')}} <span class="text-danger">*</span></label>
-                                    <input type="file" name="slider_images[]">
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="medicine_row_input">
-                                    <button class="mt_30" type="button" id="addDynamicImgBtn"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                                    <input type="file" name="slider_images[]" multiple="multiple">
                                 </div>
                             </div>
                         </div>

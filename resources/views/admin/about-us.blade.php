@@ -62,15 +62,6 @@
                                             <textarea name="about_us" cols="30" rows="10" class="summernote">{{ $aboutUs->about_us }}</textarea>
                                         </div>
 
-                                        <div class="form-group col-12">
-                                            <label>{{ __('admin.Service') }} <span class="text-danger">*</span></label>
-                                            <textarea name="service" cols="30" rows="10" class="summernote">{{ $aboutUs->service }}</textarea>
-                                        </div>
-
-                                        <div class="form-group col-12">
-                                            <label>{{ __('admin.History') }} <span class="text-danger">*</span></label>
-                                            <textarea name="history" cols="30" rows="10" class="summernote">{{ $aboutUs->history }}</textarea>
-                                        </div>
 
                                         <div class="form-group col-12">
                                             <label for="">{{ __('admin.Team Title') }}</label>

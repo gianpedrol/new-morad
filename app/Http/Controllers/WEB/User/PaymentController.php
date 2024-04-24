@@ -64,7 +64,7 @@ class PaymentController extends Controller
             $package_price = $package->price;
             $mercadopagoPaymentInfo = MercadopagoPayment::first();
 
-            return view('renew_package', compact('banner_image', 'currency', 'setting', 'package', 'package_price', '', 'paymentSetting', '', 'user', 'bank_payment', 'mercadopagoPaymentInfo'));
+            return view('renew_package', compact('banner_image', 'currency', 'setting', 'package', 'package_price', 'user', 'mercadopagoPaymentInfo'));
         } else {
             $notification = trans('user_validation.Something Went Wrong');
             $notification = array('messege' => $notification, 'alert-type' => 'error');

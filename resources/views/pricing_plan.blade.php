@@ -54,59 +54,6 @@
                         @else
                         <li>{{ $item->number_of_property }} {{__('user.Propertiy Submission')}}</li>
                         @endif
-
-                        @if ($item->number_of_aminities==-1)
-                        <li>{{__('user.Unlimited Aminity')}}</li>
-                        @else
-                        <li>{{ $item->number_of_aminities }} {{__('user.Aminity')}}</li>
-                        @endif
-
-                        @if ($item->number_of_nearest_place==-1)
-                        <li>{{__('user.Unlimited Nearest Place')}}</li>
-                        @else
-                        <li>{{ $item->number_of_nearest_place }} {{__('user.Nearest Place')}}</li>
-                        @endif
-                        @if ($item->number_of_photo==-1)
-                        <li>{{__('user.Unlimited Photo')}}</li>
-                        @else
-                        <li>{{ $item->number_of_photo }} {{__('user.Photo')}}</li>
-                        @endif
-
-                        @if ($item->is_featured==1)
-                            <li>{{__('user.Featured Property')}}</li>
-                        @else
-                        <li class="delete">{{__('user.Featured Property')}}</li>
-                        @endif
-
-                        @if ($item->number_of_feature_property==-1)
-                        <li>{{__('user.Unlimited Featured Property')}}</li>
-                        @else
-                        <li>{{ $item->number_of_feature_property }} {{__('user.Featured Property')}}</li>
-                        @endif
-
-
-                        @if ($item->is_top==1)
-                            <li>{{__('user.Top Property')}}</li>
-                        @else
-                        <li class="delete">{{__('user.Top Property')}}</li>
-                        @endif
-                        @if ($item->number_of_top_property==-1)
-                        <li>{{__('user.Unlimited Top Property')}}</li>
-                        @else
-                        <li>{{ $item->number_of_top_property }} {{__('user.Top Property')}}</li>
-                        @endif
-
-
-                        @if ($item->is_urgent==1)
-                            <li>{{__('user.Urgent Property')}}</li>
-                        @else
-                        <li class="delete">{{__('user.Urgent Property')}}</li>
-                        @endif
-                        @if ($item->number_of_urgent_property==-1)
-                        <li>{{__('user.Unlimited Urgent Property')}}</li>
-                        @else
-                        <li>{{ $item->number_of_urgent_property }} {{__('user.Urgent Property')}}</li>
-                        @endif
                     </ul>
                     @if ($item->package_type == 0)
                     <a href="javascript:;" onclick="freeEnroll('{{ $item->id }}')" class="common_btn">{{__('user.Start With')}} {{ $item->translated_package_name }}</a>
