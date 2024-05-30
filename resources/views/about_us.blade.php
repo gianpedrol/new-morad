@@ -34,7 +34,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-5 col-lg-5">
-        <div class="wsus__about_img about_page_img">
+        <div >
           <img src="{{ asset($about->image) }}" alt="about images" class="img-fluid w-100">
         </div>
       </div>

@@ -95,6 +95,40 @@
     <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
     
 </head>
+<style>
+div.wpcc-float {
+    width: 1250px  !important;
+    max-width: 100% !important;
+}
+.wsus__topbar,
+    .common_btn,
+    .login_icon a:hover,
+    .wsus__single_property_img .rent,
+    .wsus__single_property_text .tk,
+    .wsus__popular_text ul li,
+    .wsus__scroll_btn,
+    .wsus__blog_text .comment,
+    .wsus__testimonial .prv_arr,
+    .wsus__testimonial .nxt_arr,
+    .wsus__search_property h3,
+    .common_btn2:hover,
+    .wsus__footer_content .address i,
+    .wsus__footer_content .call_mail i,
+    .pro_det_slider .slick-dots li.slick-active button,
+    .wsus__single_det_top .tk,
+    .wsus__single_det_top .sale,
+    .wsus__single_det_top .rent,
+    .wsus__pro_det_top_rating span,
+    .list_view .rent,
+    .list_view .sale,
+    .wsus__round_area,
+    .razorpay-payment-button,
+    .wsus__search_categoy ul li a span,
+    .wsus__my_property .actions ul li a,
+    .large_subscribe form button {
+        background: #5757579f !important;
+    }
+</style>
 
 <body>
 

@@ -139,9 +139,9 @@
                                     </div>
                                     <div class="wsus__single_property_text">
                                         @if ($item->property_purpose_id==1)
-                                            <span class="tk">{{ $currency }}{{ $item->price }}</span>
+                                           <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span>
                                         @elseif ($item->property_purpose_id==2)
-                                        <span class="tk">{{ $currency }}{{ $item->price }} /
+                                       <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span> /
                                             @if ($item->period=='Daily')
                                             <span>{{__('user.Daily')}}</span>
                                             @elseif ($item->period=='Monthly')
@@ -161,48 +161,6 @@
                                         <div class="wsus__single_property_footer d-flex justify-content-between align-items-center">
                                             <a href="{{ route('search-property',['page_type' => 'list_view','property_type' => $item->propertyType->id]) }}" class="category">{{ $item->propertyType->translated_type }}</a>
 
-                                        @php
-                                            $total_review=$item->reviews->where('status',1)->count();
-                                            if($total_review > 0){
-                                                $avg_sum=$item->reviews->where('status',1)->sum('avarage_rating');
-
-                                                $avg=$avg_sum/$total_review;
-                                                $intAvg=intval($avg);
-                                                $nextVal=$intAvg+1;
-                                                $reviewPoint=$intAvg;
-                                                $halfReview=false;
-                                                if($intAvg < $avg && $avg < $nextVal){
-                                                    $reviewPoint= $intAvg + 0.5;
-                                                    $halfReview=true;
-                                                }
-                                            }
-                                        @endphp
-
-                                        @if ($total_review > 0)
-                                            <span class="rating">{{ sprintf("%.1f", $reviewPoint) }}
-
-                                            @for ($i = 1; $i <=5; $i++)
-                                                @if ($i <= $reviewPoint)
-                                                    <i class="fas fa-star"></i>
-                                                @elseif ($i> $reviewPoint )
-                                                    @if ($halfReview==true)
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                        @php
-                                                            $halfReview=false
-                                                        @endphp
-                                                    @else
-                                                    <i class="fal fa-star"></i>
-                                                    @endif
-                                                @endif
-                                            @endfor
-                                            </span>
-                                        @else
-                                            <span class="rating">0.0
-                                                @for ($i = 1; $i <=5; $i++)
-                                                <i class="fal fa-star"></i>
-                                                @endfor
-                                            </span>
-                                        @endif
                                         </div>
                                     </div>
                                     </div>
@@ -226,10 +184,10 @@
 
                                     </div>
                                     <div class="wsus__single_property_text">
-                                        @if ($item->property_purpose_id==1)
-                                            <span class="tk">{{ $currency }}{{ $item->price }}</span>
+                                        @if ($item->property_purpose_id==1)  <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span>
+                                           </span>
                                         @elseif ($item->property_purpose_id==2)
-                                        <span class="tk">{{ $currency }}{{ $item->price }} /
+                                         <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span> /
                                             @if ($item->period=='Daily')
                                             <span>{{__('user.Daily')}}</span>
                                             @elseif ($item->period=='Monthly')
@@ -249,48 +207,8 @@
                                         <div class="wsus__single_property_footer d-flex justify-content-between align-items-center">
                                             <a href="{{ route('search-property',['page_type' => 'list_view','property_type' => $item->propertyType->id]) }}" class="category">{{ $item->propertyType->translated_type }}</a>
 
-                                        @php
-                                            $total_review=$item->reviews->where('status',1)->count();
-                                            if($total_review > 0){
-                                                $avg_sum=$item->reviews->where('status',1)->sum('avarage_rating');
 
-                                                $avg=$avg_sum/$total_review;
-                                                $intAvg=intval($avg);
-                                                $nextVal=$intAvg+1;
-                                                $reviewPoint=$intAvg;
-                                                $halfReview=false;
-                                                if($intAvg < $avg && $avg < $nextVal){
-                                                    $reviewPoint= $intAvg + 0.5;
-                                                    $halfReview=true;
-                                                }
-                                            }
-                                        @endphp
 
-                                        @if ($total_review > 0)
-                                            <span class="rating">{{ sprintf("%.1f", $reviewPoint) }}
-
-                                            @for ($i = 1; $i <=5; $i++)
-                                                @if ($i <= $reviewPoint)
-                                                    <i class="fas fa-star"></i>
-                                                @elseif ($i> $reviewPoint )
-                                                    @if ($halfReview==true)
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                        @php
-                                                            $halfReview=false
-                                                        @endphp
-                                                    @else
-                                                    <i class="fal fa-star"></i>
-                                                    @endif
-                                                @endif
-                                            @endfor
-                                            </span>
-                                        @else
-                                            <span class="rating">0.0
-                                                @for ($i = 1; $i <=5; $i++)
-                                                <i class="fal fa-star"></i>
-                                                @endfor
-                                            </span>
-                                        @endif
                                         </div>
                                     </div>
                                     </div>
@@ -329,9 +247,9 @@
                                         @endif
 
                                         @if ($item->property_purpose_id==1)
-                                            <span class="tk">{{ $currency }}{{ $item->price }}</span>
+                                        <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span>
                                         @elseif ($item->property_purpose_id==2)
-                                        <span class="tk">{{ $currency }}{{ $item->price }} /
+                                        <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span> /
                                             @if ($item->period=='Daily')
                                             <span>{{__('user.Daily')}}</span>
                                             @elseif ($item->period=='Monthly')
@@ -417,9 +335,9 @@
                                         @endif
 
                                         @if ($item->property_purpose_id==1)
-                                            <span class="tk">{{ $currency }}{{ $item->price }}</span>
+                                             <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span>
                                         @elseif ($item->property_purpose_id==2)
-                                        <span class="tk">{{ $currency }}{{ $item->price }} /
+                                         <span class="tk">{{ $currency }}{{ number_format($item->price, 2, ',', '.') }}</span> /
                                             @if ($item->period=='Daily')
                                             <span>{{__('user.Daily')}}</span>
                                             @elseif ($item->period=='Monthly')

@@ -322,4 +322,164 @@ class ApiIntegrationController extends Controller
             'existUrgentProperty' => $existUrgentProperty,
         ], 200);
     }
+
+    public function importMoradImoveis()
+    {
+        // URL do XML
+        $url = 'https://www.moradimoveis.com.br/apb_vrsync_feed.php';
+
+        // Carregar o XML da URL
+        $xml = simplexml_load_file($url);
+
+        // Verificar se o XML foi carregado com sucesso
+        if ($xml === false) {
+            return json_encode(['error' => 'Falha ao carregar o XML']);
+        }
+
+        // Inicializar um array para armazenar os resultados
+        $listings = array();
+
+        // Iterar sobre cada elemento Listing no XML
+        foreach ($xml->Listings->Listing as $listing) {
+            // Inicializar um array para armazenar os dados do listing atual
+            $listingData = array();
+
+            // Iterar sobre os elementos dentro do listing atual
+            foreach ($listing->children() as $element) {
+                // Verificar se o elemento é do tipo "Media"
+                if ($element->getName() == 'Media') {
+                    // Inicializar um array para armazenar as URLs das imagens
+                    $images = array();
+
+                    // Iterar sobre os elementos "Item" dentro de "Media"
+                    foreach ($element->children() as $item) {
+                        // Extrair a URL da imagem do elemento CDATA
+                        $image_url = (string)$item;
+
+                        // Adicionar a URL da imagem ao array de imagens
+                        $images[] = $image_url;
+                    }
+
+                    // Adicionar o array de URLs de imagens aos dados do listing
+                    $listingData['Media'] = $images;
+                } else {
+                    // Verificar se o elemento é do tipo "Details" ou "Location"
+                    if ($element->getName() == 'Details' || $element->getName() == 'Location') {
+                        // Inicializar um array para armazenar os dados do elemento
+                        $details = array();
+
+                        // Iterar sobre os elementos dentro de "Details" ou "Location"
+                        foreach ($element->children() as $subElement) {
+                            // Remover espaços em branco e caracteres de tabulação do valor do subelemento
+                            $value = trim((string)$subElement);
+
+                            // Adicionar o valor do subelemento ao array de dados do detalhe ou localização
+                            $details[$subElement->getName()] = $value;
+                        }
+
+                        // Adicionar o array de dados de detalhe ou localização aos dados do listing
+                        $listingData[$element->getName()] = $details;
+                    } else {
+                        // Remover espaços em branco e caracteres de tabulação do valor do elemento
+                        $value = trim((string)$element);
+
+                        // Adicionar o valor do elemento ao array de dados do listing
+                        $listingData[$element->getName()] = $value;
+                    }
+                }
+            }
+
+            // Adicionar os dados do listing ao array de resultados
+            $listings[] = $listingData;
+        }
+
+        // Converter o array de resultados em JSON
+        $json = json_encode($listings);
+        // Decodificar o JSON para um array
+        $listingsArray = json_decode($json, true);
+
+        // Verificar se a decodificação foi bem-sucedida
+        if ($listingsArray === null) {
+            // Lidar com erros de decodificação, se necessário
+            echo "Erro ao decodificar o JSON.";
+        } else {
+            // Iterar sobre os listings
+            foreach ($listingsArray as $listing) {
+                $property = Property::where('code_property_api', $listing['ListingID'])->first();
+
+                $city = City::where('name', $listing['Location']['City'])->first();
+
+                // Se a propriedade não existir, cria uma nova
+                if (!$property) {
+                    $property = new Property();
+                }
+
+                // dd($listing['Media']);
+
+                if ($listing['Details']['PropertyType'] == 'Residential / Apartment' && $city) {
+                    //dd($listing);
+                    // Atualiza as informações da propriedade
+                    $property->user_id = 1;
+                    $property->status = 1;
+                    $property->thumbnail_image = $listing['Media'][1];
+                    $property->banner_image = $listing['Media'][1];
+                    $property->code_property_api = $listing['ListingID'];
+                    $property->value_condominio = $listing['Details']['PropertyAdministrationFee'];
+                    $property->value_iptu = $listing['Details']['YearlyTax'];
+                    $property->title = $listing['Title'];
+                    $property->slug = $listing['Title'];
+                    $property->property_type_id = 4;
+                    $property->city_id = $city->id;
+                    $property->address = $listing['Location']['Address'];
+                    $property->phone = '';
+                    $property->email = '';
+                    $property->website = '';
+                    $property->property_purpose_id = $listing['TransactionType'] == "For Sale" ? 1 : 2;
+                    $property->price = $listing['TransactionType'] == 'For Sale' ? $listing['Details']['ListPrice'] : $listing['Details']['RentalPrice'];
+                    $property->period = null;
+                    $property->area = $listing['Details']['LivingArea'];
+                    $property->number_of_unit = '';
+                    $property->number_of_room = '';
+                    $property->number_of_bedroom = $listing['Details']['Bedrooms'];
+                    $property->number_of_bathroom = $listing['Details']['Bathrooms'];
+                    $property->number_of_floor =  $listing['Details']['UnitFloor'];
+                    $property->number_of_kitchen = '';
+                    $property->number_of_parking = $listing['Details']['Garage'];;
+                    $property->google_map_embed_code = '';
+                    $property->description = $listing['Details']['Description'];
+                    //$property->featured  = 0;
+                    //$property->urgent_property = 0;
+                    $property->top_property =  0;
+                    $property->seo_title = $listing['Title'];
+                    $property->seo_description = $listing['Title'];
+
+                    // Salva a propriedade
+                    $property->save();
+                    foreach ($listing['Media'] as $image) {
+
+                        if (!empty($image)) {
+                            // Crie uma nova instância de PropertyImage
+                            $propertyImage = new PropertyImage();
+
+                            // Salve o link da imagem
+                            $propertyImage->image = $image;
+
+                            // Defina o ID da propriedade
+                            $propertyImage->property_id = $property->id;
+
+                            // Salve a instância do PropertyImage
+                            $propertyImage->save();
+                        }
+                    }
+                }
+            }
+
+            // Após o processo de importação bem-sucedido
+            session()->flash('success', 'Carga de imóveis atualizada com sucesso.');
+
+
+            // Redirecionar para a mesma página
+            return redirect()->back();
+        }
+    }
 }

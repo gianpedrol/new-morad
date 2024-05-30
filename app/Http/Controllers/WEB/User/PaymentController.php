@@ -42,6 +42,7 @@ use App\Models\CurrencyCountry;
 use App\Models\Currency;
 use App\Models\BreadcrumbImage;
 use App\Models\MercadopagoPayment;
+use GuzzleHttp\RequestOptions;
 
 class PaymentController extends Controller
 {
@@ -81,16 +82,6 @@ class PaymentController extends Controller
         if ($package) {
             if ($package->package_type == 0) {
 
-                // project demo mode check
-                if (env('PROJECT_MODE') == 0) {
-                    $notification = array(
-                        'messege' => env('NOTIFY_TEXT'),
-                        'alert-type' => 'error'
-                    );
-
-                    return redirect()->back()->with($notification);
-                }
-                // end
 
                 $setting = Setting::first();
                 $activeOrder = Order::where(['user_id' => $user->id, 'status' => 1])->count();
@@ -560,9 +551,14 @@ class PaymentController extends Controller
             $payment->payer = array(
                 "email" => "user@gmail.com"
             );
-            $payment->save();
+            // Cria um array com os cabeçalhos personalizados
+            $custom_headers = ["X-Idempotency-Key: " . uniqid()];
+
+            // Executa o pagamento passando o array de cabeçalhos personalizados
+            $payment->save($custom_headers);
         } catch (Exception $ex) {
 
+            dd($ex);
             $notification = trans('user_validation.Payment Faild');
             $notification = array('messege' => $notification, 'alert-type' => 'error');
 

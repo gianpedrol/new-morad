@@ -60,11 +60,7 @@
             
 
 
-                <div class="tab-pane fade" id="paystackTab" role="tabpanel" aria-labelledby="paystack-tab">
-
-
-
-                  <div class="tab-pane fade" id="marcadopagoTab" role="tabpanel" aria-labelledby="mercadopago-tab">
+                 <div class="tab-pane fade" id="marcadopagoTab" role="tabpanel" aria-labelledby="mercadopago-tab">
 
 
                     <form action="{{ route('user.pay-with-mercadopago') }}" method="POST" id="mercadopago" >

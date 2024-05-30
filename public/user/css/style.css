@@ -22,7 +22,7 @@ span {
     font-size: 16px;
     font-weight: 400;
     margin: 0;
-    color: #0A547A;
+    color: #0a547a;
 }
 
 h1,
@@ -31,25 +31,25 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 body {
     overflow-x: hidden;
     scroll-behavior: smooth;
-    font-family: 'Poppins', sans-serif;
-    color: #0A547A;
+    font-family: "Poppins", sans-serif;
+    color: #0a547a;
 }
 
 input:focus-visible,
@@ -67,7 +67,6 @@ textarea:focus-visible {
     box-shadow: none;
 }
 
-
 /* =====COMMON CSS START===== */
 
 .common_btn {
@@ -78,11 +77,11 @@ textarea:focus-visible {
     padding: 10px 30px;
     font-weight: 600;
     border-radius: 5px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
@@ -90,22 +89,22 @@ textarea:focus-visible {
 }
 
 .common_btn:hover {
-    background: #0A547A;
+    background: #0a547a;
     color: #fff;
 }
 
 .common_btn2 {
     text-transform: capitalize;
-    background: #0A547A;
+    background: #0a547a;
     color: #fff;
     display: inline-block;
     border-radius: 3px;
     padding: 5px 10px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .common_btn2:hover {
@@ -122,17 +121,14 @@ textarea:focus-visible {
 }
 
 .wsus__section_heading span {
-    color: #0A547A;
+    color: #0a547a;
 }
 
-
 /* =====COMMON CSS END======= */
-
 
 /* ==============================
 	HOME PAGE START
 ================================ */
-
 
 /* =====TOPBAR START===== */
 
@@ -166,11 +162,11 @@ textarea:focus-visible {
     width: 40px;
     height: 40px;
     text-align: center;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__topbar_right li a:hover {
@@ -182,9 +178,7 @@ textarea:focus-visible {
     border-left: 1px solid #ffffff57;
 }
 
-
 /* =====TOPBAR END======= */
-
 
 /* =====MAIN MENU START===== */
 
@@ -209,13 +203,13 @@ textarea:focus-visible {
     text-transform: uppercase;
     font-size: 15px;
     margin: 0px 15px;
-    color: #0A547A;
+    color: #0a547a;
     position: relative;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     line-height: 80px;
     font-weight: 500;
 }
@@ -241,16 +235,16 @@ textarea:focus-visible {
 }
 
 .main_menu .dropdown-menu li a {
-    color: #0A547A;
+    color: #0a547a;
     margin: 0 !important;
     line-height: 35px !important;
     padding: 7px 15px !important;
     border-bottom: 1px solid #eee;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s;
-    -moz-transition: all linear .3s;
-    -ms-transition: all linear .3s;
-    -o-transition: all linear .3s;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s;
+    -moz-transition: all linear 0.3s;
+    -ms-transition: all linear 0.3s;
+    -o-transition: all linear 0.3s;
     text-transform: capitalize;
     font-size: 15px;
 }
@@ -266,18 +260,18 @@ textarea:focus-visible {
 }
 
 .login_icon a {
-    background: #0A547A;
+    background: #0a547a;
     color: #fff;
     text-transform: uppercase;
     font-size: 14px;
     padding: 10px 20px;
     border-radius: 5px;
     font-weight: 500;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .login_icon a i {
@@ -317,9 +311,7 @@ textarea:focus-visible {
     }
 }
 
-
 /* =====MAIN MENU END======= */
-
 
 /* =====BANNER START===== */
 
@@ -348,7 +340,7 @@ textarea:focus-visible {
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
-    background: #0A547AD1;
+    background: #0a547ad1;
     padding: 30px;
     border-radius: 5px;
     width: 400px;
@@ -361,11 +353,11 @@ textarea:focus-visible {
     margin: 0;
     text-align: center;
     text-transform: capitalize;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     display: block;
 }
 
@@ -436,7 +428,7 @@ textarea:focus-visible {
     top: 52%;
     right: 13px;
     transform: translateY(-50%);
-    background: #0A547AD1;
+    background: #0a547ad1;
     padding: 20px;
     border-radius: 5px;
     width: 330px;
@@ -487,15 +479,26 @@ textarea:focus-visible {
     border-radius: 3px;
 }
 
-.wsus__serach_single .select2-container--default .select2-selection--single .select2-selection__rendered {
+.wsus__serach_single
+    .select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
     color: #fff;
 }
 
-.wsus__serach_single .select2-container--default .select2-selection--single .select2-selection__arrow b {
+.wsus__serach_single
+    .select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
     border-color: #fff transparent transparent transparent;
 }
 
-.wsus__serach_single .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+.wsus__serach_single
+    .select2-container--default.select2-container--open
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
     border-color: transparent transparent #fff transparent;
 }
 
@@ -532,9 +535,7 @@ textarea:focus-visible {
     background-color: #f02c2d;
 }
 
-
 /* =====BANNER END======= */
-
 
 /* =====ABOUT START===== */
 
@@ -572,7 +573,7 @@ textarea:focus-visible {
 
 .wsus__about_counter_single {
     border-radius: 5px;
-    border: 1px solid #0A547A24;
+    border: 1px solid #0a547a24;
     background: #f5f7fb;
     margin-top: 25px;
     display: flex;
@@ -587,7 +588,7 @@ textarea:focus-visible {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0A547AD9;
+    background: #0a547ad9;
     color: #fff;
     overflow: hidden;
 }
@@ -615,14 +616,12 @@ textarea:focus-visible {
     font-weight: 500;
     text-transform: capitalize;
     margin-top: 5px;
-    color: #0A547AD9;
+    color: #0a547ad9;
     text-align: center;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
-
 /* =====ABOUT END======= */
-
 
 /* =====NEW PROPERTIES START===== */
 
@@ -648,7 +647,7 @@ textarea:focus-visible {
 
 .wsus__single_property_img .sale,
 .wsus__single_property_img .rent {
-    background: #0A547A;
+    background: #0a547a;
     padding: 5px 0px;
     text-transform: capitalize;
     color: #fff;
@@ -690,7 +689,7 @@ textarea:focus-visible {
     font-weight: 700;
     font-size: 16px;
     border-radius: 3px;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__single_property_text .tk span {
@@ -700,21 +699,21 @@ textarea:focus-visible {
 }
 
 .wsus__single_property_text .title {
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 20px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__single_property_text .title:hover {
@@ -722,7 +721,7 @@ textarea:focus-visible {
 }
 
 .wsus__single_property_text ul li {
-    color: #0A547AD9;
+    color: #0a547ad9;
     font-size: 14px;
     text-transform: capitalize;
     display: flex;
@@ -733,7 +732,7 @@ textarea:focus-visible {
     width: 22px;
     height: 22px;
     background: #fff;
-    color: #0A547A;
+    color: #0a547a;
     text-align: center;
     font-size: 10px;
     line-height: 22px;
@@ -751,20 +750,20 @@ textarea:focus-visible {
     font-size: 15px;
     font-weight: 500;
     color: #f02c2d;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__single_property_footer .category:hover {
-    color: #0A547A;
+    color: #0a547a;
 }
 
 .wsus__single_property_footer .rating {
     font-weight: 900;
-    color: #E7B800;
+    color: #e7b800;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -776,9 +775,7 @@ textarea:focus-visible {
     margin-top: -2px;
 }
 
-
 /* =====NEW PROPERTIES END======= */
-
 
 /* =====POPULAR PROPERTIES START===== */
 
@@ -790,11 +787,11 @@ textarea:focus-visible {
     margin-bottom: 25px;
     border: 1px solid #eee;
     position: relative;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__popular_text {
@@ -808,13 +805,6 @@ textarea:focus-visible {
     align-items: center;
     padding: 20px;
     left: 0;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s;
-    -moz-transition: all linear .3s;
-    -ms-transition: all linear .3s;
-    -o-transition: all linear .3s;
-    background: rgb(10, 85, 122);
-    background: linear-gradient(0deg, rgba(10, 85, 122, 1) 0%, rgba(10, 85, 122, 0.8324463574492297) 21%, rgba(10, 85, 122, 0) 100%);
 }
 
 .wsus__popular_text h4 {
@@ -835,7 +825,7 @@ textarea:focus-visible {
     text-transform: capitalize;
     font-size: 13px;
     margin: 0px 5px;
-    background: #f02c2d;
+    background: #d8d8d8b6 !important;
     padding: 1px 7px;
     border-radius: 3px;
 }
@@ -856,9 +846,7 @@ textarea:focus-visible {
     height: 100%;
 }
 
-
 /* =====POPULAR PROPERTIES END======= */
-
 
 /* =====TOP PROPERTIES  START===== */
 
@@ -893,7 +881,7 @@ textarea:focus-visible {
     color: #f02c2d;
     font-weight: 600;
     font-size: 18px;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__top_properties_text p span {
@@ -905,27 +893,25 @@ textarea:focus-visible {
     text-align: center;
     display: block;
     font-size: 18px;
-    color: #0A547A;
+    color: #0a547a;
     font-weight: 600;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__top_properties_text a:hover {
     color: #f02c2d;
 }
 
-
 /* =====TOP PROPERTIES  END======= */
-
 
 /* =====SERVICE START===== */
 
@@ -936,7 +922,7 @@ textarea:focus-visible {
 }
 
 .wsus__services_overlay {
-    background: #0A547AAB;
+    background: #0a547aab;
 }
 
 .wsus__services_heading {
@@ -998,7 +984,7 @@ textarea:focus-visible {
     position: absolute;
     bottom: -30px;
     right: -30px;
-    opacity: .15;
+    opacity: 0.15;
 }
 
 .wsus__single_service span i {
@@ -1006,9 +992,7 @@ textarea:focus-visible {
     font-size: 100px;
 }
 
-
 /* =====SERVICE END======= */
-
 
 /* =====BLOG START===== */
 
@@ -1062,12 +1046,12 @@ textarea:focus-visible {
     position: absolute;
     top: -13px;
     left: 25px;
-    background: #0A547A;
+    background: #0a547a;
     border-radius: 3px;
 }
 
 .wsus__blog_text .blog_date span {
-    background: #0A547A;
+    background: #0a547a;
     padding: 1.5px 8px;
     color: #fff;
     text-transform: capitalize;
@@ -1107,20 +1091,20 @@ textarea:focus-visible {
 }
 
 .wsus__blog_text .blog_title {
-    color: #0A547A;
+    color: #0a547a;
     font-size: 22px;
     font-weight: 600;
     margin: 15px 0px 13px 0px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__blog_text .blog_title:hover {
@@ -1140,14 +1124,12 @@ textarea:focus-visible {
 }
 
 .blog_header_images span {
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 16px;
 }
 
-
 /* =====BLOG END======= */
-
 
 /* =====TESTIMONIAL START===== */
 
@@ -1175,7 +1157,7 @@ textarea:focus-visible {
 }
 
 .wsus__testi_img {
-    border-right: 1px dashed #0A547A70;
+    border-right: 1px dashed #0a547a70;
     height: 100%;
     position: relative;
     overflow: hidden;
@@ -1186,7 +1168,7 @@ textarea:focus-visible {
     bottom: 0px;
     left: 0px;
     font-size: 100px;
-    color: #0A547A14;
+    color: #0a547a14;
 }
 
 .wsus__testi_img .bottom_icon {
@@ -1254,11 +1236,11 @@ textarea:focus-visible {
     left: -10px;
     cursor: pointer;
     font-size: 16px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__testimonial .nxt_arr {
@@ -1266,9 +1248,7 @@ textarea:focus-visible {
     right: -10px;
 }
 
-
 /* =====TESTIMONIAL END======= */
-
 
 /* =====FOOTER START===== */
 
@@ -1333,11 +1313,11 @@ footer {
     font-size: 16px;
     text-transform: capitalize;
     margin-top: 15px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .footer_link li a:hover {
@@ -1358,11 +1338,11 @@ footer {
     border-radius: 3px;
     margin-right: 10px;
     margin-bottom: 10px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .footer_icon li a:hover {
@@ -1393,11 +1373,11 @@ footer {
     border-radius: 50%;
     color: #fff;
     font-size: 25px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     text-align: center;
 }
 
@@ -1423,9 +1403,7 @@ footer {
     font-size: 14px;
 }
 
-
 /* =====FOOTER END======= */
-
 
 /* =====SCROLL BUTTON START======= */
 
@@ -1444,21 +1422,18 @@ footer {
     display: none;
     background: #f02c2d;
     border-radius: 50%;
-    animation: move linear .8s infinite alternate;
+    animation: move linear 0.8s infinite alternate;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
 }
 
-
 /* =====SCROLL BUTTON END======= */
-
 
 /* ==============================
 	HOME PAGE END
 ================================ */
-
 
 /*===BREADCRUMB START====*/
 
@@ -1497,10 +1472,10 @@ footer {
     font-weight: 600;
     font-size: 18px;
     color: #fff;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
+.breadcrumb-item + .breadcrumb-item::before {
     color: #fff;
 }
 
@@ -1509,12 +1484,10 @@ footer {
     font-weight: 600;
     font-size: 18px;
     text-transform: capitalize;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
-
 /*===BREADCRUMB END====*/
-
 
 /* ==============================
 	PROPERTY PAGE START
@@ -1536,7 +1509,7 @@ footer {
     border-radius: 0;
     width: 50px;
     padding: 0;
-    color: #0A547A;
+    color: #0a547a;
     font-size: 20px;
     height: 50px;
     text-align: center;
@@ -1592,7 +1565,7 @@ footer {
 }
 
 .list_view .sale {
-    background: #0A547A;
+    background: #0a547a;
     right: 95px;
 }
 
@@ -1626,7 +1599,7 @@ footer {
     margin-bottom: 10px;
     font-size: 16px;
     text-transform: capitalize;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__single_property_search input,
@@ -1644,15 +1617,17 @@ footer {
     width: 100%;
     padding: 13px 20px;
     background: none;
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
     border-radius: 3px;
-    color: #0A547A;
+    color: #0a547a;
     font-size: 16px;
     resize: none;
 }
 
-.wsus__single_property_search .select2-container--default .select2-selection--single {
-    border: 1px solid #B9C4D7;
+.wsus__single_property_search
+    .select2-container--default
+    .select2-selection--single {
+    border: 1px solid #b9c4d7;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1661,7 +1636,7 @@ footer {
 }
 
 .wsus__single_property_search_check .accordion-item {
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
     margin: 25px 0px;
 }
 
@@ -1682,14 +1657,14 @@ footer {
 }
 
 .wsus__single_property_search_check .accordion-button {
-    color: #0B557B;
+    color: #0b557b;
     font-size: 16px;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .wsus__single_property_search_check .accordion-button:not(.collapsed) {
-    background-color: #0A547A17;
+    background-color: #0a547a17;
     box-shadow: none;
 }
 
@@ -1702,12 +1677,12 @@ footer {
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 5px solid #0A547A;
+    border-top: 5px solid #0a547a;
     background: none;
 }
 
 .wsus__single_property_search_check .accordion-button:not(.collapsed)::after {
-    border-top: 5px solid #858D91 !important;
+    border-top: 5px solid #858d91 !important;
 }
 
 .wsus__search_property .common_btn2 {
@@ -1717,7 +1692,6 @@ footer {
     font-weight: 600;
     text-align: center;
 }
-
 
 /* .wsus__pagination {
 	background: #fff;
@@ -1736,7 +1710,7 @@ footer {
     border-radius: 50% !important;
     margin: 0px 5px !important;
     border: 1px solid #ddd;
-    color: #0A547A;
+    color: #0a547a;
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     -ms-border-radius: 50% !important;
@@ -1750,11 +1724,9 @@ footer {
     border-color: transparent !important;
 }
 
-
 /*==============================
 	PROPERTY PAGE END
 ================================*/
-
 
 /*==============================
 	PROPERTY DETAILS START
@@ -1776,7 +1748,7 @@ footer {
 
 .wsus__single_det_top .sale,
 .wsus__single_det_top .rent {
-    background: #0A547A;
+    background: #0a547a;
     text-transform: capitalize;
     color: #fff;
     padding: 5px 15px;
@@ -1811,7 +1783,7 @@ footer {
 }
 
 .wsus__pro_det_top_rating {
-    color: #FDCC0D;
+    color: #fdcc0d;
     font-size: 14px;
     margin: 14px 0px 14px 0px;
 }
@@ -1858,12 +1830,12 @@ footer {
     height: 20px;
     margin: 0px 5px;
     border-radius: 50%;
-    background: #0A547A;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    background: #0a547a;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     border: 3px solid transparent;
 }
 
@@ -1883,14 +1855,14 @@ footer {
 
 .wsus__single_details .item li {
     margin-right: 40px;
-    color: #0A547A;
+    color: #0a547a;
 }
 
 .wsus__single_details .item li i {
     width: 22px;
     height: 22px;
     background: #fff;
-    color: #0A547A;
+    color: #0a547a;
     text-align: center;
     font-size: 10px;
     line-height: 22px;
@@ -1905,10 +1877,10 @@ footer {
 
 .wsus__single_details .list li a {
     margin-right: 10px;
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 15px;
-    background: #0A547A17;
+    background: #0a547a17;
     padding: 7px 20px;
     border-radius: 30px;
 }
@@ -1955,13 +1927,13 @@ footer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 15px;
 }
 
 .details_future table th {
-    color: #0A547A;
+    color: #0a547a;
     font-size: 15px;
     font-weight: 400;
     border-right: 1px solid #ddd;
@@ -1981,7 +1953,7 @@ footer {
 .details_aminities ul li {
     width: 33.33%;
     font-size: 16px;
-    color: #0A547A;
+    color: #0a547a;
     margin-bottom: 20px;
 }
 
@@ -1997,7 +1969,7 @@ footer {
 
 .details_review .wsus__select_review ul {
     border-radius: 5px;
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
 }
 
 .details_review .wsus__select_review ul li {
@@ -2020,12 +1992,12 @@ footer {
 
 .details_review .wsus__select_review ul li i {
     cursor: pointer;
-    color: #FFC107;
+    color: #ffc107;
 }
 
 .wsus__total_rating {
     width: 100%;
-    background: #0A547A;
+    background: #0a547a;
     height: 100%;
     border-radius: 5px;
     display: flex;
@@ -2051,20 +2023,20 @@ footer {
     color: #fff;
     font-size: 22px;
     font-weight: 600;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .details_review textarea {
     width: 100%;
     border-radius: 5px;
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
     resize: none;
     margin-top: 25px;
     padding: 15px;
 }
 
 .details_review textarea {
-    color: #858D9161;
+    color: #858d9161;
     opacity: 1;
 }
 
@@ -2093,7 +2065,7 @@ footer {
 }
 
 .wsus__sidebar_message {
-    border-bottom: 1px solid #B9C4D7;
+    border-bottom: 1px solid #b9c4d7;
     overflow: hidden;
     margin-bottom: 25px;
 }
@@ -2102,7 +2074,7 @@ footer {
     text-align: center;
     padding-bottom: 30px;
     margin-bottom: 25px;
-    background: #0A547A1F;
+    background: #0a547a1f;
     border-radius: 5px;
 }
 
@@ -2121,16 +2093,16 @@ footer {
 .wsus__sidebar_message_top .name {
     display: block;
     text-transform: capitalize;
-    color: #0A547A;
+    color: #0a547a;
     font-size: 22px;
     font-weight: 600;
     margin-top: 20px;
     text-align: center;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__sidebar_message_top .mail {
-    color: #0A547A;
+    color: #0a547a;
 }
 
 .wsus__sidebar_message_top .mail i {
@@ -2165,9 +2137,9 @@ footer {
     padding: 10px 15px;
     width: 100%;
     border-radius: 5px;
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
     resize: none;
-    color: #0A547A;
+    color: #0a547a;
 }
 
 .wsus__sidebar_message form button {
@@ -2184,7 +2156,7 @@ footer {
 .details_nearest_location ul li {
     width: 50%;
     padding-right: 15px;
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     margin-bottom: 15px;
 }
@@ -2193,14 +2165,12 @@ footer {
     width: 50%;
     display: inline-block;
     text-transform: capitalize;
-    color: #0A547A;
+    color: #0a547a;
 }
-
 
 /*==============================
 	PROPERTY DETAILS END
 ================================*/
-
 
 /*======================
     LOGIN PAGE START
@@ -2220,7 +2190,7 @@ footer {
     margin-bottom: 20px;
     text-transform: capitalize;
     font-weight: 600;
-    color: #0A547A;
+    color: #0a547a;
     text-align: center;
 }
 
@@ -2238,16 +2208,16 @@ footer {
     font-size: 16px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    background: #D9DFE9;
-    border: 1px solid #D9DFE9;
+    background: #d9dfe9;
+    border: 1px solid #d9dfe9;
 }
 
 .wsus__login_form .form-control-lg {
     background: #fff;
-    border: 1px solid #CCD6E7;
+    border: 1px solid #ccd6e7;
     font-size: 16px !important;
     font-weight: 400;
-    color: #0A547A;
+    color: #0a547a;
 }
 
 .wsus__logon input::placeholder,
@@ -2256,10 +2226,10 @@ footer {
     opacity: 1;
 }
 
-.input-group>.form-control:focus,
-.input-group>.form-select:focus {
+.input-group > .form-control:focus,
+.input-group > .form-select:focus {
     box-shadow: none;
-    border: 1px solid #D9DFE9;
+    border: 1px solid #d9dfe9;
 }
 
 .wsus__check_area {
@@ -2281,7 +2251,7 @@ footer {
     display: inline-block;
     font-size: 16px;
     font-weight: 400;
-    color: #0A547A;
+    color: #0a547a;
     margin-top: 4px;
     margin-left: 5px;
     cursor: pointer;
@@ -2325,7 +2295,7 @@ footer {
     height: 1px;
     top: 10px;
     left: 0;
-    background: #D9DFE9;
+    background: #d9dfe9;
 }
 
 .wsus__login_form .wsus__or::before {
@@ -2335,7 +2305,7 @@ footer {
     height: 1px;
     top: 10px;
     right: 0;
-    background: #D9DFE9;
+    background: #d9dfe9;
 }
 
 .wsus__login_link {
@@ -2349,7 +2319,7 @@ footer {
     text-transform: capitalize;
     font-size: 15px;
     font-weight: 400;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     width: 100%;
     padding: 13px 20px;
     border-radius: 5px;
@@ -2364,11 +2334,11 @@ footer {
 }
 
 .wsus__login_link li a.facebook {
-    background: #4267B2;
+    background: #4267b2;
 }
 
 .wsus__login_link li a.twitter {
-    background: #1DA1F2;
+    background: #1da1f2;
 }
 
 .wsus__login_link li a.google {
@@ -2380,11 +2350,9 @@ footer {
     border-color: #f02c2d;
 }
 
-
 /*======================
     LOGIN PAGE END
 ========================*/
-
 
 /*======================
    PRIVACY PAGE START
@@ -2396,11 +2364,9 @@ footer {
     font-size: 17px;
 }
 
-
 /*======================
    PRIVACY PAGE END
 ========================*/
-
 
 /*======================
    PRICING PAGE START
@@ -2445,7 +2411,7 @@ footer {
     font-size: 170px;
     transform: rotate(145deg);
     z-index: -1;
-    opacity: .1;
+    opacity: 0.1;
 }
 
 .wsus__round_area h3 {
@@ -2475,7 +2441,7 @@ footer {
 .wsus__single_price ul li::after {
     position: absolute;
     content: "\f14a";
-    font-family: 'Font Awesome 5 Free';
+    font-family: "Font Awesome 5 Free";
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2487,12 +2453,12 @@ footer {
 }
 
 .wsus__single_price ul li.delete {
-    color: #0A547A87;
+    color: #0a547a87;
 }
 
 .wsus__single_price ul li.delete::after {
     content: "\f410";
-    color: #0A547A87;
+    color: #0a547a87;
 }
 
 .wsus__single_price .common_btn {
@@ -2503,11 +2469,9 @@ footer {
     text-align: center;
 }
 
-
 /*======================
    PRICING PAGE END
 ========================*/
-
 
 /*======================
    BLOG DETAILS START
@@ -2580,7 +2544,7 @@ footer {
 
 .wsus__single_comment {
     overflow: hidden;
-    background: #0096E30D;
+    background: #0096e30d;
     border-radius: 5px;
     padding: 15px 10px;
     border: 1px solid #eee;
@@ -2606,7 +2570,7 @@ footer {
 }
 
 .wsus__comm_text .wsus__rev_star {
-    color: #FFC107;
+    color: #ffc107;
     font-size: 14px;
     margin-bottom: 5px;
 }
@@ -2619,7 +2583,7 @@ footer {
 }
 
 .wsus__comm_text span {
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 14px;
     margin-bottom: 10px;
@@ -2632,7 +2596,7 @@ footer {
 .wsus__blog_search form input {
     width: 100%;
     border-radius: 5px;
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
     resize: none;
     margin-bottom: 25px;
     padding: 13px 20px;
@@ -2679,7 +2643,7 @@ footer {
 
 .wsus__search_categoy ul li a {
     text-transform: capitalize;
-    color: #0A547A;
+    color: #0a547a;
     font-size: 16px;
     display: flex;
     justify-content: space-between;
@@ -2703,11 +2667,9 @@ footer {
     font-size: 15px;
 }
 
-
 /*======================
    BLOG DETAILS END
 ========================*/
-
 
 /*======================
    404 PAGE START
@@ -2738,11 +2700,9 @@ footer {
     text-align: center;
 }
 
-
 /*======================
    404 PAGE END
 ========================*/
-
 
 /*======================
    ABOUT PAGE START
@@ -2753,7 +2713,7 @@ footer {
 }
 
 .wsus__about_tab #pills-tab {
-    background: #0A547A;
+    background: #0a547a;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -2825,7 +2785,7 @@ footer {
 }
 
 .wsus__single_team_img .team_link {
-    background: #0A547A61;
+    background: #0a547a61;
     position: absolute;
     top: 0;
     right: -60px;
@@ -2835,11 +2795,11 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__single_team_img .team_link li a {
@@ -2852,11 +2812,11 @@ footer {
     border-radius: 50%;
     margin: 5px 0px;
     font-size: 14px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__single_team h4 {
@@ -2876,31 +2836,29 @@ footer {
     color: #f02c2d;
 }
 
-
 /*======================
    ABOUT PAGE END
 ========================*/
-
 
 /*======================
    AGENT PAGE START
 ========================*/
 
 .wsus__single_team .title {
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-weight: 600;
     font-size: 22px;
     margin-top: 15px;
     width: 100%;
     margin-bottom: 10px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     text-align: center;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__single_team .title:hover {
@@ -2926,31 +2884,29 @@ footer {
 .wsus__single_team .agent_link li a {
     width: 30px;
     height: 30px;
-    border: 1px solid #0A547AD9;
+    border: 1px solid #0a547ad9;
     line-height: 30px;
     border-radius: 50%;
     margin: 15px 5px 0px 5px;
-    color: #0A547AD9;
+    color: #0a547ad9;
     font-size: 14px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     text-align: center;
 }
 
 .wsus__single_team .agent_link li a:hover {
     color: #fff;
-    background: #0A547AD9;
+    background: #0a547ad9;
     border-color: transparent;
 }
-
 
 /*======================
    AGENT PAGE END
 ========================*/
-
 
 /*======================
    AGENT PROFILE START
@@ -3005,7 +2961,7 @@ footer {
 .wsus__main_agent_text span {
     display: block;
     text-transform: capitalize;
-    color: #0A547A;
+    color: #0a547a;
 }
 
 .wsus__main_agent_text .agent_description {
@@ -3020,13 +2976,13 @@ footer {
     display: block;
     font-size: 16px;
     font-weight: 400;
-    color: #0A547A;
+    color: #0a547a;
     margin-bottom: 10px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s;
-    -moz-transition: all linear .3s;
-    -ms-transition: all linear .3s;
-    -o-transition: all linear .3s;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s;
+    -moz-transition: all linear 0.3s;
+    -ms-transition: all linear 0.3s;
+    -o-transition: all linear 0.3s;
 }
 
 .wsus__main_agent_address i {
@@ -3049,22 +3005,22 @@ footer {
 .agent_profile_link li a {
     width: 30px;
     height: 30px;
-    border: 1px solid #0A547A78;
+    border: 1px solid #0a547a78;
     line-height: 30px;
     border-radius: 50%;
-    color: #0A547A78;
+    color: #0a547a78;
     font-size: 14px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     text-align: center;
     margin-right: 10px;
 }
 
 .agent_profile_link li a:hover {
-    background: #0A547A78;
+    background: #0a547a78;
     border-color: transparent;
     color: #fff;
 }
@@ -3097,7 +3053,7 @@ footer {
 .wsus__quick_contact h4 {
     margin-left: 0;
     margin-bottom: 25px;
-    background: #0A547A;
+    background: #0a547a;
     color: #fff;
     padding: 10px 0px;
     border-radius: 5px;
@@ -3114,11 +3070,9 @@ footer {
     text-align: center;
 }
 
-
 /*======================
    AGENT PROFILE END
 ========================*/
-
 
 /*========================
 	CONTACT START
@@ -3147,7 +3101,7 @@ footer {
 }
 
 .wsus__contact_single a p {
-    color: #0A547A;
+    color: #0a547a;
     font-size: 18px;
     font-weight: 400;
     transition: all linear 0.3s;
@@ -3173,7 +3127,7 @@ footer {
 
 .wsus__con_form_single input,
 .wsus__con_form_single textarea {
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
 }
 
 .wsus__con_form_single input::placeholder,
@@ -3182,11 +3136,9 @@ footer {
     opacity: 1;
 }
 
-
 /*========================
 	CONTACT END
 =========================*/
-
 
 /*======================
     FAQ PAGE START
@@ -3202,7 +3154,7 @@ footer {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 25px;
-    color: #0B2C3D;
+    color: #0b2c3d;
 }
 
 .wsus__faq_text .common_btn {
@@ -3210,7 +3162,7 @@ footer {
 }
 
 .wsus__faq_text .wsus_call_btn {
-    color: #27AE60;
+    color: #27ae60;
     font-size: 30px;
     font-weight: 600;
     display: block;
@@ -3267,7 +3219,7 @@ footer {
     flex-shrink: 0;
     margin-left: auto;
     content: "\f078";
-    transition: transform .2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     background: #fff;
     width: 20px;
     height: 20px;
@@ -3279,13 +3231,13 @@ footer {
 }
 
 .wsus__faq .accordion-button {
-    color: #0A547A;
+    color: #0a547a;
     background-color: transparent;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s;
-    -moz-transition: all linear .3s;
-    -ms-transition: all linear .3s;
-    -o-transition: all linear .3s;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s;
+    -moz-transition: all linear 0.3s;
+    -ms-transition: all linear 0.3s;
+    -o-transition: all linear 0.3s;
     font-size: 18px;
 }
 
@@ -3295,11 +3247,9 @@ footer {
     border: none;
 }
 
-
 /*======================
     FAQ PAGE END
 ========================*/
-
 
 /*======================
     CHECKOUT  START
@@ -3313,7 +3263,7 @@ footer {
 }
 
 .wsus__checkout h5 {
-    background: #0A547A;
+    background: #0a547a;
     color: #fff;
     text-transform: uppercase;
     font-weight: 700;
@@ -3329,7 +3279,7 @@ footer {
 
 .wsus__pay_method .nav button {
     width: 100%;
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 14px;
     border-bottom: 1px solid #eee;
@@ -3339,7 +3289,7 @@ footer {
     text-align: center;
 }
 
-.wsus__pay_details .tab-content>.active {
+.wsus__pay_details .tab-content > .active {
     display: block;
     background: #fff;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 8px;
@@ -3383,7 +3333,7 @@ footer {
 .wsus__package_details table td {
     border-right: 1px solid #ddd;
     width: 50%;
-    color: #0A547A;
+    color: #0a547a;
     font-size: 16px;
     text-transform: capitalize;
 }
@@ -3392,11 +3342,9 @@ footer {
     padding: 25px;
 }
 
-
 /*======================
     CHECKOUT  END
 ========================*/
-
 
 /*======================
     DASHBOARD  START
@@ -3411,16 +3359,16 @@ footer {
     left: auto;
     color: #fff;
     font-size: 16px;
-    background: #0A547A;
+    background: #0a547a;
     text-align: center;
     z-index: 99;
     text-transform: capitalize;
     cursor: pointer;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     display: none;
     border-radius: 3px;
 }
@@ -3438,22 +3386,22 @@ footer {
     right: 10px;
     color: #fff;
     font-size: 20px;
-    background: #F91942;
+    background: #f91942;
     text-align: center;
     z-index: 100;
     text-transform: capitalize;
     cursor: pointer;
     display: none;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     border-radius: 3px;
 }
 
 .wsus__close_icon:hover {
-    background: #0A547A;
+    background: #0a547a;
 }
 
 .wsus__dashboard_side_bar {
@@ -3464,11 +3412,11 @@ footer {
     top: 0;
     left: 0;
     z-index: 999;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     border-right: 1px solid #e6ecf9a1;
 }
 
@@ -3515,18 +3463,18 @@ footer {
 }
 
 .wsus__deshboard_menu li a {
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 16px;
     font-weight: 400;
     width: 100%;
     padding: 12px 0px 12px 60px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
-    border-bottom: 1px solid #0A547A14;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
+    border-bottom: 1px solid #0a547a14;
 }
 
 .wsus__deshboard_menu li:last-child a {
@@ -3541,8 +3489,8 @@ footer {
 .wsus__deshboard_menu li a:hover,
 .wsus__deshboard_menu li a.dash_active {
     color: #f02c2d;
-    background: #0A547A17;
-    border-color: #0A547A17;
+    background: #0a547a17;
+    border-color: #0a547a17;
 }
 
 .wsus__dashboard {
@@ -3664,8 +3612,8 @@ footer {
 .wsus__my_property .table tr th,
 .wsus__dash_order .table tr th,
 .wsus__dash_invoice .table tr th {
-    background: #0A547A33 !important;
-    color: #0A547A;
+    background: #0a547a33 !important;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 16px;
 }
@@ -3689,7 +3637,7 @@ footer {
 }
 
 .wsus__my_property .purpose p {
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
 }
 
@@ -3734,26 +3682,26 @@ footer {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__my_property .actions ul li a:hover {
-    background: #0A547A;
+    background: #0a547a;
 }
 
 .wsus__my_property .table td h5 {
     text-transform: capitalize;
     font-size: 16px;
-    color: #0A547A;
+    color: #0a547a;
     font-weight: 600;
 }
 
 .wsus__my_property .table td .rating {
-    color: #DEC949;
+    color: #dec949;
     font-size: 14px;
     margin-top: 5px;
 }
@@ -3793,12 +3741,12 @@ footer {
     display: block;
     font-size: 16px;
     margin-top: 10px;
-    color: #0A547A;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    color: #0a547a;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__dash_info_text a:hover {
@@ -3915,15 +3863,15 @@ footer {
     font-size: 13px;
     line-height: 25px;
     border-radius: 2px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__dash_order .action a:hover {
-    background: #0A547A;
+    background: #0a547a;
 }
 
 .wsus__message_single {
@@ -3958,7 +3906,7 @@ footer {
     text-transform: capitalize;
     font-weight: 600;
     margin: 0;
-    color: #0A547A;
+    color: #0a547a;
     width: 100%;
     height: auto;
 }
@@ -3966,7 +3914,7 @@ footer {
 .wsus__message_text .sub_title {
     font-size: 17px;
     text-transform: capitalize;
-    color: #0A547A;
+    color: #0a547a;
     width: 100%;
     height: auto !important;
     margin-bottom: 5px;
@@ -3974,14 +3922,14 @@ footer {
 
 .wsus__message_text span {
     margin: 3px 0px 10px 0px;
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 14px;
     display: block;
 }
 
 .wsus__message_text p i {
-    color: #DEC949;
+    color: #dec949;
 }
 
 .wsus__message_icon {
@@ -3989,11 +3937,11 @@ footer {
     float: left;
     text-align: center;
     overflow: hidden;
-    background: #0A547A1F;
+    background: #0a547a1f;
 }
 
 .wsus__message_icon a {
-    color: #0A547A;
+    color: #0a547a;
     font-size: 16px;
     font-weight: 400;
     width: 100%;
@@ -4002,11 +3950,11 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
 }
 
 .wsus__message_icon a.del:hover {
@@ -4015,7 +3963,7 @@ footer {
 }
 
 .wsus__message_icon a.edit:hover {
-    background: #0A547A;
+    background: #0a547a;
     color: #fff;
 }
 
@@ -4032,8 +3980,11 @@ footer {
     border-radius: 3px;
 }
 
-.wsus__property_input .select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #0A547A;
+.wsus__property_input
+    .select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    color: #0a547a;
 }
 
 .dash_aminities .form-check {
@@ -4079,7 +4030,7 @@ footer {
 }
 
 .wsus__dash_invoice .table tr td {
-    color: #0A547A;
+    color: #0a547a;
     text-transform: capitalize;
     font-size: 16px;
 }
@@ -4133,16 +4084,16 @@ footer {
     color: #fff;
     font-size: 16px;
     border-radius: 50%;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     cursor: pointer;
 }
 
 .wsus__edit_img i:hover {
-    background: #0A547A;
+    background: #0a547a;
 }
 
 .edit_images .wsus__property_input {
@@ -4182,16 +4133,16 @@ footer {
     font-size: 12px;
     line-height: 24px;
     border-radius: 3px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     cursor: pointer;
 }
 
 .existing_item span.del:hover {
-    background: #0A547A;
+    background: #0a547a;
 }
 
 .existing_item img {
@@ -4216,14 +4167,13 @@ footer {
     height: 300px;
 }
 
-
 /*======================
     DASHBOARD  END
 ========================*/
 
 .large_subscribe {
     margin: 45px 0px 0px 0px;
-    border: .5px solid #4b5d7c;
+    border: 0.5px solid #4b5d7c;
     overflow: hidden;
     border-radius: 5px;
     background: #4b5d7c;
@@ -4243,7 +4193,6 @@ footer {
     font-size: 20px;
     font-weight: 700;
     margin: 0;
-    text-transform: capitalize;
     text-align: center;
 }
 
@@ -4270,11 +4219,11 @@ footer {
     border-radius: 3px;
     color: #fff;
     font-size: 35px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s ease;
-    -moz-transition: all linear .3s ease;
-    -ms-transition: all linear .3s ease;
-    -o-transition: all linear .3s ease;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s ease;
+    -moz-transition: all linear 0.3s ease;
+    -ms-transition: all linear 0.3s ease;
+    -o-transition: all linear 0.3s ease;
     text-align: center;
 }
 
@@ -4291,7 +4240,6 @@ footer {
     margin-top: 45px !important;
     margin-bottom: 25px !important;
 }
-
 
 /*======================
     CAREER START
@@ -4319,7 +4267,7 @@ footer {
 
 .wsus__single_career span {
     text-transform: capitalize;
-    color: #0A547A;
+    color: #0a547a;
     display: block;
 }
 
@@ -4329,7 +4277,7 @@ footer {
 
 .wsus__single_career ul li {
     text-transform: capitalize;
-    color: #0A547A;
+    color: #0a547a;
     font-size: 13px;
     background: #eeeeee;
     padding: 5px 15px 6px 15px;
@@ -4382,11 +4330,9 @@ footer {
     object-fit: cover !important;
 }
 
-
 /*======================
     CAREER END
 ========================*/
-
 
 /*=======================
     CAREER DETAILS START
@@ -4484,7 +4430,7 @@ footer {
     background: none;
     border: 1px solid #ddd;
     border-radius: 3px;
-    color: #0A547A;
+    color: #0a547a;
     font-size: 15px;
     resize: none;
     margin-top: 20px;
@@ -4493,7 +4439,6 @@ footer {
 .wsus__career_form form button {
     margin-top: 20px;
 }
-
 
 /*=======================
     CAREER DETAILS END
@@ -4516,7 +4461,7 @@ footer {
     text-transform: capitalize;
     font-weight: 600;
     font-size: 20px;
-    font-family: 'Jost', sans-serif;
+    font-family: "Jost", sans-serif;
 }
 
 .wsus__share_blog ul {
@@ -4535,11 +4480,11 @@ footer {
     color: #f02c2d;
     border: 1px solid #eee !important;
     font-size: 14px;
-    transition: all linear .3s;
-    -webkit-transition: all linear .3s;
-    -moz-transition: all linear .3s;
-    -ms-transition: all linear .3s;
-    -o-transition: all linear .3s;
+    transition: all linear 0.3s;
+    -webkit-transition: all linear 0.3s;
+    -moz-transition: all linear 0.3s;
+    -ms-transition: all linear 0.3s;
+    -o-transition: all linear 0.3s;
 }
 
 .wsus__share_blog ul li a:hover {
@@ -4550,7 +4495,7 @@ footer {
 
 .wsus__my_profile .select2-container {
     width: 100%;
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
     border-radius: 3px;
     margin-bottom: 25px;
     overflow: hidden;
@@ -4582,7 +4527,7 @@ footer {
 
 .agent_top .select2-container {
     max-width: 89%;
-    border: 1px solid #B9C4D7;
+    border: 1px solid #b9c4d7;
     border-radius: 3px;
     overflow: hidden;
 }
@@ -4596,32 +4541,20 @@ footer {
     padding: 20px;
 }
 
-.agent_top .select2-container--default .select2-selection--single .select2-selection__arrow b {
+.agent_top
+    .select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
     margin-top: 3px;
 }
 
 .agent_top .common_btn2 {
     padding: 9px 30px;
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.wsus__topbar_right_area {}
+.wsus__topbar_right_area {
+}
 
 .wsus__topbar_right_area .select_js {
     background: none;

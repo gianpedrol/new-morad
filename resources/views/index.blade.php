@@ -7,6 +7,30 @@
 @endsection
 
 @section('user-content')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.10.5/autoNumeric.min.js" integrity="sha512-EGJ6YGRXzV3b1ouNsqiw4bI8wxwd+/ZBN+cjxbm6q1vh3i3H19AJtHVaICXry109EVn4pLBGAwaVJLQhcazS2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+  function formatarNumero(input) {
+      // Remover caracteres não numéricos e ponto de milhar
+      let valor = input.value.replace(/[^\d,]/g, '');
+      
+      // Adicionar ponto a cada três dígitos na parte inteira
+      let partes = valor.split(',');
+      let parteInteira = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      let parteDecimal = partes[1] || '';
+      
+      // Limitar a parte decimal a duas casas
+      parteDecimal = parteDecimal.substring(0, 2);
+      
+      // Formatar o número com virgula nas duas últimas casas decimais
+      valor = parteInteira + (parteDecimal ? ',' + parteDecimal : '');
+      
+      // Definir o valor formatado no input
+      input.value = 'R$ ' + valor;
+  }
+</script>
 <style>
 #bgVideo {
     right: 0;
@@ -57,8 +81,18 @@
     background-color: #F5F7FB;
     width: 100%;
   }
+  div.wsus__top_properties_text > ul > li > a {
+    font-size: 12px !important;
+  }
+  .apb-home > h2 {
+  font-size: 4em !important;
+}
   /* Estilos para dispositivos móveis */
   @media (max-width: 767px) {
+
+    .apb-home > h2 {
+  font-size: 28px !important;
+}
     /* Alinhar os elementos do formulário verticalmente */
     .wsus__for_search .d-inline-flex {
       display: flex;
@@ -77,15 +111,16 @@
     .wsus__for_search input[type="number"] {
       width: 100%;
     }
-
-    .section-apb h2 {
-      font-size: 3em !important;
-      text-align: center /* Tamanho da fonte ajustado para dispositivos móveis */
-    }
     .navbar-toggler{
       background-color: #000 !important;
     }
   }
+
+  .small-font input[type="radio"] {
+        font-size: 9px; 
+    }
+
+
 
 
 </style>
@@ -110,27 +145,28 @@
         <div class="d-md-none">
           <div class="form-group input-group-md border-0">
             <select class="form-control border-0" name="purpose_type">
-              <option value="{{ __('user.Rent') }}" selected>Alugar</option>
-              <option value="{{ __('user.Sell') }}">Comprar</option>
+              <option value="{{ __('user.Sell') }}" selected>Comprar</option>
+              <option value="{{ __('user.Rent') }}" >Alugar</option>
             </select>
           </div>
         </div>
         
         <!-- Mostrar botões de rádio apenas em desktop -->
-        <div class="d-none d-md-block">
-          <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary custom-btn" id="rentBtn">
-              <input type="radio" name="purpose_type" value="{{ __('user.Rent') }}" checked> Alugar
-            </label>
-            <label class="btn btn-primary custom-btn" id="sellBtn">
-              <input type="radio" name="purpose_type" value="{{ __('user.Sell') }}"> Comprar
-            </label>
-          </div>
+        <div class="d-none d-md-block mr-5">
+           <div class="btn-group mr-2" data-toggle="buttons">
+            <label class="btn btn-primary custom-btn" id="sellBtn" style="font-size: 12px; display: flex; align-items: center;">
+              <input type="radio" name="purpose_type" value="{{ __('user.Sell') }}" checked > Comprar
+          </label>
+        <label class="btn btn-primary custom-btn" id="rentBtn" style="font-size: 12px; display: flex; align-items: center;">
+            <input type="radio" name="purpose_type" value="{{ __('user.Rent') }}"  > Alugar
+        </label>
+
+    </div>
         </div>
         <!-- Fim dos botões de rádio -->
         
   
-        <div class="d-inline-block">
+        <div class="d-inline-block ml-5">
           <div class="form-group input-group-md  border-0 ">
             <select  class="form-control form-control-no-border border-0" name="property_type">
               <option value="">Imóvel</option>
@@ -145,9 +181,9 @@
           <div class="form-group input-group-md  border-0 ">
             <select class="form-control form-control-no-border border-0" id="dormitorios" name="number_of_rooms" placeholder="Quantos dormitórios?">
               <option value="">Dormitórios</option>
-              @for ($i = 1; $i <= $max_number_of_room; $i++)
-                  <option value="{{ $i }}">{{ $i }}</option>
-              @endfor
+              <option value="1">1 Dormitório</option>
+              <option value="2">2 Dormitórios</option>
+              <option value="3">3 Dormitórios</option>
             </select>
           </div>
         </div>
@@ -164,20 +200,19 @@
           </div>
         </div>
 
-               <!-- Intervalo de preço -->
-               <div class="d-inline-block">
-                <div class="form-group input-group-md border-0">
-                    <label for="min_price">Preço Mínimo:</label>
-                    <input type="number" id="min_price" name="min_price" class="form-control form-control-no-border border-0" placeholder="R$ 1.000,00">
-                </div>
-            </div>
-    
-            <div class="d-inline-block">
-                <div class="form-group input-group-md border-0">
-                    <label for="max_price">Preço Máximo:</label>
-                    <input type="number" id="max_price" name="max_price" class="form-control form-control-no-border border-0" placeholder="R$ 1.000.000,00">
-                </div>
-            </div>
+        <div class="d-inline-block">
+          <div class="form-group input-group-md border-0">
+              <label for="min_price">Preço Mínimo:</label>
+              <input type="text" id="min_price" name="min_price" class="form-control form-control-no-border border-0" placeholder="R$ 1.000,00" oninput="formatarNumero(this)">
+          </div>
+      </div>
+      
+      <div class="d-inline-block">
+          <div class="form-group input-group-md border-0">
+              <label for="max_price">Preço Máximo:</label>
+              <input type="text" id="max_price" name="max_price" class="form-control form-control-no-border border-0" placeholder="R$ 1.000.000,00" oninput="formatarNumero(this)">
+          </div>
+      </div>
     
         <div class="d-inline-block">
           <div class="form-group">
@@ -208,7 +243,7 @@
                         <img src="{{ asset('uploads/website-images/loft.jpg') }}" class="rounded-circle property-image" alt="Card Image"
                              data-dormitorios="1" data-route="{{ route('search-property') }}">
                     </div>
-                    <h5 class="card-title mt-2">Loft / 1 Dormitório</h5>
+                    <h5 class="card-title mt-2">1 Dormitório/Studio</h5>
                     <input type="hidden" name="number_of_rooms">
                 </form>
             </div>
@@ -240,7 +275,7 @@
                         <img src="{{ asset('uploads/website-images/3dm.jpg') }}" class="rounded-circle property-image" alt="Card Image"
                              data-dormitorios="3" data-route="{{ route('search-property') }}">
                     </div>
-                    <h5 class="card-title text-center mt-2">+3 Dormitórios</h5>
+                    <h5 class="card-title text-center mt-2">3 Dormitórios +</h5>
                     <input type="hidden" name="number_of_rooms">
                 </form>
             </div>
@@ -251,8 +286,8 @@
 
 
 <div class="section-apb">
-  <div class="wsus__section_heading text-center p-5">
-    <h2 style="font-size: 5em">APARTAMENTOS BARATOS</h2>
+  <div class="wsus__section_heading text-center apb-home p-5">
+    <h2 >APARTAMENTOS BARATOS</h2>
   </div>
 </div>
 
@@ -270,14 +305,18 @@
         <div class="row">
         @foreach ($featured_properties->featured_properties as $featured_item)
             <div class="col-xl-4 col-md-6">
+
             <div class="wsus__popular_properties_single">
                 <img src="{{ asset($featured_item->thumbnail_image) }}" alt="popular properties">
                 <a href="{{ route('property.details',$featured_item->slug) }}" class="wsus__popular_text">
-                <h4>{{ $featured_item->translated_title }}</h4>
                 <ul class="d-flex flex-wrap mt-3">
                     <li><i class="fal fa-bed"></i> {{ $featured_item->number_of_bedroom }} {{__('user.Bed')}}</li>
-                    <li><i class="fal fa-shower"></i> {{ $featured_item->number_of_bathroom }} {{__('user.Bath')}}</li>
-                    <li><i class="fal fa-draw-square"></i> {{ $featured_item->area }} {{__('user.Sqft')}}</li>
+
+                    <li>R$ {{ number_format($featured_item->price, 2, ',', '.') }}</li>
+
+                    @if($featured_item->number_of_parking != 0)
+                    <li class="m-2">{{ $featured_item->number_of_parking }} Vaga(s) de garagem </li>
+                @endif
                 </ul>
                 </a>
             </div>
@@ -314,23 +353,17 @@
                         </div>
                     </div>
                     <div class="col-xl-6">
-                        <div class="wsus__top_properties_text">
-                        <a href="{{ route('property.details',$urgent_item->slug) }}">{{ $urgent_item->translated_title }}</a>
+                      <div class="wsus__top_properties_text">
+                        <ul class="flex-wrap mt-3">
+                            <li><a href="{{ route('property.details', $featured_item->slug) }}"><i class="fal fa-bed"></i> {{ $featured_item->number_of_bedroom }} {{ __('user.Bed') }}</a></li>
 
-                            @if ($urgent_item->property_purpose_id==1)
-                                <p>{{ $currency }}{{ $urgent_item->price }}</p>
-                            @elseif ($urgent_item->property_purpose_id==2)
-                            <p>{{ $currency }}{{ $urgent_item->price }} /
-                                @if ($urgent_item->period=='Daily')
-                                <span>{{__('user.Daily')}}</span>
-                                @elseif ($urgent_item->period=='Monthly')
-                                <span>{{__('user.Monthly')}}</span>
-                                @elseif ($urgent_item->period=='Yearly')
-                                <span>{{__('user.Yearly')}}</span>
-                                @endif
-                            </p>
+                            <li><a href="{{ route('property.details', $featured_item->slug) }}">R$ {{ number_format($featured_item->price, 2, ',', '.') }}</a></li>
+                            
+                            @if($featured_item->number_of_parking != 0)
+                                <li><a href="{{ route('property.details', $featured_item->slug) }}">Vagas de garagem: {{ $featured_item->number_of_parking }}</a></li>
                             @endif
-                        </div>
+                        </ul>
+                    </div>
                     </div>
                     </div>
                 </div>
@@ -343,6 +376,10 @@
   @endif
 
   <style>
+
+    .apb-home h2{
+      color: #96969641 !important;
+    }
     .property-image {
         cursor: pointer;
         transition: transform 0.3s;
@@ -389,6 +426,10 @@
     .wsus__for_search .form-group {
       margin-right: 10px;
     }
+  }
+
+  .wsus__popular_text h4{
+    min-height: 80px !important;
   }
 
 </style>

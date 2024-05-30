@@ -6,6 +6,35 @@
     <meta name="description" content="{{ $property->seo_description }}">
 @endsection
 @section('user-content')
+<!-- Estilos CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-7GGDcu90Xfnb/8KOqmkBzjK8yqdNEDj31XTXllEdFGvUqXyrjPy6S3mtg0SpQIkW31tF6ZKQq9MCcO+ynZ0qfg==" crossorigin="anonymous" />
+
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-IE0bC1S3KMBk8EuK6W/VOAfIbeGPTv4tTXO8MQwuvSNXqUyAOMXahd+f4O+Y+kbEqcB6GbZOLzuyYiOepBx+Dw==" crossorigin="anonymous"></script>
+
+<style>
+    .baguetteBox-overlay {
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+    left: 10%;
+    top: 10%;
+}
+
+.baguetteBox-button {
+    display: block;
+}
+
+.baguetteBox-close {
+    top: 5%;
+    right: 5%;
+}
+#baguetteBox-overlay .full-image img {
+    max-width: 50% !important; /* ou qualquer outra porcentagem que você preferir */
+    max-height: 100% !important;; /* Define a altura máxima como 90% da altura da tela */
+}
+</style>
      <!--===BREADCRUMB PART START====-->
   <!--===BREADCRUMB PART END====-->
 
@@ -22,6 +51,9 @@
             </div>
         @endforeach
       </div>
+
+
+
       <div class="row mt_40">
         <div class="col-xl-8 col-lg-7">
             <div class="wsus__property_det_content">
@@ -36,11 +68,12 @@
                                     @endif
                                 </p>
 
-                                <span class="tk">IPTU: {{$property->value_iptu}}</span>
-                                <span class="tk">Condominio:{{$property->value_condominio}}</span>
-
+                                <span class="tk">IPTU: {{ $currency }}{{$property->value_iptu}}</span>
+                                <span class="tk">Condominio: {{ $currency }} {{$property->value_condominio}}</span>
+  
                                 @if ($property->property_purpose_id==1)
-                                    <span class="tk">{{ $currency }}{{ $property->price }}</span>
+                                <span class="tk">{{ $currency }}{{ number_format( $property->price, 2, ',', '.') }}</span>
+
                                 @elseif ($property->property_purpose_id==2)
                                     <span class="tk">{{ $currency }}{{ $property->price }} /
                                         @if ($property->period=='Daily')
@@ -92,7 +125,7 @@
                                 <li><a href="javascript:;"><i class="fas fa-check-circle"></i>{{__('user.Featured')}}</a></li>
                                 @endif
                                 <li><a href="javascript:;"><i class="far fa-eye"></i> {{ $property->views }}</a></li>
-                                <li><a href="#addReviewSection"><i class="fal fa-comment-alt-dots"></i> {{__('user.Add Review')}}</a></li>
+
                                 <li><a href="{{ route('user.add.to.wishlist',$property->id) }}"><i class="fas fa-heart"></i> {{__('user.Add to Wishlist')}}</a></li>
                             </ul>
                             </div>
@@ -165,6 +198,22 @@
 
                             </div>
                         </div>
+
+                        <div class="row">
+                            <!-- Iterar sobre as imagens da propriedade -->
+                            @foreach ($property->propertyImages as $image)
+                            <div class="col-12 col-sm-6 col-md-4 mb-3">
+                                <a href="{{ url($image->image) }}" data-baguettebox="gallery">
+                                    <img src="{{ url($image->image) }}" alt="property" class="img-fluid w-100">
+                                </a>
+                            </div>
+                            @endforeach
+                        </div>
+
+
+
+
+
                         <div class="col-12">
                             <div class="wsus__single_details details_description">
                             <h5>{{__('user.Description')}}</h5>
@@ -285,33 +334,43 @@
             </div>
         </div>
         <div class="col-xl-4 col-lg-5">
-          <div class="wsus__property_sidebar" id="sticky_sidebar">
+          <div class="wsus__property_sidebar">
             <div class="wsus__sidebar_message">
 
 
                 @if ($property->user_type==1)
                     <div class="wsus__sidebar_message_top">
                         <div class="wsus__sidebar_message_top">
-                            @if($property->admin)
-
+                               @if($property->admin)
                             <img src="{{ $property->admin->image ? url($property->admin->image) :  url($default_image) }}" alt="images" class="img-fluid img-thumbnail">
                             @else
+                          
+                           
                              <img src="{{ url($default_image) }}" alt="images" class="img-fluid img-thumbnail">
                             @endif
-
-                            <h3>{{ $property->code_property_api  }}</h3>
-                             <a class="name" href="{{ route('agent.show',['user_type' => '1','user_name'=>$property->admin->slug]) }}">{{ $property->admin->name }}</a>
-                             <a class="mail" href="mailto:{{ $property->admin->email }}"><i class="fal fa-envelope-open"></i> {{ $property->admin->email }}</a>
+                            <h3 >  {{ $property->admin->name }}</h3>
+                            <div class="pt-5">
+                                Código do imóvel
+                                <h3>{{ $property->code_property_api  }}</h3>
+                            </div>
+                            
+    
                     </div>
                 @else
+
                     <div class="wsus__sidebar_message_top">
                         <img src="{{ $property->user->image ? url($property->user->image) : url($default_image) }}" alt="images" class="img-fluid img-thumbnail">
                         <a class="name" href="{{ route('agent.show',['user_type' => '2','user_name'=>$property->user->slug]) }}">{{ $property->user->name }}</a>
                         <a class="mail" href="mailto:{{ $property->user->email }}"><i class="fal fa-envelope-open"></i> {{ $property->user->email }}</a>
+                            <div class="pt-5">
+                                Código do imóvel
+                                <h3>{{ $property->code_property_api  }}</h3>
+                            </div>
                     </div>
                 @endif
-                <form id="listingAuthContactForm">
+                <form id="listingAuthContactForm" class="p-2"> 
                     @csrf
+                    <input type="hidden" name="property_url" value="{{ url()->current() }}">
                     <div class="wsus__sidebar_input">
                         <label>{{__('user.Name')}}</label>
                         <input type="text" name="name">
@@ -325,17 +384,14 @@
                         <input type="text" name="phone">
                     </div>
                     <div class="wsus__sidebar_input">
-                        <label>{{__('user.Subject')}}</label>
-                        <input type="text" name="subject">
-                    </div>
-                    <div class="wsus__sidebar_input">
-                        <label>{{__('user.Description')}}</label>
-                        <textarea cols="3" rows="3" name="message"></textarea>
+
                         <input type="hidden" name="user_type" value="{{ $property->user_type }}">
                         @if ($property->user_type==1)
                         <input type="hidden" name="admin_id" value="{{ $property->admin_id }}">
+                        <input type="hidden" name="user_phone" value="{{ $property->admin->phone }}">
                         @else
                         <input type="hidden" name="user_id" value="{{ $property->user_id }}">
+                        <input type="hidden" name="user_phone" value="{{ $property->user->phone }}">
                         @endif
 
 
@@ -361,7 +417,7 @@
             @endphp
 
             @if ($isActivePropertyQty !=0)
-            <div class="row">
+            <div class="row ">
                 @foreach ($similarProperties as $similar_item)
                     @if ($similar_item->expired_date==null)
                         <div class="col-xl-12 col-md-6 col-lg-12">
@@ -422,31 +478,6 @@
                                     }
                                 @endphp
 
-                                @if ($total_review > 0)
-                                    <span class="rating">{{ sprintf("%.1f", $reviewPoint) }}
-
-                                    @for ($i = 1; $i <=5; $i++)
-                                        @if ($i <= $reviewPoint)
-                                            <i class="fas fa-star"></i>
-                                        @elseif ($i> $reviewPoint )
-                                            @if ($halfReview==true)
-                                            <i class="fas fa-star-half-alt"></i>
-                                                @php
-                                                    $halfReview=false
-                                                @endphp
-                                            @else
-                                            <i class="fal fa-star"></i>
-                                            @endif
-                                        @endif
-                                    @endfor
-                                    </span>
-                                @else
-                                    <span class="rating">0.0
-                                        @for ($i = 1; $i <=5; $i++)
-                                        <i class="fal fa-star"></i>
-                                        @endfor
-                                    </span>
-                                @endif
                                 </div>
                             </div>
                             </div>
@@ -493,48 +524,7 @@
                                 <div class="wsus__single_property_footer d-flex justify-content-between align-items-center">
                                     <a href="{{ route('search-property',['page_type' => 'list_view','property_type' => $similar_item->propertyType->id]) }}" class="category">{{ $similar_item->propertyType->type }}</a>
 
-                                @php
-                                    $total_review=$similar_item->reviews->where('status',1)->count();
-                                    if($total_review > 0){
-                                        $avg_sum=$similar_item->reviews->where('status',1)->sum('avarage_rating');
 
-                                        $avg=$avg_sum/$total_review;
-                                        $intAvg=intval($avg);
-                                        $nextVal=$intAvg+1;
-                                        $reviewPoint=$intAvg;
-                                        $halfReview=false;
-                                        if($intAvg < $avg && $avg < $nextVal){
-                                            $reviewPoint= $intAvg + 0.5;
-                                            $halfReview=true;
-                                        }
-                                    }
-                                @endphp
-
-                                @if ($total_review > 0)
-                                    <span class="rating">{{ sprintf("%.1f", $reviewPoint) }}
-
-                                    @for ($i = 1; $i <=5; $i++)
-                                        @if ($i <= $reviewPoint)
-                                            <i class="fas fa-star"></i>
-                                        @elseif ($i> $reviewPoint )
-                                            @if ($halfReview==true)
-                                            <i class="fas fa-star-half-alt"></i>
-                                                @php
-                                                    $halfReview=false
-                                                @endphp
-                                            @else
-                                            <i class="fal fa-star"></i>
-                                            @endif
-                                        @endif
-                                    @endfor
-                                    </span>
-                                @else
-                                    <span class="rating">0.0
-                                        @for ($i = 1; $i <=5; $i++)
-                                        <i class="fal fa-star"></i>
-                                        @endfor
-                                    </span>
-                                @endif
                                 </div>
                             </div>
                             </div>
@@ -551,7 +541,7 @@
   <!--=====PROPERTY DETAILD  END=====-->
 
 
-    <script>
+    {{-- <script>
         (function($) {
         "use strict";
         $(document).ready(function () {
@@ -569,6 +559,8 @@
                     data:$('#listingAuthContactForm').serialize(),
                     success:function(response){
                         if(response.success){
+
+            
                             $("#listingAuthContactForm").trigger("reset");
                             toastr.success(response.success)
                             $("#listcontact-spinner").addClass('d-none')
@@ -584,6 +576,7 @@
                             $("#listingAuthorContctBtn").addClass('site-btn-effect')
 
                         }
+
                     },
                     error:function(response){
                         if(response.responseJSON.errors.name){
@@ -644,15 +637,28 @@
                         }
 
 
-                    }
+                    },
+                    complete: function() {
+    //     var userPhoneInput = $("input[name='user_phone']").val();
+    //     var userPhone = "+55" + userPhoneInput.replace(/\D/g,''); // Remove todos os não dígitos
 
-                });
+    //     var propertyUrl = $("input[name='property_url']").val();
+    //     var message = "Olá, tenho interesse nesse imóvel! " + propertyUrl;
+    //     var whatsappUrl = "https://api.whatsapp.com/send?phone=" + userPhone + "&text=" + encodeURIComponent(message);
+
+    //     window.location.href = whatsappUrl;
+
+    //     // Limpe o spinner e habilite o botão após o envio
+    //     $("#listcontact-spinner").addClass('d-none');
+    //     $("#listingAuthorContctBtn").removeClass('custom-opacity').attr('disabled', false).addClass('site-btn-effect');
+    // }
+    //             });
 
 
-            })
-        });
+        //     })
+        // });
 
-        })(jQuery);
+        // })(jQuery);
 
 
         function serviceReview(rating){
@@ -750,5 +756,81 @@
 
 
 
-    </script>
+    </script> --}}
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function () {
+            $("#listingAuthorContctBtn").on('click', function(e) {
+                e.preventDefault();
+
+                $("#listcontact-spinner").removeClass('d-none');
+                $("#listingAuthorContctBtn").addClass('custom-opacity').attr('disabled', true);
+                $("#listingAuthorContctBtn").removeClass('site-btn-effect');
+
+                $.ajax({
+                    url: "{{ route('user.contact.message') }}",
+                    type: "post",
+                    data: $('#listingAuthContactForm').serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            $("#listingAuthContactForm").trigger("reset");
+                            toastr.success(response.success);
+                        }
+                        if (response.error) {
+                            toastr.error(response.error);
+                        }
+                    },
+                    error: function(response) {
+                        if (response.responseJSON.errors) {
+                            var errorMsg = '';
+                            $.each(response.responseJSON.errors, function(index, value) {
+                                errorMsg += value[0] + '<br>';
+                            });
+                            toastr.error(errorMsg);
+                        }
+                    },
+                    complete: function() {
+                        var userPhoneInput = $("input[name='user_phone']").val();
+                        var userPhone = "+55" + userPhoneInput.replace(/\D/g,''); // Remove todos os não dígitos
+
+                        var propertyUrl = $("input[name='property_url']").val();
+                        var message = "Olá, tenho interesse nesse imóvel! " + propertyUrl;
+                        var whatsappUrl = "https://api.whatsapp.com/send?phone=" + userPhone + "&text=" + encodeURIComponent(message);
+
+                        // Redirecionar para o WhatsApp
+                        window.location.href = whatsappUrl;
+
+                        // Limpar o spinner e habilitar o botão após o envio
+                        $("#listcontact-spinner").addClass('d-none');
+                        $("#listingAuthorContctBtn").removeClass('custom-opacity').attr('disabled', false).addClass('site-btn-effect');
+                    }
+                });
+            });
+        });
+    })(jQuery);
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.0/baguetteBox.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const galleryLinks = document.querySelectorAll('a[data-baguettebox="gallery"]');
+    const gallery = baguetteBox.run('.row');
+
+    galleryLinks.forEach((link, index) => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Previne a ação padrão do link
+            baguetteBox.show(index, gallery[0]);
+        });
+    });
+});
+</script>
+
+<style>
+    .slick-dots{
+        display: none !important;
+    }
+    </style>
 @endsection

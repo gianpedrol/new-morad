@@ -3,6 +3,11 @@
 <title>{{__('admin.Dashboard')}}</title>
 @endsection
 @section('admin-content')
+<script>
+  @if(session('success'))
+      swal("Sucesso!", "{{ session('success') }}", "success");
+  @endif
+</script>
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">
@@ -10,7 +15,17 @@
         <h1>{{__('admin.Dashboard')}}</h1>
       </div>
 
+      <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="card-body">
+                      <form id="updateForm" action="{{ route('importMorad') }}" method="GET">
+                        @csrf
+                        <button id="updateButton" type="submit" class="btn btn-primary">Atualizar carga de imóveis</button>
+                    </form>
+                </div>
+
+    </div>
         <div class="section-body">
+
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
@@ -207,4 +222,16 @@
 
             </div>
         </div>
+
+        <script>
+          // Adiciona um evento de clique ao botão
+          document.getElementById('updateButton').addEventListener('click', function() {
+              // Desativa o botão
+              this.disabled = true;
+              // Altera o texto do botão para "Atualizando..."
+              this.innerText = 'Atualizando...';
+              // Submete o formulário
+              document.getElementById('updateForm').submit();
+          });
+      </script>
 @endsection

@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -11,20 +10,19 @@ class ContactMessageInformation extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $contact;
 
-    public $template;
-    public $subject;
-    public function __construct($template,$subject)
+    public function __construct($contact)
     {
-        $this->template=$template;
-        $this->subject=$subject;
+        $this->contact = $contact;
     }
-
 
     public function build()
     {
-        $template = $this->template;
-        $subject = $this->subject;
-        return $this->subject($subject)->view('contact_message', compact('template'));
+        return $this->view('contact_message')
+            ->subject('NOVO LEAD DA APB, PARA VOCÊ! ')
+            ->with([
+                'contact' => $this->contact,
+            ]);
     }
 }

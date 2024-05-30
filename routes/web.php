@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ApiIntegrationController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
@@ -86,6 +87,7 @@ use App\Http\Controllers\User\AddressCotroller;
 use App\Http\Controllers\WEB\Seller\Auth\SellerLoginController;
 use App\Http\Controllers\WEB\Seller\Auth\SellerForgotPasswordController;
 
+
 Route::group([
     'prefix' => 'auth',
     'middleware' => 'translation'
@@ -96,6 +98,8 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 });
+
+Route::get('morad/import', [ApiIntegrationController::class, 'importMoradImoveis'])->name('importMorad');
 
 Route::group(['middleware' => ['XSS', 'translation']], function () {
 

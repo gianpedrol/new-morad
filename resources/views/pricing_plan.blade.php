@@ -59,7 +59,7 @@
                     <a href="javascript:;" onclick="freeEnroll('{{ $item->id }}')" class="common_btn">{{__('user.Start With')}} {{ $item->translated_package_name }}</a>
                     @else
 
-                    <a href="{{ route('user.purchase.package',$item->id) }}" class="common_btn">{{__('user.Start With')}} {{ $item->translated_package_name }}</a>
+                    <a href="{{ route('user.purchase.package',$item->id) }}" class="common_btn">Anuncie já</a>
                     @endif
                     </div>
                 </div>

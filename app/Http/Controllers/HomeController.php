@@ -95,7 +95,13 @@ class HomeController extends Controller
         if ($home_page->top_visibility == 1) {
             $top_visibility = true;
         }
-        $top_properties = Property::with('translation')->where('status', 1)->where('top_property', 1)->where('expired_date', null)->orWhere('expired_date', '>=', date('Y-m-d'))->get()->take($home_page->top_property_item);
+
+        $top_properties = Property::with('translation')
+            ->where('status', 1)
+
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
 
         $top_properties = (object) array(
             'top_visibility' => $top_visibility,
@@ -113,7 +119,11 @@ class HomeController extends Controller
         if ($home_page->top_visibility == 1) {
             $featured_visibility = true;
         }
-        $featured_properties = Property::with('translation')->where('status', 1)->where('is_featured', 1)->where('expired_date', null)->orWhere('expired_date', '>=', date('Y-m-d'))->get()->take($home_page->featured_property_item);
+        $featured_properties = Property::with('translation')
+            ->where('status', 1)
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
 
         $featured_properties = (object) array(
             'featured_visibility' => $featured_visibility,
@@ -132,7 +142,11 @@ class HomeController extends Controller
         if ($home_page->urgent_visibility == 1) {
             $urgent_visibility = true;
         }
-        $urgent_properties = Property::with('translation')->where('status', 1)->where('urgent_property', 1)->where('expired_date', null)->orWhere('expired_date', '>=', date('Y-m-d'))->get()->take($home_page->urgent_property_item);
+        $urgent_properties = Property::with('translation')->where('status', 1)
+            ->inRandomOrder()
+            ->where('number_of_bedroom', 1)
+            ->take(6)
+            ->get();
 
         $urgent_properties = (object) array(
             'urgent_visibility' => $urgent_visibility,
@@ -879,7 +893,23 @@ class HomeController extends Controller
 
     public function propertDetails($slug)
     {
-        $property = Property::with('admin', 'user', 'translation')->where(['status' => 1, 'slug' => $slug])->first();
+        $property = Property::where('slug', $slug)->first();
+
+        if ($property === null) {
+            // Buscar por um slug similar
+            $similarProperty = Property::where('slug', 'like', '%' . $slug . '%')->first();
+
+            if ($similarProperty !== null) {
+                // Se for encontrado um slug similar, redirecionar para a página de detalhes dessa propriedade
+                return redirect()->route('property.details', ['slug' => $similarProperty->slug]);
+            } else {
+                // Se não for encontrado nenhum slug similar, redirecionar para alguma página de erro ou padrão
+                return redirect()->route('error.page'); // Substitua 'error.page' pela rota desejada
+            }
+        }
+        if ($property === null) {
+            return redirect()->route('property.details', ['slug' => $slug]);
+        }
         if ($property) {
 
             $isExpired = false;
@@ -915,202 +945,294 @@ class HomeController extends Controller
         }
     }
 
-
-
-
     public function searchPropertyPage(Request $request)
     {
         Paginator::useBootstrap();
 
-        // check page type, page type means grid view or list view
+        // Definição inicial das variáveis
         $page_type = 'grid_view';
-
-        /*   if ($request->page_type == 'list_view') {
-                $page_type = $request->page_type;
-            } else if ($request->page_type == 'grid_view') {
-                $page_type = $request->page_type;
-            } else {
-                $notification = trans('user_validation.Something Went Wrong');
-                $notification = array('messege' => $notification, 'alert-type' => 'error');
-                return redirect()->route('home')->with($notification);
-            }*/
-        // end page type
-
-        // check aminity
-        $sortArry = [];
-        if ($request->aminity) {
-            foreach ($request->aminity as $amnty) {
-                array_push($sortArry, (int)$amnty);
-            }
-        } else {
-            $aminities = Aminity::with('translation')->where('status', 1)->get();
-            foreach ($aminities as $aminity) {
-                array_push($sortArry, (int)$aminity->id);
-            }
-        }
-        // end aminity
-
-        // soriting data
-        $paginate_qty = CustomPagination::where('id', 2)->first()->qty;
-        // check order type
         $orderBy = "desc";
         $orderByView = false;
+
+        // Verificação do tipo de ordenação
         if ($request->sorting_id) {
             if ($request->sorting_id == 7) {
                 $orderBy = "asc";
-            } else if ($request->sorting_id == 1) {
-                $orderBy = "desc";
-            } else if ($request->sorting_id == 5) {
-                $orderBy = "desc";
             } else if ($request->sorting_id == 2) {
                 $orderBy = "asc";
                 $orderByView = true;
             }
         }
-        // end check order type
 
-        if ($request->aminity) {
-
-            $properties = Property::with('propertyType', 'propertyPurpose', 'city', 'translation')->whereHas('propertyAminities', function ($query) use ($request) {
-
-                // check aminity
-                $sortArry = [];
-                if ($request->aminity) {
-                    foreach ($request->aminity as $amnty) {
-                        array_push($sortArry, (int)$amnty);
-                    }
-                } else {
-                    $aminities = Aminity::where('status', 1)->get();
-                    foreach ($aminities as $aminity) {
-                        array_push($sortArry, (int)$aminity->id);
-                    }
-                }
-                // end aminity
-
-                $query->whereIn('aminity_id', $sortArry);
-            })->where('status', 1)->where(function ($query) {
-                $query->where('expired_date', null)->orWhere('expired_date', '>=', date('Y-m-d'));
+        // Consulta principal
+        $properties = Property::with('propertyType', 'propertyPurpose', 'city')
+            ->where('status', 1)
+            ->where(function ($query) {
+                $query->whereNull('expired_date')->orWhere('expired_date', '>=', now());
             });
-        } else {
-            $properties = Property::with('propertyType', 'propertyPurpose', 'city')->where('status', 1)->where(function ($query) {
-                $query->where('expired_date', null)->orWhere('expired_date', '>=', date('Y-m-d'));
-            });
+
+        // Filtros adicionais
+        if ($request->city_id) {
+            $properties->where('city_id', $request->city_id);
         }
 
-        if ($request->price_range) {
-            $price_range = explode(':', $request->price_range);
-            $min_price = $price_range[0];
-            $max_price = $price_range[1];
-            $properties = $properties->where('price', '<=', $max_price)->where('price', '>=', $min_price);
+        if ($request->search) {
+            $properties->where('title', 'LIKE', '%' . $request->search . '%');
         }
 
-        if ($request->number_of_room) {
-            $properties = $properties->where('number_of_room', $request->number_of_room);
+        if ($request->purpose_type) {
+            $properties->where('property_purpose_id', $request->purpose_type);
         }
 
-        if ($request->property_id) {
-            $properties = $properties->where('property_search_id', $request->property_id);
+        // Filtro de número de quartos
+        if ($request->number_of_rooms) {
+            $properties->where('number_of_bedroom', $request->number_of_rooms);
         }
 
-        $orderBy = "desc";
-        $orderByView = false;
+        // Ordenação
         if ($request->sorting_id) {
             if ($request->sorting_id == 7) {
-                $properties = $properties->orderBy('id', 'asc');
-            } else if ($request->sorting_id == 1) {
-                $properties = $properties->orderBy('id', 'desc');
+                $properties->orderBy('id', 'asc');
             } else if ($request->sorting_id == 2) {
-                $properties = $properties->orderBy('views', 'desc');
-            } else if ($request->sorting_id == 3) {
-                $properties = $properties->where('is_featured', 1);
-            } else if ($request->sorting_id == 6) {
-                $properties = $properties->where('urgent_property', 1);
-            } else if ($request->sorting_id == 5) {
-                $properties = $properties->orderBy('id', 'desc');
-            } else if ($request->sorting_id == 4) {
-                $properties = $properties->where('top_property', 1);
+                $properties->orderBy('views', 'desc');
             }
         } else {
-            $properties = $properties->orderBy('id', 'desc');
+            $properties->orderBy('id', 'desc');
         }
 
-        if ($request->city_id != null) {
-            $properties->where(['city_id' => $request->city_id, 'status' => 1]);
-        }
-        if ($request->search != null) {
-            $properties->where('title', 'LIKE', '%' . $request->search . '%')->where('status', 1);
-        }
+        // Paginação
+        $paginate_qty = CustomPagination::findOrFail(2)->qty;
+        $properties = $properties->paginate($paginate_qty)->appends($request->all());
 
-        if ($request->purpose_type != null) {
-            $properties->where(['property_purpose_id' => $request->purpose_type, 'status' => 1]);
-        }
-
-        if ($request->sorting_id) {
-            if ($request->sorting_id == 3) {
-                $properties->where(['is_featured' => 1, 'status' => 1]);
-            } else if ($request->sorting_id == 6) {
-                $properties->where(['urgent_property' => 1, 'status' => 1]);
-            } elseif ($request->sorting_id == 4) {
-                $properties->where(['top_property' => 1, 'status' => 1]);
-            }
-        }
-
-        $properties->where(['status' => 1]);
-
-        $properties = $properties->paginate($paginate_qty);
-
-        $properties = $properties->appends($request->all());
-
+        // Outras variáveis necessárias para a view
         $aminities = Aminity::with('translation')->where('status', 1)->orderBy('aminity', 'asc')->get();
-        $banner_image = BreadcrumbImage::find(12)->image;
-        $default_image = BannerImage::find(15)->image;
-        $currency = Setting::first()->currency_icon;
-        $seo_text = SeoSetting::find(9);
+        $banner_image = BreadcrumbImage::findOrFail(12)->image;
+        $default_image = BannerImage::findOrFail(15)->image;
+        $currency = Setting::value('currency_icon');
+        $seo_text = SeoSetting::findOrFail(9);
         $propertyTypes = PropertyType::with('translation')->where('status', 1)->orderBy('type', 'asc')->get();
         $cities = City::with('translation')->where('status', 1)->orderBy('name', 'asc')->get();
-
-        $max_number_of_room = Property::with('translation')->where('status', 1)->orderBy('number_of_room', 'desc')->first();
-
-        if ($max_number_of_room) {
-            $max_number_of_room = $max_number_of_room->number_of_room;
-        }
-
-        $max_price = Property::where('status', 1)->orderBy('price', 'desc')->first();
-        $min_price = Property::where('status', 1)->orderBy('price', 'asc')->first();
-
-        if ($max_price) {
-            $max_price = $max_price->price;
-        } else {
-            $max_price = 0;
-        }
-
-        if ($min_price) {
-            $minimum_price = $min_price->price;
-        } else {
-            $minimum_price = 0;
-        }
-
-
-
-
-        $price_range = $max_price - $minimum_price;
+        $max_number_of_room = Property::where('status', 1)->max('number_of_room');
+        $min_price = Property::where('status', 1)->min('price');
+        $max_price = Property::where('status', 1)->max('price');
+        $price_range = $max_price - $min_price;
         $mod_price = $price_range / 10;
 
-        return view('property')->with([
-            'properties' => $properties,
-            'aminities' => $aminities,
-            'seo_text' => $seo_text,
-            'banner_image' => $banner_image,
-            'page_type' => $page_type,
-            'currency' => $currency,
-            'propertyTypes' => $propertyTypes,
-            'cities' => $cities,
-            'price_range' => $price_range,
-            'mod_price' => $mod_price,
-            'minimum_price' => $minimum_price,
-            'max_number_of_room' => $max_number_of_room,
-        ]);
+        // Corrigindo o nome da variável
+        $minimum_price = $min_price;
+
+        return view('property', compact(
+            'properties',
+            'aminities',
+            'seo_text',
+            'banner_image',
+            'page_type',
+            'currency',
+            'propertyTypes',
+            'cities',
+            'price_range',
+            'mod_price',
+            'minimum_price', // Corrigindo o nome da variável aqui
+            'max_number_of_room'
+        ));
     }
+
+
+
+
+    // public function searchPropertyPage(Request $request)
+    // {
+    //     Paginator::useBootstrap();
+
+    //     // check page type, page type means grid view or list view
+    //     $page_type = 'grid_view';
+
+    //     /*   if ($request->page_type == 'list_view') {
+    //             $page_type = $request->page_type;
+    //         } else if ($request->page_type == 'grid_view') {
+    //             $page_type = $request->page_type;
+    //         } else {
+    //             $notification = trans('user_validation.Something Went Wrong');
+    //             $notification = array('messege' => $notification, 'alert-type' => 'error');
+    //             return redirect()->route('home')->with($notification);
+    //         }*/
+    //     // end page type
+
+    //     // check aminity
+    //     $sortArry = [];
+    //     if ($request->aminity) {
+    //         foreach ($request->aminity as $amnty) {
+    //             array_push($sortArry, (int)$amnty);
+    //         }
+    //     } else {
+    //         $aminities = Aminity::with('translation')->where('status', 1)->get();
+    //         foreach ($aminities as $aminity) {
+    //             array_push($sortArry, (int)$aminity->id);
+    //         }
+    //     }
+    //     // end aminity
+
+    //     // soriting data
+    //     $paginate_qty = CustomPagination::where('id', 2)->first()->qty;
+    //     // check order type
+    //     $orderBy = "desc";
+    //     $orderByView = false;
+    //     if ($request->sorting_id) {
+    //         if ($request->sorting_id == 7) {
+    //             $orderBy = "asc";
+    //         } else if ($request->sorting_id == 1) {
+    //             $orderBy = "desc";
+    //         } else if ($request->sorting_id == 5) {
+    //             $orderBy = "desc";
+    //         } else if ($request->sorting_id == 2) {
+    //             $orderBy = "asc";
+    //             $orderByView = true;
+    //         }
+    //     }
+    //     // end check order type
+
+    //     if ($request->aminity) {
+
+    //         $properties = Property::with('propertyType', 'propertyPurpose', 'city', 'translation')->whereHas('propertyAminities', function ($query) use ($request) {
+
+    //             // check aminity
+    //             $sortArry = [];
+    //             if ($request->aminity) {
+    //                 foreach ($request->aminity as $amnty) {
+    //                     array_push($sortArry, (int)$amnty);
+    //                 }
+    //             } else {
+    //                 $aminities = Aminity::where('status', 1)->get();
+    //                 foreach ($aminities as $aminity) {
+    //                     array_push($sortArry, (int)$aminity->id);
+    //                 }
+    //             }
+    //             // end aminity
+
+    //             $query->whereIn('aminity_id', $sortArry);
+    //         })->where('status', 1)->where(function ($query) {
+    //             $query->where('expired_date', null)->orWhere('expired_date', '>=', date('Y-m-d'));
+    //         });
+    //     } else {
+    //         $properties = Property::with('propertyType', 'propertyPurpose', 'city')->where('status', 1)->where(function ($query) {
+    //             $query->where('expired_date', null)->orWhere('expired_date', '>=', date('Y-m-d'));
+    //         });
+    //     }
+
+    //     if ($request->price_range) {
+    //         $price_range = explode(':', $request->price_range);
+    //         $min_price = $price_range[0];
+    //         $max_price = $price_range[1];
+    //         $properties = $properties->where('price', '<=', $max_price)->where('price', '>=', $min_price);
+    //     }
+
+    //     if ($request->number_of_room) {
+    //         $properties = $properties->where('number_of_room', $request->number_of_room);
+    //     }
+
+    //     if ($request->property_id) {
+    //         $properties = $properties->where('property_search_id', $request->property_id);
+    //     }
+
+    //     $orderBy = "desc";
+    //     $orderByView = false;
+    //     if ($request->sorting_id) {
+    //         if ($request->sorting_id == 7) {
+    //             $properties = $properties->orderBy('id', 'asc');
+    //         } else if ($request->sorting_id == 1) {
+    //             $properties = $properties->orderBy('id', 'desc');
+    //         } else if ($request->sorting_id == 2) {
+    //             $properties = $properties->orderBy('views', 'desc');
+    //         } else if ($request->sorting_id == 3) {
+    //             $properties = $properties->where('is_featured', 1);
+    //         } else if ($request->sorting_id == 6) {
+    //             $properties = $properties->where('urgent_property', 1);
+    //         } else if ($request->sorting_id == 5) {
+    //             $properties = $properties->orderBy('id', 'desc');
+    //         } else if ($request->sorting_id == 4) {
+    //             $properties = $properties->where('top_property', 1);
+    //         }
+    //     } else {
+    //         $properties = $properties->orderBy('id', 'desc');
+    //     }
+
+    //     if ($request->city_id != null) {
+    //         $properties->where(['city_id' => $request->city_id, 'status' => 1]);
+    //     }
+    //     if ($request->search != null) {
+    //         $properties->where('title', 'LIKE', '%' . $request->search . '%')->where('status', 1);
+    //     }
+
+    //     if ($request->purpose_type != null) {
+    //         $properties->where(['property_purpose_id' => $request->purpose_type, 'status' => 1]);
+    //     }
+
+    //     if ($request->sorting_id) {
+    //         if ($request->sorting_id == 3) {
+    //             $properties->where(['is_featured' => 1, 'status' => 1]);
+    //         } else if ($request->sorting_id == 6) {
+    //             $properties->where(['urgent_property' => 1, 'status' => 1]);
+    //         } elseif ($request->sorting_id == 4) {
+    //             $properties->where(['top_property' => 1, 'status' => 1]);
+    //         }
+    //     }
+
+    //     $properties->where(['status' => 1]);
+
+    //     $properties = $properties->paginate($paginate_qty);
+
+    //     $properties = $properties->appends($request->all());
+
+    //     $aminities = Aminity::with('translation')->where('status', 1)->orderBy('aminity', 'asc')->get();
+    //     $banner_image = BreadcrumbImage::find(12)->image;
+    //     $default_image = BannerImage::find(15)->image;
+    //     $currency = Setting::first()->currency_icon;
+    //     $seo_text = SeoSetting::find(9);
+    //     $propertyTypes = PropertyType::with('translation')->where('status', 1)->orderBy('type', 'asc')->get();
+    //     $cities = City::with('translation')->where('status', 1)->orderBy('name', 'asc')->get();
+
+    //     $max_number_of_room = Property::with('translation')->where('status', 1)->orderBy('number_of_room', 'desc')->first();
+
+    //     if ($max_number_of_room) {
+    //         $max_number_of_room = $max_number_of_room->number_of_room;
+    //     }
+
+    //     $max_price = Property::where('status', 1)->orderBy('price', 'desc')->first();
+    //     $min_price = Property::where('status', 1)->orderBy('price', 'asc')->first();
+
+    //     if ($max_price) {
+    //         $max_price = $max_price->price;
+    //     } else {
+    //         $max_price = 0;
+    //     }
+
+    //     if ($min_price) {
+    //         $minimum_price = $min_price->price;
+    //     } else {
+    //         $minimum_price = 0;
+    //     }
+
+
+
+
+    //     $price_range = $max_price - $minimum_price;
+    //     $mod_price = $price_range / 10;
+
+    //     return view('property')->with([
+    //         'properties' => $properties,
+    //         'aminities' => $aminities,
+    //         'seo_text' => $seo_text,
+    //         'banner_image' => $banner_image,
+    //         'page_type' => $page_type,
+    //         'currency' => $currency,
+    //         'propertyTypes' => $propertyTypes,
+    //         'cities' => $cities,
+    //         'price_range' => $price_range,
+    //         'mod_price' => $mod_price,
+    //         'minimum_price' => $minimum_price,
+    //         'max_number_of_room' => $max_number_of_room,
+    //     ]);
+    // }
 
 
     public function testsearch(Request $request)
