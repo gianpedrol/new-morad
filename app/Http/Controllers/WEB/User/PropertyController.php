@@ -142,27 +142,26 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
+
+        $price = (float) str_replace(',', '.', str_replace('.', '', $request->price));
         $rules = [
 
             'title' => 'required|unique:properties',
             'slug' => 'required|unique:properties',
             'property_type' => 'required',
-            'city' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
             'purpose' => 'required',
-            'price' => 'required|numeric',
-            'area' => 'required|numeric',
-            'unit' => 'required|numeric',
-            'room' => 'required|numeric',
-            'bedroom' => 'required|numeric',
-            'floor' => 'required|numeric',
-            "banner_image"    => "required|file",
-            'thumbnail_image' => 'required|file',
-            "slider_images"    => "required",
-            'description' => 'required',
-            "pdf_file" => "mimes:pdf|max:10000"
+            'price' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'thumbnail_image' => 'required'
         ];
+
+        if ($request->description == null) {
+            $description = '';
+        } else {
+            $description = $request->description;
+        }
 
         $customMessages = [
             'agent.required' => trans('user_validation.Property agent is required'),
@@ -171,20 +170,12 @@ class PropertyController extends Controller
             'slug.required' => trans('user_validation.Slug is required'),
             'slug.unique' => trans('user_validation.Slug already exist'),
             'property_type.required' => trans('user_validation.Property type is required'),
-            'city.required' => trans('user_validation.City is required'),
-            'address.required' => trans('user_validation.Address is required'),
-            'email.required' => trans('user_validation.Email is required'),
             'purpose.required' => trans('user_validation.Purpose is required'),
             'price.required' => trans('user_validation.Price is required'),
-            'area.required' => trans('user_validation.Area is required'),
-            'unit.required' => trans('user_validation.Unit is required'),
-            'room.required' => trans('user_validation.Room is required'),
-            'bedroom.required' => trans('user_validation.Bedroom is required'),
-            'floor.required' => trans('user_validation.Floor is required'),
-            'banner_image.required' => trans('user_validation.Banner image is required'),
-            'thumbnail_image.required' => trans('user_validation.Thumbnail is required'),
-            'slider_images.required' => trans('user_validation.Slider image is required'),
-            'description.required' => trans('user_validation.Description is required'),
+            'city.required' => trans('Selecione a cidade'),
+            'phone.required' => trans('Digite seu telefone'),
+            'address.required' => trans('Digite o endereço do imóvel'),
+            'thumbnail_image.required' => trans('Você precisa escolher uma imagem em miniatura (thumbnail')
         ];
 
         $this->validate($request, $rules, $customMessages);
@@ -200,34 +191,38 @@ class PropertyController extends Controller
         $user = Auth::guard('web')->user();
         $property->code_property_api = $request->code_imob;
         $property->value_condominio = $request->value_condominio;
-        $property->value_iptu = $request->iptu;
+        $property->value_iptu = $request->iptu ?  $request->iptu : 0;
         $property->user_type = 0;
         $property->property_search_id = mt_rand(10000000, 99999999);
         $property->user_id = $user->id;
         $property->title = $request->title;
         $property->expired_date = $request->expired_date == -1 ? null : $request->expired_date;
         $property->slug = $request->slug;
+        $property->status = 1;
         $property->property_type_id = $request->property_type;
         $property->city_id = $request->city;
         $property->address = $request->address;
         $property->phone = $request->phone;
         $property->email = $request->email;
-        $property->website = $request->website;
+        $property->website = $request->website ? $request->website : '';
         $property->property_purpose_id = $request->purpose;
-        $property->price = $request->price;
+        $property->price =  $price;
         $property->period = $request->period ? $request->period : null;
-        $property->area = $request->area;
-        $property->number_of_unit = $request->unit;
-        $property->number_of_room = $request->room;
-        $property->number_of_bedroom = $request->bedroom;
-        $property->number_of_bathroom = $request->bathroom;
-        $property->number_of_floor = $request->floor;
-        $property->number_of_kitchen = $request->kitchen;
-        $property->number_of_parking = $request->parking;
+        $property->area = $request->area ?  $request->area : 0;
+        $property->number_of_unit = $request->unit ?  $request->unit : 0;
+        $property->number_of_room = $request->room ? $request->room : 0;
+        $property->number_of_bedroom = $request->bedroom ? $request->bedroom : 0;
+        $property->number_of_bathroom = $request->bathroom ? $request->bathroom : 0;
+        $property->number_of_floor = 0;
+        $property->number_of_kitchen = $request->kitchen ? $request->kitchen  : 0;
+        $property->number_of_parking = $request->parking ? $request->parking : 0;
         $property->video_link = $video_link;
         $property->google_map_embed_code = $request->google_map_embed_code;
-        $property->description = $request->description;
-        $property->status = 1;
+        $property->description =  $description;
+        $property->number = $request->number;
+        $property->neighborhood = $request->neighborhood;
+        $property->complemento = $request->complemento;
+        $property->cep = $request->cep;
         $property->is_featured = $request->featured ? $request->featured : 0;
         $property->urgent_property = $request->urgent_property ? $request->urgent_property : 0;
         $property->top_property = $request->top_property ? $request->top_property : 0;
@@ -304,8 +299,10 @@ class PropertyController extends Controller
         // slider image
         if ($request->file('slider_images')) {
             $images = $request->slider_images;
+            $savedImagesCount = 0; // contador de imagens salvas
+
             foreach ($images as $image) {
-                if ($image != null) {
+                if ($image != null && $savedImagesCount < 20) {
                     $propertyImage = new PropertyImage();
                     $slider_ext = $image->getClientOriginalExtension();
                     // for small image
@@ -318,6 +315,8 @@ class PropertyController extends Controller
                     $propertyImage->image = $slider_path;
                     $propertyImage->property_id = $property->id;
                     $propertyImage->save();
+
+                    $savedImagesCount++; // Incrementa o contador de imagens salvas
                 }
             }
         }
@@ -385,6 +384,8 @@ class PropertyController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $price = (float) str_replace(',', '.', str_replace('.', '', $request->price));
         $property = Property::find($id);
         $rules = [
             'title' => 'required|unique:properties,title,' . $property->id,
@@ -394,15 +395,7 @@ class PropertyController extends Controller
             'address' => 'required',
             'email' => 'required|email',
             'purpose' => 'required',
-            'price' => 'required|numeric',
-            'area' => 'required|numeric',
-            'unit' => 'required|numeric',
-            'room' => 'required|numeric',
-            'bedroom' => 'required|numeric',
-            'bathroom' => 'required|numeric',
-            'floor' => 'required|numeric',
-            'description' => 'required',
-            "pdf_file" => "mimes:pdf|max:10000"
+            'price' => 'required',
         ];
 
 
@@ -412,21 +405,8 @@ class PropertyController extends Controller
             'title.unique' => trans('user_validation.Title already exist'),
             'slug.required' => trans('user_validation.Slug is required'),
             'slug.unique' => trans('user_validation.Slug already exist'),
-            'property_type.required' => trans('user_validation.Property type is required'),
-            'city.required' => trans('user_validation.City is required'),
-            'address.required' => trans('user_validation.Address is required'),
-            'email.required' => trans('user_validation.Email is required'),
             'purpose.required' => trans('user_validation.Purpose is required'),
             'price.required' => trans('user_validation.Price is required'),
-            'area.required' => trans('user_validation.Area is required'),
-            'unit.required' => trans('user_validation.Unit is required'),
-            'room.required' => trans('user_validation.Room is required'),
-            'bedroom.required' => trans('user_validation.Bedroom is required'),
-            'floor.required' => trans('user_validation.Floor is required'),
-            'banner_image.required' => trans('user_validation.Banner image is required'),
-            'thumbnail_image.required' => trans('user_validation.Thumbnail is required'),
-            'slider_images.required' => trans('user_validation.Slider image is required'),
-            'description.required' => trans('user_validation.Description is required'),
         ];
 
 
@@ -441,6 +421,7 @@ class PropertyController extends Controller
         $property->value_condominio = $request->value_condominio;
         $property->value_iptu = $request->iptu;
         $property->title = $request->title;
+        $property->status = 1;
         $property->slug = $request->slug;
         $property->property_type_id = $request->property_type;
         $property->city_id = $request->city;
@@ -449,14 +430,14 @@ class PropertyController extends Controller
         $property->email = $request->email;
         $property->website = $request->website;
         $property->property_purpose_id = $request->purpose;
-        $property->price = $request->price;
+        $property->price =  $price;
         $property->period = $request->period ? $request->period : null;
         $property->area = $request->area;
         $property->number_of_unit = $request->unit;
         $property->number_of_room = $request->room;
         $property->number_of_bedroom = $request->bedroom;
         $property->number_of_bathroom = $request->bathroom;
-        $property->number_of_floor = $request->floor;
+        $property->number_of_floor = 0;
         $property->number_of_kitchen = $request->kitchen;
         $property->number_of_parking = $request->parking;
         $property->video_link = $video_link;
@@ -467,6 +448,10 @@ class PropertyController extends Controller
         $property->top_property = $request->top_property ? $request->top_property : 0;
         $property->seo_title = $request->seo_title ? $request->seo_title : $request->title;
         $property->seo_description = $request->seo_description ? $request->seo_description : $request->title;
+        $property->number = $request->number;
+        $property->neighborhood = $request->neighborhood;
+        $property->complemento = $request->complemento;
+        $property->cep = $request->cep;
 
         // pdf file
         if ($request->file('pdf_file')) {
@@ -582,9 +567,19 @@ class PropertyController extends Controller
         }
 
         // slider image
-        if ($request->file('slider_images')) {
-            $images = $request->slider_images;
+        if ($request->hasFile('slider_images')) {
+            $images = $request->file('slider_images');
+
+            // Contador para controlar o número de imagens salvas
+            $savedImagesCount = 0;
+
             foreach ($images as $image) {
+                // Verifica se já foram salvas 20 imagens
+                if ($savedImagesCount >= 20) {
+                    break; // Sai do loop se já tiver salvo 20 imagens
+                }
+
+                // Verifica se a imagem não é nula
                 if ($image != null) {
                     $propertyImage = new PropertyImage();
                     $slider_ext = $image->getClientOriginalExtension();
@@ -597,6 +592,9 @@ class PropertyController extends Controller
                     $propertyImage->image = $slider_path;
                     $propertyImage->property_id = $property->id;
                     $propertyImage->save();
+
+                    // Incrementa o contador de imagens salvas
+                    $savedImagesCount++;
                 }
             }
         }
@@ -610,37 +608,25 @@ class PropertyController extends Controller
     public function destroy($id)
     {
 
-        // project demo mode check
-        if (env('PROJECT_MODE') == 0) {
-            $notification = array(
-                'messege' => env('NOTIFY_TEXT'),
-                'alert-type' => 'error'
-            );
-
-            return redirect()->back()->with($notification);
-        }
-        // end
 
         $property = Property::find($id);
         $old_thumbnail = $property->thumbnail_image;
         $old_banner = $property->banner_image;
         $old_pdf = $property->file;
         PropertyAminity::where('property_id', $property->id)->delete();
-        WishList::where('property_id', $property->id)->delete();
-        PropertyReview::where('property_id', $property->id)->delete();
         PropertyNearestLocation::where('property_id', $property->id)->delete();
 
-        foreach ($property->propertyImages as $image) {
-            if (File::exists(public_path() . '/' . $image->image)) unlink(public_path() . '/' . $image->image);
-        }
+        // foreach ($property->propertyImages as $image) {
+        //     if (File::exists(public_path() . '/' . $image->image)) unlink(public_path() . '/' . $image->image);
+        // }
         PropertyImage::where('property_id', $property->id)->delete();
 
 
-        if ($old_pdf) {
-            if (File::exists(public_path() . '/' . 'uploads/custom-images/' . $old_pdf)) unlink(public_path() . '/' . 'uploads/custom-images/' . $old_pdf);
-        }
-        if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
-        if (File::exists(public_path() . '/' . $old_banner)) unlink(public_path() . '/' . $old_banner);
+        // if ($old_pdf) {
+        //     if (File::exists(public_path() . '/' . 'uploads/custom-images/' . $old_pdf)) unlink(public_path() . '/' . 'uploads/custom-images/' . $old_pdf);
+        // }
+        // if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
+        // if (File::exists(public_path() . '/' . $old_banner)) unlink(public_path() . '/' . $old_banner);
 
         $property->delete();
 

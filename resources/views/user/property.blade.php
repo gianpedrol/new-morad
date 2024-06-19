@@ -12,6 +12,7 @@
                     <h4 class="heading">{{ __('user.My Property') }} <a href="{{ route('user.create.property') }}"
                             class="common_btn"><i class="fal fa-plus-octagon"></i> {{ __('user.Creae New') }}</a></h4>
                     <div class="row">
+
                         <div class="col-12">
                             <div class="table-responsive">
                                 <table class="table">
@@ -35,21 +36,28 @@
                                     @foreach ($properties as $item)
                                         <tr>
                                             <td class="image">
-                                                <a href="{{ route('property.details', $item->slug) }}">
-                                                    <img src="{{ url($item->thumbnail_image) }}" alt="img"
-                                                        class="img-fluid w-100">
+                                                <a href="{{ route('property.details', $item->slug) }}" target="_blank">
+                                                    <img src="{{ isset($item->thumbnail_image) ? url($item->thumbnail_image) : '' }}" alt="img" class="img-fluid w-100">
                                                 </a>
                                             </td>
                                             <td class="title">
                                                 <h5><a
-                                                        href="{{ route('property.details', $item->slug) }}">{{ $item->translated_title }}</a>
+                                                        href="{{ route('property.details', $item->slug) }}" target="_blank">{{ $item->translated_title }}</a>
                                                 </h5>
-                                                <p class="address">{{ $item->address . ', ' . $item->city->translated_name }}
+                                                <p class="address">
+                                                    {{ $item->address }}
+                                                    @if($item->number)
+                                                        , {{ $item->number }}
+                                                    @endif
+                                                    @if($item->complemento)
+                                                    , {{ $item->complemento }}
+                                                    @endif
+                                                    , {{ $item->city->translated_name }}
                                                 </p>
 
                                             </td>
                                             <td class="purpose">
-                                                <p>{{ $item->propertyPurpose->translated_custom_purpose }}</p>
+                                                <p>{{ $item->propertyPurpose->translated_custom_purpose == 'Comprar' ? 'Venda' : 'Locação'}}</p>
                                             </td>
                                             <td class="status">
                                                 @if ($item->status == 1)
@@ -66,7 +74,7 @@
                                             </td>
                                             <td class="actions">
                                                 <ul class="d-flex">
-                                                    <li><a href="{{ route('property.details', $item->slug) }}"><i
+                                                    <li><a href="{{ route('property.details', $item->slug) }}" target="_blank"><i
                                                                 class="far fa-eye"></i></a></li>
                                                     <li><a href="{{ route('user.property.edit', $item->id) }}"><i
                                                                 class="fal fa-edit"></i></a></li>

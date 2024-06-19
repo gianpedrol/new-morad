@@ -24,7 +24,13 @@
 </section>
 <!--===BREADCRUMB PART END====-->
 
-
+@if($fromPlanPage)
+<div class="container">
+    <div class="row text-center pt-5" >
+        <h3 style="font-size: 16px">Para contratar um plano você deve fazer o login, caso não tenha um login, faça um cadastro no formulário a direita, e verifique seu e-mail.</h3>
+    </div>
+</div>
+@endif
 <!--=======LOGON PART START=========-->
 <section class="wsus__logon mt_45 mb_45">
     <div class="container">

@@ -121,6 +121,7 @@ class HomeController extends Controller
         }
         $featured_properties = Property::with('translation')
             ->where('status', 1)
+            ->where('number_of_bedroom', 1)
             ->inRandomOrder()
             ->take(6)
             ->get();
@@ -789,22 +790,8 @@ class HomeController extends Controller
 
         Paginator::useBootstrap();
         // cheack page type, page type means grid view or listing view
-        $page_type = '';
-        if (!$request->page_type) {
-            $notification = trans('user_validation.Something Went Wrong');
-            $notification = array('messege' => $notification, 'alert-type' => 'error');
-            return redirect()->route('home')->with($notification);
-        } else {
-            if ($request->page_type == 'list_view') {
-                $page_type = $request->page_type;
-            } else if ($request->page_type == 'grid_view') {
-                $page_type = $request->page_type;
-            } else {
-                $notification = trans('user_validation.Something Went Wrong');
-                $notification = array('messege' => $notification, 'alert-type' => 'error');
-                return redirect()->route('home')->with($notification);
-            }
-        }
+        $page_type = 'list_view';
+
         // end page type
 
 
@@ -847,6 +834,7 @@ class HomeController extends Controller
         } else {
             $max_number_of_room = 0;
         }
+
 
 
         $max_price = Property::with('translation')->where('status', 1)->orderBy('price', 'desc')->first();
@@ -949,8 +937,7 @@ class HomeController extends Controller
     {
         Paginator::useBootstrap();
 
-        // Definição inicial das variáveis
-        $page_type = 'grid_view';
+        $page_type = 'list_view';
         $orderBy = "desc";
         $orderByView = false;
 
@@ -963,6 +950,20 @@ class HomeController extends Controller
                 $orderByView = true;
             }
         }
+        if ($request->min_price) {
+            $min_price_numeric = preg_replace('/[^0-9]/', '', str_replace(['.', ','], ['', ''], $request->min_price));
+            $min_price_numeric = (int)$min_price_numeric;
+        } else {
+            $min_price_numeric = 1;
+        }
+
+        if ($request->max_price) {
+            $max_price_numeric = preg_replace('/[^0-9]/', '', str_replace(['.', ','], ['', ''], $request->max_price));
+            $max_price_numeric = (int)$max_price_numeric;
+        } else {
+            $max_price_numeric = 10000000000000000000000000000000000000;
+        }
+
 
         // Consulta principal
         $properties = Property::with('propertyType', 'propertyPurpose', 'city')
@@ -971,10 +972,15 @@ class HomeController extends Controller
                 $query->whereNull('expired_date')->orWhere('expired_date', '>=', now());
             });
 
-        // Filtros adicionais
+        if ($min_price_numeric > 0 && $max_price_numeric > 0) {
+            $properties->whereBetween('price', [$min_price_numeric, $max_price_numeric]);
+        }
+
+
         if ($request->city_id) {
             $properties->where('city_id', $request->city_id);
         }
+
 
         if ($request->search) {
             $properties->where('title', 'LIKE', '%' . $request->search . '%');
@@ -984,7 +990,11 @@ class HomeController extends Controller
             $properties->where('property_purpose_id', $request->purpose_type);
         }
 
-        // Filtro de número de quartos
+        if ($request->purpose_type_mobile) {
+            $properties->where('property_purpose_id', $request->purpose_type);
+        }
+
+
         if ($request->number_of_rooms) {
             $properties->where('number_of_bedroom', $request->number_of_rooms);
         }
@@ -999,6 +1009,8 @@ class HomeController extends Controller
         } else {
             $properties->orderBy('id', 'desc');
         }
+
+
 
         // Paginação
         $paginate_qty = CustomPagination::findOrFail(2)->qty;
@@ -1018,7 +1030,6 @@ class HomeController extends Controller
         $price_range = $max_price - $min_price;
         $mod_price = $price_range / 10;
 
-        // Corrigindo o nome da variável
         $minimum_price = $min_price;
 
         return view('property', compact(

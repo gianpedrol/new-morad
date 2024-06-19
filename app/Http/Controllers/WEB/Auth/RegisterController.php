@@ -64,6 +64,7 @@ class RegisterController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->status = 1;
         $user->creci = $request->creci;
         $user->slug = mt_rand(10000000, 99999999);
         $user->password = Hash::make($request->password);

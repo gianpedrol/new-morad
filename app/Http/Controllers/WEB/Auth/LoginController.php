@@ -33,20 +33,25 @@ class LoginController extends Controller
         $this->middleware('guest:web')->except('userLogout');
     }
 
-    public function userLoginPage(){
+    public function userLoginPage(Request $request)
+    {
         $banner_image = BreadcrumbImage::find(5)->image;
         $recaptcha_setting = GoogleRecaptcha::first();
         $socialLogin = SocialLoginInformation::first();
 
-        return view('auth.login',compact('banner_image','recaptcha_setting','socialLogin'));
+        $referrer = $request->header('referer');
+        $fromPlanPage = strpos($referrer, route('pricing.plan')) !== false;
+
+        return view('auth.login', compact('banner_image', 'recaptcha_setting', 'socialLogin', 'fromPlanPage'));
     }
 
-    public function storeLogin(Request $request){
+    public function storeLogin(Request $request)
+    {
 
         $rules = [
-            'email'=>'required',
-            'password'=>'required',
-            'g-recaptcha-response'=>new Captcha()
+            'email' => 'required',
+            'password' => 'required',
+            'g-recaptcha-response' => new Captcha()
         ];
         $customMessages = [
             'email.required' => trans('user_validation.Email is required'),
@@ -55,73 +60,77 @@ class LoginController extends Controller
         $this->validate($request, $rules, $customMessages);
 
 
-        $credential=[
-            'email'=> $request->email,
-            'password'=> $request->password
+        $credential = [
+            'email' => $request->email,
+            'password' => $request->password
         ];
 
-        $user=User::where('email',$request->email)->first();
-        if($user){
-            if($user->status==1){
-                if(Hash::check($request->password,$user->password)){
-                    if(Auth::guard('web')->attempt($credential,$request->remember)){
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if ($user->status == 1) {
+                if (Hash::check($request->password, $user->password)) {
+                    if (Auth::guard('web')->attempt($credential, $request->remember)) {
 
                         $notification = trans('user_validation.Login Successfully');
 
-                        return response()->json(['success'=>$notification]);
+                        return response()->json(['success' => $notification]);
                     }
-                }else{
-                   $notification = trans('user_validation.Invalid login information');
-                    return response()->json(['error'=>$notification]);
+                } else {
+                    $notification = trans('user_validation.Invalid login information');
+                    return response()->json(['error' => $notification]);
                 }
-
-            }else{
+            } else {
 
                 $notification = trans('user_validation.Inactive account');
-                return response()->json(['error'=>$notification]);
+                return response()->json(['error' => $notification]);
             }
-        }else{
+        } else {
             $notification = trans('user_validation.Email does not exist');
-            return response()->json(['error'=>$notification]);
+            return response()->json(['error' => $notification]);
         }
     }
 
 
-    public function redirectToGoogle(){
+    public function redirectToGoogle()
+    {
         SocialLoginInformation::setGoogleLoginInfo();
         return Socialite::driver('google')->redirect();
     }
 
-    public function googleCallBack(){
+    public function googleCallBack()
+    {
         SocialLoginInformation::setGoogleLoginInfo();
         $user = Socialite::driver('google')->user();
-        $user = $this->createUser($user,'google');
+        $user = $this->createUser($user, 'google');
         auth('web')->login($user);
         return redirect()->route('user.dashboard');
     }
 
-    public function redirectToFacebook(){
+    public function redirectToFacebook()
+    {
         SocialLoginInformation::setFacebookLoginInfo();
         return Socialite::driver('facebook')->redirect();
     }
 
-    public function facebookCallBack(){
+    public function facebookCallBack()
+    {
         SocialLoginInformation::setFacebookLoginInfo();
         $user = Socialite::driver('facebook')->user();
-        $user = $this->createUser($user,'facebook');
+        $user = $this->createUser($user, 'facebook');
         auth('web')->login($user);
         return redirect()->route('user.dashboard');
     }
 
 
 
-    function createUser($getInfo,$provider){
+    function createUser($getInfo, $provider)
+    {
         $user = User::where('provider_id', $getInfo->id)->first();
         if (!$user) {
             $user = User::create([
                 'name'     => $getInfo->name,
                 'email'    => $getInfo->email,
-                'slug' => mt_rand(10000000,99999999),
+                'slug' => mt_rand(10000000, 99999999),
                 'provider' => $provider,
                 'provider_id' => $getInfo->id,
                 'provider_avatar' => $getInfo->avatar,
@@ -132,11 +141,12 @@ class LoginController extends Controller
         return $user;
     }
 
-    public function userLogout(){
+    public function userLogout()
+    {
         Auth::guard('web')->logout();
 
-       $notification = trans('user_validation.Logout Successfully');
-        $notification=array('messege'=>$notification,'alert-type'=>'success');
+        $notification = trans('user_validation.Logout Successfully');
+        $notification = array('messege' => $notification, 'alert-type' => 'success');
         return Redirect()->route('login')->with($notification);
     }
 }

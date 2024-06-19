@@ -3,14 +3,108 @@
     <title>{{__('user.Edit Property')}}</title>
 @endsection
 @section('user-dashboard')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+{{-- <script>
+    $(document).ready(function(){
+      $('input[name="phone"]').mask('(00)00000-0000');
+      $('form').on('submit', function(){
+    var phone = $('input[name="phone"]').val();
+    phone = phone.replace(/\D/g, ''); 
+    $('input[name="phone"]').val(phone);
+  });
+    });
 
+var existingImagesCount = <?php echo count($property->propertyImages); ?>;
+    var selectedImages = [];
+
+    function checkAndAddImages(input) {
+        var newFiles = input.files;
+        var remainingImagesCount = 20 - existingImagesCount;
+
+        if (newFiles.length > remainingImagesCount) {
+            alert("Você só pode selecionar mais " + remainingImagesCount + " imagens para completar o limite de 20.");
+            input.value = ""; // Limpa o valor do input de arquivo
+            return;
+        }
+
+        // Adiciona as novas imagens ao array selectedImages
+        for (var j = 0; j < newFiles.length; j++) {
+            selectedImages.push(newFiles[j]);
+        }
+
+        // Cria um novo objeto de arquivo
+        var newFileList = new DataTransfer();
+        
+        // Adiciona todas as imagens selecionadas ao novo objeto de arquivo
+        for (var k = 0; k < selectedImages.length; k++) {
+            newFileList.items.add(selectedImages[k]);
+        }
+
+        // Define o novo objeto de arquivo como o valor do input de arquivo
+        document.getElementById('imageInput').files = newFileList.files;
+    }
+</script> --}}
+<script>
+    $(document).ready(function(){
+        // Máscara para número de telefone
+        $('input[name="phone"]').mask('(00)00000-0000');
+        
+        // Máscara para valores em Real
+        $('.currency').mask('000.000.000.000.000,00', {reverse: true});
+
+        // Remove a formatação ao enviar o formulário
+        $('form').on('submit', function(){
+            $('input[name="phone"]').val(function(_, val){
+                return val.replace(/\D/g, ''); 
+            });
+            $('.currency').val(function(_, val){
+                return val.replace(/\D/g, '').replace(/^0+/, ''); // Remove pontos e vírgulas
+            });
+        });
+    });
+
+    // Conta de imagens existentes e controle de novas seleções
+    var existingImagesCount = <?php echo count($property->propertyImages); ?>;
+    var selectedImages = [];
+
+    function checkAndAddImages(input) {
+        var newFiles = input.files;
+        var remainingImagesCount = 20 - existingImagesCount;
+
+        if (newFiles.length > remainingImagesCount) {
+            alert("Você só pode selecionar mais " + remainingImagesCount + " imagens para completar o limite de 20.");
+            input.value = ""; // Limpa o valor do input de arquivo
+            return;
+        }
+
+        // Adiciona as novas imagens ao array selectedImages
+        for (var j = 0; j < newFiles.length; j++) {
+            selectedImages.push(newFiles[j]);
+        }
+
+        // Cria um novo objeto de arquivo
+        var newFileList = new DataTransfer();
+
+        // Adiciona todas as imagens selecionadas ao novo objeto de arquivo
+        for (var k = 0; k < selectedImages.length; k++) {
+            newFileList.items.add(selectedImages[k]);
+        }
+
+        // Define o novo objeto de arquivo como o valor do input de arquivo
+        document.getElementById('imageInput').files = newFileList.files;
+    }
+</script>
 <div class="row">
     <form action="{{ route('user.property.update',$property->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
     <div class="col-xl-9 ms-auto">
         <div class="wsus__dashboard_main_content">
           <div class="wsus__add_property">
-            <h4 class="heading">{{__('user.Edit Property')}} <a href="{{ route('user.my.properties') }}" class="common_btn"><i class="fal fa-plus-octagon"></i> {{__('user.All Properties')}}</a></h4>
+            <h4 class="heading">{{__('user.Edit Property')}}  <button type="submit" class="common_btn">{{__('user.Save')}}</button> </h4>
+            <div class="wsus__dash_info p_25 pb_0">
+                <div class="wsus__dash_info p_25 pb_0">
+
             <div class="wsus__dash_info p_25 pb_0">
               <div class="row">
                 <h5 class="sub_heading">{{__('user.Basic Information')}}</h5>
@@ -23,7 +117,7 @@
                 <div class="col-xl-6 col-md-6">
                     <div class="wsus__property_input">
                       <label for="#">Código do Imóvel<span class="text-danger">*</span></label>
-                      <input type="text" name="code_imob" value="{{ old('code_property_api') ?? ''}}">
+                      <input type="text" name="code_imob" value="{{ $property->code_property_api }}">
                     </div>
                   </div>
                 <div class="col-12 col-md-6">
@@ -56,8 +150,33 @@
                 </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
-                    <label for="#">{{__('user.Address')}} <span class="text-danger">*</span></label>
+                    <label for="#">CEP<span class="text-danger">*</span></label>
+                    <input type="text" name="cep" value="{{ $property->cep }}">
+                  </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                  <div class="wsus__property_input">
+                    <label for="#">Digite o Endereço <span class="text-danger">*</span></label>
                     <input type="text" name="address" value="{{ $property->address }}">
+                  </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                  <div class="wsus__property_input">
+                    <label for="#">Numero</label>
+                    <input type="text" name="number" value="{{ $property->number }}">
+                  </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                  <div class="wsus__property_input">
+                    <label for="#">Complemento</label>
+                    <input type="text" name="complemento" value="{{ $property->complemento}}">
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                  <div class="wsus__property_input">
+                    <label for="#">Bairro</label>
+                    <input type="text" name="neighborhood" value="{{$property->neighborhood }}">
                   </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
@@ -74,13 +193,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
-                    <label for="#">{{__('user.Website')}}</label>
-                    <input type="url" name="website" value="{{ $property->website }}">
-                  </div>
-                </div>
-                <div class="col-xl-6 col-md-6">
-                  <div class="wsus__property_input">
-                    <label for="#">{{__('user.Purpose')}} <span class="text-danger">*</span></label>
+                    <label for="#">Negócio <span class="text-danger">*</span></label>
                     <select class="select_2" name="purpose" id="purpose">
                         @foreach ($purposes as $item)
                         <option {{ $property->property_purpose_id==$item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->custom_purpose }}</option>
@@ -92,9 +205,24 @@
                 <div class="col-xl-6 col-md-6">
                     <div class="wsus__property_input">
                       <label for="#">{{__('user.Price')}} <span class="text-danger">*</span></label>
-                      <input type="text" name="price" value="{{ $property->price }}">
+                      <input type="text" name="price"  id="price" value="{{ number_format($property->price, 2, ',', '.') }}">
                     </div>
                   </div>
+
+                  <div class="col-xl-6 col-md-6">
+                    <div class="wsus__property_input">
+                        <label for="iptu">Valor IPTU (mensal / anual)<span class="text-danger">*</span></label>
+                        <input type="text" name="iptu" id="iptu"  class="form-control"value="{{ $property->value_iptu }}">
+                    </div>
+                </div>
+
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="wsus__property_input">
+                        <label for="value_condominio">Valor Condominio<span class="text-danger">*</span></label>
+                        <input type="text" name="value_condominio" id="value_condominio" class="form-control"value="{{ $property->value_condominio }}">
+                    </div>
+                </div>
 
                     @if ($property->property_purpose_id==2)
                         <div class="col-xl-6 col-md-6" id="period_box">
@@ -159,17 +287,6 @@
                     <input type="text" name="bathroom" value="{{ $property->number_of_bathroom }}">
                   </div>
                 </div>
-                <div class="col-xl-6 col-md-6">
-                  <div class="wsus__property_input">
-                    <label for="#">{{__('user.Total Floor')}} <span class="text-danger">*</span></label>
-                    <input type="text" name="floor" value="{{ $property->number_of_floor }}">
-                  </div>
-                </div>
-                <div class="col-xl-6 col-md-6">
-                  <div class="wsus__property_input">
-                    <label for="#">{{__('user.Total Kitchen')}}<span class="text-danger">*</span></label>
-                    <input type="text" name="kitchen" value="{{ $property->number_of_kitchen }}">
-                  </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
@@ -180,81 +297,51 @@
               </div>
             </div>
             <div class="wsus__dash_info edit_images p_25 mt_25 pb_0">
-              <div class="row">
-                <h5 class="sub_heading">{{__('user.Slider Images')}}</h5>
-                @foreach ($property->propertyImages as $item)
-                    <div class="col-xl-6 col-md-6 slider-tr-{{ $item->id }}">
-                    <div class="wsus__edit_img">
-                        <img src="{{ asset($item->image) }}"  alt="property" class="img-fluid w-100">
-                        <i class="fal fa-trash-alt"  onclick="deleteSliderImg('{{ $item->id }}')"></i>
+                <div class="row">
+                    <h5 class="sub_heading">Imagens do imovel</h5>
+                    @foreach ($property->propertyImages as $item)
+                        <div class="col-xl-6 col-md-6 slider-tr-{{ $item->id }}">
+                            <div class="wsus__edit_img">
+                                <img src="{{ asset($item->image) }}"  alt="property" class="img-fluid w-100">
+                                <i class="fal fa-trash-alt"  onclick="deleteSliderImg('{{ $item->id }}')"></i>
+                            </div>
+                        </div>
+                    @endforeach
+                
+                    <div class="col-xl-8 col-md-8 mb_25">
+                        <div id="dynamic-img-box">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="wsus__property_input">
+                                        <label for="#">Imagens do imóvel <span class="text-danger">*</span></label>
+                                        <input type="file" name="slider_images[]" multiple onchange="checkImageCount(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                @endforeach
-
-                <div class="col-xl-8 col-md-8 mb_25">
-                    <div id="dynamic-img-box">
-                        <div class="row">
+                
+                    <div id="dynamic_img_box" class="d-none">
+                        <div class="row delete-dynamic-img-row mt-3">
                             <div class="col-md-9">
                                 <div class="wsus__property_input">
                                     <label for="#">{{__('user.Image')}} <span class="text-danger">*</span></label>
-                                    <input type="file" name="slider_images[]">
+                                    <input type="file" name="slider_images[]" onchange="checkImageCount(this)">
                                 </div>
                             </div>
-
+                
                             <div class="col-md-3">
                                 <div class="medicine_row_input">
-                                    <button class="mt_30" type="button" id="addDynamicImgBtn"><i class="fas fa-plus" aria-hidden="true"></i></button>
+                                    <button class="mt_30 danger_btn removeDynamicImgId" type="button"><i class="fas fa-trash" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div id="dynamic_img_box" class="d-none">
-                    <div class="row delete-dynamic-img-row mt-3">
-                        <div class="col-md-9">
-                            <div class="wsus__property_input">
-                                <label for="#">{{__('user.Image')}} <span class="text-danger">*</span></label>
-                                <input type="file" name="slider_images[]">
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="medicine_row_input">
-                                <button class="mt_30 danger_btn removeDynamicImgId" type="button"><i class="fas fa-trash" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-              </div>
             </div>
             <div class="wsus__dash_info existing_item p_25 mt_25 pb_0">
               <div class="row justify-content-between">
                 <h5 class="sub_heading">{{__('user.Image, PDF And Video')}}</h5>
-                @if ($property->file)
-                    <div class="col-xl-6 col-xxl-5 col-md-6 pdf-file-col-{{ $property->id }}">
-                        <div class="wsus__property_input file">
-                            <label>{{__('user.Existing PDF')}}</label>
-                            <p><a href="{{ route('download-listing-file',$property->file) }}">{{ $property->file }}</a></p>
-                            <span class="del" onclick="deletePdfFile('{{ $property->id }}')"><i class="far fa-trash-alt"></i></span>
-                        </div>
-                    </div>
-                @endif
-                <div class="col-xl-12 col-md-6">
-                  <div class="wsus__property_input">
-                    <label for="#">{{__('user.PDF File')}}</label>
-                    <input type="file" name="pdf_file">
-                  </div>
-                </div>
-                <div class="col-xl-6 col-md-6">
-                  <div class="wsus__property_input">
-                    <label>{{__('user.Existing Banner')}}</label>
-                    <img src="{{ asset($property->banner_image) }}" alt="property" class="img-fluid w-100">
-                    <label for="#">{{__('user.Banner Image')}}</label>
-                    <input type="file" name="banner_image">
-                  </div>
-                </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
                     <label>{{__('user.Existing Thumbnail')}}</label>
@@ -263,24 +350,14 @@
                     <input type="file" name="thumbnail_image">
                   </div>
                 </div>
-                <div class="col-xl-6 col-md-6">
-                  <div class="wsus__property_input">
-                    @if ($property->video_link)
-                    <label>{{__('user.Existing Video')}}</label>
 
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $property->video_link }}" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    @endif
-                    <label class="mt-2" for="#">{{__('user.Youtube Video Id')}}</label>
-                    <input type="text" name="video_link" value="{{ $property->video_link }}">
-                  </div>
-                </div>
               </div>
             </div>
 
 
             @if ($package->number_of_aminities==-1)
             <div class="wsus__dash_info dash_aminities p_25 mt_25 pb_0">
-                <h5 class="sub_heading">{{__('user.Aminities')}}</h5>
+                <h5 class="sub_heading">Items de condomínio </h5>
                 <div class="row">
                     @foreach ($aminities as $aminity)
                         @php
@@ -426,112 +503,47 @@
                 <label for="#">{{__('user.Google Map Code')}}</label>
                 <textarea cols="3" rows="3" name="google_map_embed_code" >{{ $property->google_map_embed_code }}</textarea>
             </div>
-            <div class="wsus__property_inpuT">
+            <div class="wsus__property_input">
                 <label for="#">{{__('user.Description')}} <span class="text-danger">*</span></label>
               <textarea class="form-control summer_note" id="summernote" name="description">{{ $property->description }}</textarea>
             </div>
+            <div class="col-12 my-2 ">
+                <button type="submit" class="common_btn">{{__('user.Save')}}</button>
+              </div>
           </div>
-          <div class="wsus__dash_info featured p_25 mt_25">
-            <div class="row">
-                @if ($package->is_featured)
-                @if ($package->number_of_feature_property==-1)
-                <div class="col-12">
-                    <div class="wsus__property_input">
-                        <label for="#">{{__('user.Featured')}} <span class="text-danger">*</span></label>
-                        <select class="select_2" name="featured">
-                            <option {{ $property->is_featured==1 ? 'selected': '' }} value="1">{{__('user.Yes')}}</option>
-                            <option {{ $property->is_featured==0 ? 'selected': '' }} value="0">{{__('user.No')}}</option>
-                        </select>
-                    </div>
-                  </div>
-                @elseif($package->number_of_feature_property > $existFeaturedProperty)
-                    <div class="col-12">
-                        <div class="wsus__property_input">
-                            <label for="#">{{__('user.Featured')}} <span class="text-danger">*</span></label>
-                            <select class="select_2" name="featured">
-                                <option {{ $property->is_featured==1 ? 'selected': '' }} value="1">{{__('user.Yes')}}</option>
-                                <option {{ $property->is_featured==0 ? 'selected': '' }} value="0">{{__('user.No')}}</option>
-                            </select>
-                        </div>
-                    </div>
-                @endif
-            @endif
-
-            @if ($package->is_top)
-                @if ($package->number_of_top_property==-1)
-                <div class="col-12">
-                    <div class="wsus__property_input">
-                    <label for="#">{{__('user.Top Property')}} <span class="text-danger">*</span></label>
-                    <select class="select_2" name="top_property">
-                        <option {{ $property->top_property==1 ? 'selected' : '' }} value="1">{{__('user.Yes')}}</option>
-                        <option {{ $property->top_property==0 ? 'selected' : '' }} value="0">{{__('user.No')}}</option>
-                    </select>
-                    </div>
-                </div>
-                @elseif($package->number_of_top_property > $existTopProperty)
-                <div class="col-12">
-                    <div class="wsus__property_input">
-                    <label for="#">{{__('user.Top Property')}} <span class="text-danger">*</span></label>
-                    <select class="select_2" name="top_property">
-                        <option {{ $property->top_property==1 ? 'selected' : '' }} value="1">{{__('user.Yes')}}</option>
-                        <option {{ $property->top_property==0 ? 'selected' : '' }} value="0">{{__('user.No')}}</option>
-                    </select>
-                    </div>
-                </div>
-                @endif
-            @endif
-
-            @if ($package->is_urgent)
-                @if ($package->number_of_urgent_property==-1)
-                    <div class="col-12">
-                        <div class="wsus__property_input">
-                            <label for="#">{{__('user.Urgent Property')}} <span class="text-danger">*</span></label>
-                            <select class="select_2" name="urgent_property">
-                                <option {{ $property->urgent_property==1 ? 'selected' : '' }} value="1">{{__('user.Yes')}}</option>
-                                <option {{ $property->urgent_property==0 ? 'selected' : '' }} value="0">{{__('user.No')}}</option>
-                            </select>
-                        </div>
-                    </div>
-                @elseif($package->number_of_urgent_property > $existUrgentProperty)
-                    <div class="col-12">
-                        <div class="wsus__property_input">
-                            <label for="#">{{__('user.Urgent Property')}} <span class="text-danger">*</span></label>
-                            <select class="select_2" name="urgent_property">
-                                <option {{ $property->urgent_property==1 ? 'selected' : '' }} value="1">{{__('user.Yes')}}</option>
-                                <option {{ $property->urgent_property==0 ? 'selected' : '' }} value="0">{{__('user.No')}}</option>
-                            </select>
-                        </div>
-                    </div>
-                @endif
-              @endif
-
-              <div class="col-12">
-                <div class="wsus__property_input">
-                    <label for="#">{{__('user.SEO Title')}}</label>
-                    <input type="text" name="seo_title" value="{{ $property->seo_title }}">
-                </div>
-              </div>
-              <div class="col-xl-12">
-                <div class="wsus__property_input">
-                    <label for="#">{{__('user.SEO Description')}}</label>
-                    <textarea cols="3" rows="3" name="seo_description">{{ $property->seo_description }}</textarea>
-                </div>
-              </div>
-              <div class="col-12">
-                <button type="submit" class="common_btn">{{__('user.Update')}}</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-    </div>
+     </div>
 </div>
 
 </form>
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/cleave.js@latest/dist/cleave.min.js"></script>
+<script>
+  var cleavePrice = new Cleave('#price', {
+      numeral: true,
+      numeralThousandsGroupStyle: 'thousand',
+      delimiter: '.',
+      numeralDecimalMark: ',',
+      numeralDecimalScale: 2,
+  });
 
+  var cleaveIptu = new Cleave('#iptu', {
+      numeral: true,
+      numeralThousandsGroupStyle: 'thousand',
+      delimiter: '.',
+      numeralDecimalMark: ',',
+      numeralDecimalScale: 2,
+  });
+
+  var cleaveCondominio = new Cleave('#value_condominio', {
+      numeral: true,
+      numeralThousandsGroupStyle: 'thousand',
+      delimiter: '.',
+      numeralDecimalMark: ',',
+      numeralDecimalScale: 2,
+  });
+</script>
 
 
 <script>

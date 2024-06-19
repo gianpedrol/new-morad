@@ -10,19 +10,19 @@ class ContactMessageInformation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $contact;
-
-    public function __construct($contact)
+    public $template;
+    public $subject;
+    public function __construct($template, $subject)
     {
-        $this->contact = $contact;
+        $this->template = $template;
+        $this->subject = $subject;
     }
+
 
     public function build()
     {
-        return $this->view('contact_message')
-            ->subject('NOVO LEAD DA APB, PARA VOCÊ! ')
-            ->with([
-                'contact' => $this->contact,
-            ]);
+        $template = $this->template;
+        $subject = $this->subject;
+        return $this->subject($subject)->view('contact_message', compact('template'));
     }
 }
