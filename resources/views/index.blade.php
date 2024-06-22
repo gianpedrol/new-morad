@@ -419,6 +419,19 @@ function changePurpose(purpose) {
     </div>
     <div class="row">
       @foreach ($featured_properties->featured_properties as $featured_item)
+      @php
+      // Verificar se a imagem é do nosso servidor
+      $isLocalImage = strpos($featured_item->thumbnail_image, 'uploads/'); // Ajuste o prefixo conforme seu sistema
+
+      // Verificar se a imagem existe no servidor local
+      $localImagePath = public_path($featured_item->thumbnail_image);
+      $imageExists = $isLocalImage && file_exists($localImagePath);
+
+      // Verificar se a imagem externa é acessível
+      $externalImageAccessible = !$isLocalImage && @getimagesize($featured_item->thumbnail_image);
+  @endphp
+
+  @if ($imageExists || $externalImageAccessible)
       <div class="col-xl-4 col-md-6">
 
         <div class="wsus__popular_properties_single">
@@ -437,6 +450,7 @@ function changePurpose(purpose) {
           </a>
         </div>
       </div>
+      @endif
       @endforeach
     </div>
   </div>
@@ -460,6 +474,20 @@ function changePurpose(purpose) {
     </div>
     <div class="row">
       @foreach ($urgent_properties->urgent_properties as $urgent_item)
+
+      @php
+      // Verificar se a imagem é do nosso servidor
+      $isLocalImage = strpos($urgent_item->thumbnail_image, 'uploads/'); // Ajuste o prefixo conforme seu sistema
+
+      // Verificar se a imagem existe no servidor local
+      $localImagePath = public_path($urgent_item->thumbnail_image);
+      $imageExists = $isLocalImage && file_exists($localImagePath);
+
+      // Verificar se a imagem externa é acessível
+      $externalImageAccessible = !$isLocalImage && @getimagesize($urgent_item->thumbnail_image);
+  @endphp
+
+  @if ($imageExists || $externalImageAccessible)
       <div class="col-xl-4 col-sm-6 col-lg-4">
         <div class="wsus__top_properties_item">
           <div class="row">
@@ -484,6 +512,7 @@ function changePurpose(purpose) {
           </div>
         </div>
       </div>
+      @endif
       @endforeach
     </div>
   </div>

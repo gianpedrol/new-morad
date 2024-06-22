@@ -9,11 +9,17 @@
         <div class="col-xl-9 ms-auto">
             <div class="wsus__dashboard_main_content">
                 <div class="wsus__my_property">
+                    @if($activeOrder)
                     <h4 class="heading">{{ __('user.My Property') }} <a href="{{ route('user.create.property') }}"
                             class="common_btn"><i class="fal fa-plus-octagon"></i> {{ __('user.Creae New') }}</a></h4>
+                            @endif
                     <div class="row">
 
                         <div class="col-12">
+                            
+                        @if(!$activeOrder)
+                        <p>Para criar um anúncio você precisa ter um plano ativo, acesse a pagina de planos no menu lateral</p>
+                        @endif
                             <div class="table-responsive">
                                 <table class="table">
                                     <tr>

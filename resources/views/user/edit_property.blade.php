@@ -344,6 +344,7 @@ var existingImagesCount = <?php echo count($property->propertyImages); ?>;
                 <h5 class="sub_heading">{{__('user.Image, PDF And Video')}}</h5>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
+                    Essa é a imagem que ficará em destaques nas listas de imóveis, escolha a melhor imagem.
                     <label>{{__('user.Existing Thumbnail')}}</label>
                     <img src="{{ asset($property->thumbnail_image) }}" alt="property" class="img-fluid w-100">
                     <label for="#">{{__('user.New Thumbnail Image')}}</label>

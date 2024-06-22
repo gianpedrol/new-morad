@@ -13,6 +13,7 @@ use App\NotificationText;
 use App\Models\Setting;
 use Auth;
 use Illuminate\Pagination\Paginator;
+
 class UserOrderController extends Controller
 {
     public function __construct()
@@ -20,20 +21,24 @@ class UserOrderController extends Controller
         $this->middleware('auth:web');
     }
 
-    public function index(){
+    public function index()
+    {
         Paginator::useBootstrap();
-        $user=Auth::guard('web')->user();
-        $orders = Order::with('package')->where(['user_id'=>$user->id])->orderBy('id','desc')->paginate(10);
+        $user = Auth::guard('web')->user();
+
+
+        $orders = Order::with('package')->where(['user_id' => $user->id])->orderBy('id', 'desc')->paginate(10);
         $currency = Setting::first()->currency_icon;
 
-        return view('user.order',compact('orders','currency'));
+        return view('user.order', compact('orders', 'currency'));
     }
 
 
-    public function show($id){
-        $user=Auth::guard('web')->user();
-        $order=Order::where(['user_id'=>$user->id,'id'=>$id])->first();
-        if($order){
+    public function show($id)
+    {
+        $user = Auth::guard('web')->user();
+        $order = Order::where(['user_id' => $user->id, 'id' => $id])->get();
+        if ($order) {
             $currency = Setting::first();
             $logo = Setting::first()->logo;
 
@@ -42,12 +47,11 @@ class UserOrderController extends Controller
                 'currency' => $currency,
                 'logo' => $logo,
             ]);
-        }else{
+        } else {
             $notification = trans('user_validation.Something Went Wrong');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
+            $notification = array('messege' => $notification, 'alert-type' => 'error');
 
             return redirect()->route('user.dashboard')->with($notification);
         }
-
     }
 }

@@ -569,38 +569,72 @@ class HomeController extends Controller
     // manage subsciber
     public function subscribeUs(Request $request)
     {
+
+        $genericEmailPrefixes = ['admin', 'info', 'contact', 'sales', 'support'];
+
+
+        $email = $request->input('email');
+
+        if ($this->isGenericEmail($email, $genericEmailPrefixes)) {
+            $notification = trans('Digite um email válido');
+            return response()->json(['error' => $notification]);
+        }
+
+        // Validar os dados do request
         $rules = [
             'email' => 'required|email',
         ];
+
         $customMessages = [
             'email.required' => trans('user_validation.Email is required')
         ];
+
         $this->validate($request, $rules, $customMessages);
 
+        // Verificar se o e-mail já está inscrito
+        $isSubscriber = Subscriber::where('email', $email)->count();
+        if ($isSubscriber == 0) {
+            // Se não estiver inscrito, proceder com a inscrição
+            $subscriber = new Subscriber();
+            $subscriber->email = $email;
+            $subscriber->verified_token = Str::random(25);
+            $subscriber->save();
 
-        $isSubsriber = Subscriber::where('email', $request->email)->count();
-        if ($isSubsriber == 0) {
-
-            $subscribe = new Subscriber();
-            $subscribe->email = $request->email;
-            $subscribe->verified_token = Str::random(25);
-            $subscribe->save();
+            // Configurar as configurações de e-mail
             MailHelper::setMailConfig();
 
+            // Obter o template de e-mail para verificação
             $template = EmailTemplate::where('id', 4)->first();
             $message = $template->description;
             $subject = $template->subject;
-            Mail::to($subscribe->email)->send(new SubscriptionVerification($subscribe, $message, $subject));
 
-            $notification = trans('user_validation.Varification link send to your mail, please verify it');
+            // Enviar e-mail de verificação
+            Mail::to($subscriber->email)->send(new SubscriptionVerification($subscriber, $message, $subject));
+
+            // Responder com uma mensagem de sucesso
+            $notification = trans('user_validation.Verification link sent to your email, please verify it');
             return response()->json(['success' => $notification], 200);
         } else {
-
-            $notification = trans('user_validation.Email already exist');
+            // Se o e-mail já estiver inscrito, retornar uma mensagem de erro
+            $notification = trans('user_validation.Email already exists');
             return response()->json(['error' => $notification]);
         }
     }
 
+    private function isGenericEmail($email, $genericPrefixes)
+    {
+        // Obter o prefixo do e-mail (parte antes do @)
+        $emailPrefix = explode('@', $email)[0];
+
+        // Verificar se o prefixo do e-mail está na lista de prefixos genéricos
+        foreach ($genericPrefixes as $prefix) {
+            if (strtolower($emailPrefix) == $prefix) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     public function subscriptionVerify($token)
     {
         $subscribe = Subscriber::where('verified_token', $token)->first();
@@ -964,6 +998,20 @@ class HomeController extends Controller
             $max_price_numeric = 10000000000000000000000000000000000000;
         }
 
+        $priceRange = $request->price_range;
+        $minPrice = null;
+        $maxPrice = null;
+
+        if ($priceRange) {
+            // Decodificar o valor do parâmetro price_range (exemplo: 320900%3A400750)
+            $rangeParts = explode(':', urldecode($priceRange));
+            if (count($rangeParts) == 2) {
+                $minPrice = (int) $rangeParts[0];
+                $maxPrice = (int) $rangeParts[1];
+            }
+        }
+
+
 
         // Consulta principal
         $properties = Property::with('propertyType', 'propertyPurpose', 'city')
@@ -975,7 +1023,9 @@ class HomeController extends Controller
         if ($min_price_numeric > 0 && $max_price_numeric > 0) {
             $properties->whereBetween('price', [$min_price_numeric, $max_price_numeric]);
         }
-
+        if (!is_null($minPrice) && !is_null($maxPrice)) {
+            $properties->whereBetween('price', [$minPrice, $maxPrice]);
+        }
 
         if ($request->city_id) {
             $properties->where('city_id', $request->city_id);

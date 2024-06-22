@@ -153,13 +153,8 @@ $addressWithoutNumbers = preg_replace('/\d+/', '', $property->address);
                                     <div class="col-xl-6">
                                         <table class="table xs_sm_mb">
                                             <tbody>
-                                                <tr>
+                                    
 
-
-                                                <tr>
-                                                    <th>{{__('user.Kitchens')}}:</th>
-                                                    <td>{{ $property->number_of_kitchen }}</td>
-                                                </tr>
                                                 <tr>
                                                     <th>{{__('user.Parking Place')}}:</th>
                                                     <td>{{ $property->number_of_parking }}</td>
@@ -266,7 +261,7 @@ $addressWithoutNumbers = preg_replace('/\d+/', '', $property->address);
             <h5>{{__('user.Nearest Place')}}</h5>
             <ul class="d-flex flex-wrap">
                 @foreach ($property->propertyNearestLocations as $item)
-                <li><span>{{ $item->nearestLocation->translated_location }}:</span> {{ $item->distance }}{{__('user.KM')}}</li>
+                <li><span>{{ $item->nearestLocation->translated_location }}:</span> {{ $item->distance }}</li>
                 @endforeach
             </ul>
         </div>
@@ -380,11 +375,11 @@ $addressWithoutNumbers = preg_replace('/\d+/', '', $property->address);
                         </div>
                         <div class="wsus__sidebar_input">
                             <label>{{__('user.Email')}}</label>
-                            <input type="email" name="email">
+                            <input type="email" name="email"  id="email">
                         </div>
                         <div class="wsus__sidebar_input">
                             <label>{{__('user.Phone')}}</label>
-                            <input type="text" name="phone">
+                            <input type="text" name="phone"  id="phone">
                         </div>
                         <div class="wsus__sidebar_input">
 
@@ -750,6 +745,31 @@ $addressWithoutNumbers = preg_replace('/\d+/', '', $property->address);
                                                             $("#avg_rating").text(avg)
                                                         }
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Máscara para telefone
+        var phoneInput = document.getElementById('phone');
+        var phoneMask = IMask(phoneInput, {
+            mask: '(00) 00000-0000'
+        });
+
+        // Máscara simples para e-mail (opcional)
+        var emailInput = document.getElementById('email');
+        var emailMask = IMask(emailInput, {
+            mask: /^\S+@\S+\.\S+$/
+        });
+    });
+
+    var form = document.getElementById('listingAuthContactForm');
+        form.addEventListener('submit', function(event) {
+            if (!phoneMask.masked.isValid() || !emailMask.masked.isValid()) {
+                event.preventDefault(); 
+                alert('Por favor, preencha corretamente os campos de telefone e e-mail.');
+            }
+        });
+    });
+</script>
 <script>
     (function($) {
         "use strict";
@@ -849,6 +869,7 @@ $addressWithoutNumbers = preg_replace('/\d+/', '', $property->address);
 
     })(jQuery);
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/10.0.8/imask.min.js"></script>
 
 
 

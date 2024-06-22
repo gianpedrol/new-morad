@@ -72,9 +72,9 @@
                   <h5>{{ $user->name }}</h5>
               </div>
               <ul class="wsus__deshboard_menu">
-                    <li><a class="{{ Route::is('user.dashboard') ? 'dash_active' : '' }}" href="{{ route('user.dashboard') }}"><i class="fal fa-fw fa-tachometer-alt"></i> {{__('user.Dashboard')}}</a></li>
+                    <li><a class="{{ Route::is('user.dashboard') ? 'dash_active' : '' }}" href="{{ route('user.dashboard') }}"><i class="fal fa-fw fa-tachometer-alt"></i> Ínicio</a></li>
 
-                    <li><a href="{{ route('home') }}"><i class="fal fa-globe"></i> {{__('user.Go to Homepage')}}</a></li>
+                    <li><a href="{{ route('home') }}"><i class="fal fa-globe"></i>Visitar o site</a></li>
 
                     <li><a class="{{ Route::is('user.my.properties') || Route::is('user.property.edit') || Route::is('user.create.property') ? 'dash_active' : '' }}" href="{{ route('user.my.properties') }}"><i class="far fa-list"></i> {{__('user.My Property')}}</a></li>
 

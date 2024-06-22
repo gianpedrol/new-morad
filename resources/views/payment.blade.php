@@ -154,7 +154,7 @@
                     </tr>
                     <tr>
                         <td width="50%">{{__('user.Price')}}</td>
-                        <td width="50%">{{ $currency->currency_icon }}{{ $package->price }}</td>
+                        <td width="50%">{{ $currency->currency_icon }}{{ $package->price }}, 00</td>
                     </tr>
 
                      <tr>

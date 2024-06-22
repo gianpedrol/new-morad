@@ -40,10 +40,13 @@ class PropertyController extends Controller
     {
         Paginator::useBootstrap();
         $user = Auth::guard('web')->user();
+
+        $activeOrder = Order::where(['user_id' => $user->id, 'status' => 1])->first();
         $properties = Property::with('propertyPurpose')->where('user_id', $user->id)->orderBy('id', 'desc')->paginate(10);
         $settings = Setting::first();
         return view('user.property')->with([
             'properties' => $properties,
+            'activeOrder' => $activeOrder
         ]);
     }
 

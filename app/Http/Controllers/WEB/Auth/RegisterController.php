@@ -41,23 +41,52 @@ class RegisterController extends Controller
     {
         return redirect()->to('/invalid');
     }
+    private function isGenericEmail($email, $genericPrefixes)
+    {
+        // Obter o prefixo do e-mail (parte antes do @)
+        $emailPrefix = explode('@', $email)[0];
+
+        // Verificar se o prefixo do e-mail está na lista de prefixos genéricos
+        foreach ($genericPrefixes as $prefix) {
+            if (strtolower($emailPrefix) == $prefix) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public function storeRegister(Request $request)
     {
 
+        $genericEmailPrefixes = ['admin', 'teste', 'dev', 'info', 'contact', 'sales', 'support'];
+
         $rules = [
             'name' => 'required',
-            'email' => 'required|unique:users|email',
-            'password' => 'required|min:4',
+            'email' => [
+                'required',
+                'unique:users',
+                'email',
+                function ($attribute, $value, $fail) use ($genericEmailPrefixes) {
+                    if ($this->isGenericEmail($value, $genericEmailPrefixes)) {
+                        $fail(trans('Coloque um e-mail válido'));
+                    }
+                },
+            ],
+            'password' => 'required|min:6|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             'g-recaptcha-response' => new Captcha()
         ];
+
+
         $customMessages = [
             'name.required' => trans('user_validation.Name is required'),
             'name.unique' => trans('user_validation.Name already exist'),
             'email.required' => trans('user_validation.Email is required'),
+            'email.email' => trans('Coloque um e-mail válido'),
             'email.unique' => trans('user_validation.Email already exist'),
             'password.required' => trans('user_validation.Password is required'),
-            'password.min' => trans('user_validation.Password minimum 4 character'),
+            'password.min' => trans('Senha precisa ter 6 caracteres e precisa ser forte'),
+            'password.regex' => trans('Senha Precisa ter 1 maiúsculo e 1 caracter especial'),
         ];
         $this->validate($request, $rules, $customMessages);
 

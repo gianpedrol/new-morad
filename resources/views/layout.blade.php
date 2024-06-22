@@ -7,6 +7,9 @@ $facebookPixel = App\Models\FacebookPixel::first();
 $menus = App\Models\MenuVisibility::all();
 $languages = App\Models\Language::all();
 @endphp
+@php
+    $user=Auth::guard('web')->user();
+@endphp
 
 
 <!DOCTYPE html>
@@ -277,9 +280,16 @@ $languages = App\Models\Language::all();
                 </ul>
 
                 <ul class="login_icon ms-auto">
+                    @if($user)
                     <li><a href="{{ route('user.dashboard') }}"><i class="fal fa-user-circle"></i>
+                     Minha Área</a>
+                </li>
+                        @else
+                        <li><a href="{{ route('user.dashboard') }}"><i class="fal fa-user-circle"></i>
                             {{ __('user.Dashboard') }}</a>
                     </li>
+                    @endif
+ 
                 </ul>
 
             </div>
@@ -452,11 +462,11 @@ $languages = App\Models\Language::all();
             </div>
         </div>
         <div class="wsus__copyright mt_45">
-            <div class="ontainer">
+            <div class="container">
                 <div class="row">
                     <div class="d-flex justify-content-center align-items-center">
                         <p>Desenvolvido por </p><img src={{ url('/uploads/website-images/Logo-Branco.png')  }} alt="" style="
-                        max-width: 150px;
+                        max-width: 100px;
                     ">
                     </div>
                 </div>
@@ -472,7 +482,32 @@ $languages = App\Models\Language::all();
     </div>
     <!--=====SCROLL BUTTON END=====-->
 
+    <script>
+        document.getElementById('subscribeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            var email = document.getElementById('emailInput').value.trim().toLowerCase();
+    
+            if (isGenericEmail(email)) {
+                alert("Por favor, forneça um endereço de e-mail válido.");
+                return;
+            }
 
+            this.submit();
+        });
+    
+        function isGenericEmail(email) {
+        // Lista de prefixos comuns para verificação
+        var commonPrefixes = ['admin','teste' ,'info', 'contact',,'dev', 'sales', 'support'];
+
+        // Verifica se o email contém algum prefixo comum na parte local do email
+        for (var i = 0; i < commonPrefixes.length; i++) {
+            if (email.startsWith(commonPrefixes[i] + '@')) {
+                return true;
+            }
+        }
+        return false;
+    }
+    </script>
 
     <!--bootstrap js-->
     <script src="{{ asset('user/js/bootstrap.bundle.min.js') }}"></script>

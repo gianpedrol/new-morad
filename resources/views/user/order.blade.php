@@ -8,6 +8,11 @@
         <div class="wsus__dashboard_main_content">
           <h4 class="heading">{{__('user.My Orders')}}</h4>
           <div class="wsus__dash_order mb_25">
+            @if (!$orders)
+              
+            <p>Você não contratou nennhum plano até agora, contrate no menu ao lado e comece a anunciar</p>
+              
+            @endif
             <div class="table-responsive">
               <table class="table">
                 <tbody>

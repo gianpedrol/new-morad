@@ -97,7 +97,7 @@
                 </div>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
-                    <label for="#">Código do Imóvel<span class="text-danger">*</span></label>
+                    <label for="#">Código do Imóvel</label>
                     <input type="text" name="code_imob" value="{{old('code_property_api') ?? '' }} ">
                   </div>
                 </div>
@@ -222,7 +222,7 @@
                 <p>Adicione um valor em todo os campos, certifique de não deixar nenhum campo em branco</p>
                 <div class="col-xl-6 col-md-6">
                   <div class="wsus__property_input">
-                    <label for="#">{{__('user.Total Area')}}({{__('user.Sqft')}}) <span class="text-danger">*</span></label>
+                    <label for="#">{{__('user.Total Area')}}({{__('user.Sqft')}}) m2 <span class="text-danger">*</span></label>
                     <input type="text" name="area" value="{{ old('area') }}">
                   </div>
                 </div>
@@ -257,6 +257,7 @@
                 <h5 class="sub_heading">Imagem Miniatura e Imagens do Imóvel</h5>
                 <div class="col-xl-6 col-md-6">
                     <div class="wsus__property_input">
+                      Essa é a imagem que ficará em destaques nas listas de imóveis, escolha a melhor imagem.
                         <label for="#">{{__('user.Thumbnail Image')}} <span class="text-danger">*</span></label>
                         <input type="file" name="thumbnail_image" id="thumbnailImageInput" onchange="previewThumbnail()">
                         <div id="thumbnailPreview" class="mt-3"></div>
@@ -421,6 +422,8 @@
           <div class="wsus__dash_info pro_det_map p_25 mt_25 pb_0">
             <h5 class="sub_heading">{{__('user.Property Details And Google Map')}} </h5>
             <div class="wsus__property_input">
+              Copie e o código iframe do google maps. 
+              Como fazer: Acesse o endereço clique em compartilhar e depois em incorporar código, copie-o e cole aqui.
               <label>{{__('user.Google Map Code')}}</label>
               <textarea cols="3" rows="3"  name="google_map_embed_code">{{ old('google_map_embed_code') }}</textarea>
             </div>
