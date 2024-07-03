@@ -261,7 +261,7 @@ function changePurpose(purpose) {
 <!--=====BANNER START=====-->
 <section class="wsus__banner">
   <div class="row" id="bgVideo">
-    <video class="slider-video video-imob" preload="auto" playsinline="" webkit-playsinline="" autoplay="" muted="" loop="" data-origwidth="0" data-origheight="0" style="width: 1663px;">
+    <video class="slider-video video-imob" preload="auto" playsinline="" webkit-playsinline="" autoplay="" muted="" loop="" data-origwidth="0" data-origheight="0">
       <source type="video/mp4" src={{ asset('uploads/website-images/banner.mp4') }}>
       <source type="video/webm" src="{{ asset('uploads/website-images/banner.webm') }}">
       <source type="video/webm" src="{{ asset('uploads/website-images/banner.mov') }}">

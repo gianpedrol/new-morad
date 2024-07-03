@@ -480,8 +480,8 @@ class AdminPropertyController extends Controller
         if ($old_pdf) {
             if (File::exists(public_path() . '/' . 'uploads/custom-images/' . $old_pdf)) unlink(public_path() . '/' . 'uploads/custom-images/' . $old_pdf);
         }
-        if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
-        if (File::exists(public_path() . '/' . $old_banner)) unlink(public_path() . '/' . $old_banner);
+        // if (File::exists(public_path() . '/' . $old_thumbnail)) unlink(public_path() . '/' . $old_thumbnail);
+        // if (File::exists(public_path() . '/' . $old_banner)) unlink(public_path() . '/' . $old_banner);
         $property->delete();
         $notification = trans('admin_validation.Delete Successfully');
         $notification = array('messege' => $notification, 'alert-type' => 'success');
