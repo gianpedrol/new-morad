@@ -326,7 +326,7 @@ class ApiIntegrationController extends Controller
     public function importMoradImoveis()
     {
         // URL do XML
-        $url = 'https://www.moradimoveis.com.br/apb_vrsync_feed.php';
+        $url = 'https://www.moradrocha.com.br/apb_vrsync_feed.php';
 
         // Carregar o XML da URL
         $xml = simplexml_load_file($url);
@@ -421,6 +421,7 @@ class ApiIntegrationController extends Controller
                     // Atualiza as informações da propriedade
                     $property->user_id = 1;
                     $property->status = 1;
+                    $property->admin_id = 4;
                     $property->thumbnail_image = $listing['Media'][1];
                     $property->banner_image = $listing['Media'][1];
                     $property->code_property_api = $listing['ListingID'];
